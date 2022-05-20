@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner", "TourPlanner\TourPlanner.csproj", "{C403D220-AB33-4F26-BF5D-811F3601A7D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner", "TourPlanner\TourPlanner.csproj", "{C403D220-AB33-4F26-BF5D-811F3601A7D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.BL", "TourPlanner.BL\TourPlanner.BL.csproj", "{4AC31475-BE69-43B5-8B95-6C3751ADA226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.BL", "TourPlanner.BL\TourPlanner.BL.csproj", "{4AC31475-BE69-43B5-8B95-6C3751ADA226}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.DAL.SQL", "TourPlanner.DAL.SQL\TourPlanner.DAL.SQL.csproj", "{538D4A84-2AF6-4F94-875A-2D9DA85F17FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DAL.SQL", "TourPlanner.DAL.SQL\TourPlanner.DAL.SQL.csproj", "{538D4A84-2AF6-4F94-875A-2D9DA85F17FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.DAL.Mapquest", "TourPlanner.DAL.Mapquest\TourPlanner.DAL.Mapquest.csproj", "{9AEA42F8-D2A5-4F5A-87F4-72F51E7EFFE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DAL.Mapquest", "TourPlanner.DAL.Mapquest\TourPlanner.DAL.Mapquest.csproj", "{9AEA42F8-D2A5-4F5A-87F4-72F51E7EFFE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Library", "TourPlanner.Library\TourPlanner.Library.csproj", "{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.Library", "TourPlanner.Library\TourPlanner.Library.csproj", "{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.UnitTests", "TourPlanner.UnitTests\TourPlanner.UnitTests.csproj", "{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

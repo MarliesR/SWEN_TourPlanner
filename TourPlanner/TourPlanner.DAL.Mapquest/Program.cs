@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace TourPlanner.DAL.Mapquest
 {
@@ -6,7 +7,9 @@ namespace TourPlanner.DAL.Mapquest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("test mapAPI");
+            Mapquest mapquest = new Mapquest("Vienna", "Tirana");
+            
         }
     }
 }

@@ -6,7 +6,8 @@ namespace TourPlanner.DAL.SQL
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Database Layer");
+            Database database = new Database();
         }
     }
 }
