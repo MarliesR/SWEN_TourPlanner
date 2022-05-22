@@ -8,7 +8,7 @@ namespace TourPlanner.DAL.Mapquest
         static void Main(string[] args)
         {
             Console.WriteLine("test mapAPI");
-            Mapquest mapquest = new Mapquest("Vienna", "Tirana");
+            Mapquest mapquest = new Mapquest("Vienna", "Berlin");
             
         }
     }

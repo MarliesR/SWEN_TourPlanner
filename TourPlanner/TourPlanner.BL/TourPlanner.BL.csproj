@@ -5,4 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlanner.DAL.Mapquest\TourPlanner.DAL.Mapquest.csproj" />
+    <ProjectReference Include="..\TourPlanner.DAL.SQL\TourPlanner.DAL.SQL.csproj" />
+    <ProjectReference Include="..\TourPlanner.Library\TourPlanner.Library.csproj" />
+  </ItemGroup>
+
 </Project>

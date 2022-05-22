@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using TourPlanner.Library;
 
 namespace TourPlanner.DAL.Mapquest
 {
@@ -18,39 +19,35 @@ namespace TourPlanner.DAL.Mapquest
         private HttpClient client;
         private string location;
         private string destination;
+        private string filePath;
 
         public Mapquest(string startAddress, string endAddress)
         {
             mapquestKey = ConfigurationManager.AppSettings["KeyMapQuest"];
             client = new HttpClient();
-            this.location = startAddress;
-            this.destination = endAddress;
-            getDirectionsData();
+            location = startAddress;
+            destination = endAddress;
+            filePath = GetImagePath();
+            directionsData = GetDirections();
 
-            client.Dispose();
-
-
-
-        }
-
-        public void getDirectionsData()
-        {
-
-            DirectionsAPICall();
             if (directionsData.info.statuscode.Equals(402) || directionsData == null)
             {
                 Console.WriteLine("Error, invalid location or destination");
             }
             else
             {
-
                 directionsData.PrintRouteInfo();
-                StaticMapAPICall();
+                GetImageStaticMap();
             }
+
+           
+            client.Dispose();
 
         }
 
-        private void DirectionsAPICall()
+    
+
+        private DirectionsRouteData GetDirections()
         {
             string fullURL = CreateDirectionsAPIstring(location, destination);
 
@@ -63,37 +60,30 @@ namespace TourPlanner.DAL.Mapquest
             if (response.IsSuccessStatusCode)
             {
                 string res = response.Content.ReadAsStringAsync().Result;
-                directionsData = JsonConvert.DeserializeObject<DirectionsRouteData>(res);
+                return JsonConvert.DeserializeObject<DirectionsRouteData>(res);
             }
             else
             {
                 Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                return null;
             }
 
         }
 
-        private void StaticMapAPICall()
+
+        private void GetImageStaticMap()
         {
             ///https://developer.mapquest.com/documentation/static-map-api/v5/map/
 
-
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-
-            string path = ConfigurationManager.AppSettings["ImgFolderPath"];
-            string filename = "files.jpeg"; //FILENAME GENERIEREN NOCH ERLEDIGEN
-            string filePath = System.IO.Path.Combine(path, filename);
-            Console.WriteLine(filePath);
-
+            string mapURL = CreateStaticmapAPIstring(directionsData);
 
             //System.IO.File.WriteAllText(path, "Testing valid path & permissions.");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/jpeg"));
-            string mapURL = CreateStaticmapAPIstring(directionsData);
+
             HttpResponseMessage response = client.GetAsync(mapURL).Result;
             if (response.IsSuccessStatusCode)
             {
-
                 //save file 
                 using (WebClient client = new())
                 {
@@ -111,6 +101,7 @@ namespace TourPlanner.DAL.Mapquest
             }
             else
             {
+                filePath = null; //if image not existing 
                 Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
             }
         }
@@ -148,6 +139,74 @@ namespace TourPlanner.DAL.Mapquest
             Console.WriteLine(APIString);
 
             return APIString;
+        }
+
+        private string GenerateImageFilename()
+        {
+            string name = Path.GetRandomFileName();
+            string imageFilename = name + ".jpg";
+            return imageFilename;
+        }
+
+        private string GetImagePath()
+        {
+            string folderPath = ConfigurationManager.AppSettings["ImgFolderPath"];
+            string filename = GenerateImageFilename();
+
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    Console.WriteLine("That path exists already.");
+
+                }
+                else
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(folderPath);
+                    Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(folderPath));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+   
+            string fullImagePath = System.IO.Path.Combine(folderPath, filename);
+            return fullImagePath;
+
+        }
+
+        public float GetDistance()
+        {
+            if(directionsData is null)
+            {
+                return 0;
+            }
+            return directionsData.route.distance;
+
+        }
+
+        public string GetTime()
+        {
+            if (directionsData is null)
+            {
+                return null;
+            }
+            return directionsData.route.formattedTime;
+
+        }
+        public string GetImage()
+        {
+            if (File.Exists(filePath))
+            {
+                return filePath;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
 
