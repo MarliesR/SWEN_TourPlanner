@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TourPlanner.DAL.Mapquest\TourPlanner.DAL.Mapquest.csproj" />
     <ProjectReference Include="..\TourPlanner.DAL.SQL\TourPlanner.DAL.SQL.csproj" />
     <ProjectReference Include="..\TourPlanner.Library\TourPlanner.Library.csproj" />
