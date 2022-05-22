@@ -15,7 +15,7 @@ namespace TourPlanner.BL
         {
            
             Mapquest mapquest = new Mapquest(start, destination);
-            float distance = mapquest.GetDistance();
+            int distance = mapquest.GetDistance();
             string imagePath = mapquest.GetImage();
             string duration = mapquest.GetTime();
             TourSql db = new TourSql();
@@ -25,6 +25,13 @@ namespace TourPlanner.BL
             Console.WriteLine("finished");
          
 
+        }
+
+        public Tour GetTour(string name, int id)
+        {
+            TourSql db = new TourSql();
+            Tour tour = db.GetTourSQL(name,id);
+            return tour;
         }
 
         public void ModifyTour()

@@ -49,7 +49,7 @@ namespace TourPlanner.DAL.SQL
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand("SELECT * FROM Tour WHERE uname=@name AND id=@id", conn);
+            using var cmd = new NpgsqlCommand("SELECT * FROM Tour WHERE name=@name AND id=@id", conn);
 
             cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourName);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Varchar, TourId);

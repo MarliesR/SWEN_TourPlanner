@@ -177,13 +177,13 @@ namespace TourPlanner.DAL.Mapquest
 
         }
 
-        public float GetDistance()
+        public int GetDistance()
         {
             if(directionsData is null)
             {
                 return 0;
             }
-            return directionsData.route.distance;
+            return (int)directionsData.route.distance;
 
         }
 
