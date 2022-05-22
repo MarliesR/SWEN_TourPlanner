@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.Library
 {
-    class TourLog
+    public class TourLog
     {
         public int Id { get; set; }
         public int TourId { get; set; } //long int

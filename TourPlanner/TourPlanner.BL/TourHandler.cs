@@ -27,10 +27,10 @@ namespace TourPlanner.BL
 
         }
 
-        public Tour GetTour(string name, int id)
+        public Tour GetTour( int id)
         {
             TourSql db = new TourSql();
-            Tour tour = db.GetTourSQL(name,id);
+            Tour tour = db.GetTourSQL(id);
             return tour;
         }
 
@@ -43,6 +43,17 @@ namespace TourPlanner.BL
         {
 
         }
+
+        public void GenerateTourReport(int id)
+        {
+            PDFGenerator report = new PDFGenerator();
+            TourSql db = new TourSql();
+            Tour tour = db.GetTourSQL(id);
+            //get tour logs from single tour
+            //List <TourLog>
+            //report.TourReport(tour,);
+        }
+
 
     }
 }

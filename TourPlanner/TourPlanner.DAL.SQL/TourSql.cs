@@ -44,14 +44,13 @@ namespace TourPlanner.DAL.SQL
             conn.Close();
         }
 
-        public Tour GetTourSQL(string TourName, int TourId)
+        public Tour GetTourSQL(int TourId)
         {
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand("SELECT * FROM Tour WHERE name=@name AND id=@id", conn);
+            using var cmd = new NpgsqlCommand("SELECT * FROM Tour WHERE id=@id", conn);
 
-            cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourName);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Varchar, TourId);
 
             var reader = cmd.ExecuteReader();
@@ -63,6 +62,7 @@ namespace TourPlanner.DAL.SQL
             {
                 reader.Read();
 
+                var name = reader.GetString(reader.GetOrdinal("name"));
                 var description = reader.GetString(reader.GetOrdinal("description"));
                 var start = reader.GetString(reader.GetOrdinal("start"));
                 var destination = reader.GetString(reader.GetOrdinal("destination"));
@@ -71,7 +71,7 @@ namespace TourPlanner.DAL.SQL
                 var duration = reader.GetString(reader.GetOrdinal("description"));
                 var image = reader.GetString(reader.GetOrdinal("image"));
 
-                var tourData = new Tour(TourName, start, destination, transportType, distance, description, duration, image)
+                var tourData = new Tour(name, start, destination, transportType, distance, description, duration, image)
                 {
                     Id = TourId
                 };

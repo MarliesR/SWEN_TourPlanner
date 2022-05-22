@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner.Library;
 
 
 namespace TourPlanner.BL
@@ -22,8 +23,19 @@ namespace TourPlanner.BL
         {
 
         }
-        public void GenerateReportLog()
+
+        public void SummarizeReport()
         {
+            //average time
+            //average distance
+            //average rating of all tour logs of specific tour
+        }
+        public void TourReport(Tour tour, List <TourLog> logs)
+        {
+            //all information of single tour
+            //all tour logs from that tour
+
+
             const string LOREM_IPSUM_TEXT = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
             const string GOOGLE_MAPS_PNG = "./google_maps.png";
             const string TARGET_PDF = "target.pdf";
