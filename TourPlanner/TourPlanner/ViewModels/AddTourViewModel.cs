@@ -14,6 +14,7 @@ namespace TourPlanner.ViewModels
         public AddTourViewModel(Tour TourData)
         {
             Tour = TourData;
+            // objekt mit tour daten
 
             // Check if data valid 
             // maybe transform data
