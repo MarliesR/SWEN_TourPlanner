@@ -12,7 +12,7 @@ using TourPlanner.Library;
 
 namespace TourPlanner.DAL.Mapquest
 {
-    class Mapquest
+    public class Mapquest
     {
         private string mapquestKey;
         public DirectionsRouteData directionsData;

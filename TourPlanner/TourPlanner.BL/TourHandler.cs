@@ -4,15 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Library;
+using TourPlanner.DAL.Mapquest;
+using TourPlanner.DAL.SQL;
 
 namespace TourPlanner.BL
 {
-    class TourHandler
+    public class TourHandler
     {
-        public Tour AddTour(string name)
+        public void AddTour(string name, string start, string destination, string transporttype, string description )
+        {
+           
+            Mapquest mapquest = new Mapquest(start, destination);
+            float distance = mapquest.GetDistance();
+            string imagePath = mapquest.GetImage();
+            string duration = mapquest.GetTime();
+            TourSql db = new TourSql();
+            //string name, string start, string destination, string transporttype, float distance, string description, string duration, string image)
+            Tour tour = new Tour(name, start, destination, transporttype, distance, description, duration, imagePath);
+            db.AddTourSQL(tour);
+            Console.WriteLine("finished");
+         
+
+        }
+
+        public void ModifyTour()
         {
 
-            return ;
         }
+
+        public void DeleteTour()
+        {
+
+        }
+
     }
 }

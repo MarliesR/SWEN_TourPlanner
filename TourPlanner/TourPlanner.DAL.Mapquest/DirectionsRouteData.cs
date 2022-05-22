@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.DAL.Mapquest
 {
-    class DirectionsRouteData
+    public class DirectionsRouteData
     {
         public Route route { get; set; }
         public Info info { get; set; }

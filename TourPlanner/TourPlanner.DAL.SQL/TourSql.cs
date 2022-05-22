@@ -9,18 +9,20 @@ using TourPlanner.Library;
 
 namespace TourPlanner.DAL.SQL
 {
-    class TourSql
+    public class TourSql
     {
         //hier alle sql statements zur tour eingeben? 
 
         public string connectionString { get; set; }
         public TourSql()
         {
-            connectionString = ConfigurationManager.AppSettings["postgreSQLConnectionStringDB"];
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["postgreSQLConnectionStringDB"];
+            connectionString = settings.ConnectionString;
         }
         
         public void AddTourSQL(Tour TourData)
         {
+            Console.WriteLine(connectionString);
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
