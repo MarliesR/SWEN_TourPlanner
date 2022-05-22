@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Tour-Planner" Height="420" Width="707">
     <Grid>
-        
+
         <!--searchbar-->
         <TextBox x:Name="SearchBar" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="249" Height="20"/>
         <Button Content="     " HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top">
@@ -16,9 +16,9 @@
             </Button.Background>-->
         </Button>
 
-        <Button Content="File" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="66" Background="{x:Null}"/>
+        <!--<Button Content="File" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="66" Background="{x:Null}"/>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
-        <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
+        <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>-->
 
         <Button Content="Add New Tour" Click="Button_Click_AddNewTour" HorizontalAlignment="Left" Margin="10,41,584,10" VerticalAlignment="Top" Width="113"/>
         <ListBox x:Name="TourList" Margin="10,61,584,10" SelectionChanged="TourList_SelectionChanged">
