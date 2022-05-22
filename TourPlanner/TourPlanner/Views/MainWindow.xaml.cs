@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TourPlanner.Library;
+using TourPlanner.Views;
 
 namespace TourPlanner
 {
@@ -23,6 +12,23 @@ namespace TourPlanner
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void TourList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_AddNewTour(object sender, RoutedEventArgs e)
+        {
+            mainView.Content = new AddTourView();
+
+            //string TourName = AddTourView.GetTourName();
+            //if (TourName != null)
+            //{
+            //    TourList.Items.Add(TourName);
+            //}
+            
         }
     }
 }

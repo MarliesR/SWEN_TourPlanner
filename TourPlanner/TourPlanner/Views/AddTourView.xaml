@@ -1,0 +1,30 @@
+﻿<Page x:Class="TourPlanner.Views.AddTourView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TourPlanner.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="351" d:DesignWidth="567"
+      Title="AddTourView">
+
+    <Grid>
+        <!--tourname wird später vllt automatisch generiert-->
+        <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="18,24,0,0" VerticalAlignment="Top"/>
+
+        <!--zum eingeben für tour-->
+        <!--input musst be validated-->
+        <TextBox x:Name="TourOrigin" HorizontalAlignment="Left" Margin="14,58,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Origin" HorizontalAlignment="Left" Margin="18,71,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TourDestination" HorizontalAlignment="Left" Margin="14,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Destination" HorizontalAlignment="Left" Margin="18,121,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+        <TextBox x:Name="TourDescription" HorizontalAlignment="Left" Margin="14,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Tour Description" HorizontalAlignment="Left" Margin="18,165,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TourTransportType" HorizontalAlignment="Left" Margin="14,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Transport Type" HorizontalAlignment="Left" Margin="18,210,0,0" VerticalAlignment="Top"/>
+
+        <!--save data in object-->
+        <Button Click="Button_Click" Content="Add / Save" HorizontalAlignment="Left" Margin="470,300,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>

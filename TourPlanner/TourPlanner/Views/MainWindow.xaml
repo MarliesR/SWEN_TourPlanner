@@ -7,21 +7,21 @@
         mc:Ignorable="d"
         Title="Tour-Planner" Height="420" Width="707">
     <Grid>
+        
         <!--searchbar-->
         <TextBox x:Name="SearchBar" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="249" Height="20"/>
         <Button Content="     " HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top">
-            <Button.Background>
+            <!--<Button.Background>
                 <ImageBrush ImageSource="/Views/694985.png"/>
-            </Button.Background>
+            </Button.Background>-->
         </Button>
-
 
         <Button Content="File" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="66" Background="{x:Null}"/>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
         <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
 
-        <Button Content="Add Tour" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="113"/>
-        <ListBox x:Name="TourList" Margin="10,61,584,10">
+        <Button Content="Add New Tour" Click="Button_Click_AddNewTour" HorizontalAlignment="Left" Margin="10,41,584,10" VerticalAlignment="Top" Width="113"/>
+        <ListBox x:Name="TourList" Margin="10,61,584,10" SelectionChanged="TourList_SelectionChanged">
             <!--später contet auslesen von DB und neues element über DB einfügen-->
             <!--OnSelect die infos zeigen -> neue seite laden?-->
 
@@ -29,23 +29,7 @@
 
         </ListBox>
 
-        <!--tourname wird später vllt automatisch generiert-->
-        <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="134,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="128,74,0,0" VerticalAlignment="Top"/>
-
-        <!--zum eingeben für tour-->
-        <!--input musst be validated-->
-        <TextBox x:Name="TourOrigin" HorizontalAlignment="Left" Margin="134,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Origin" HorizontalAlignment="Left" Margin="128,121,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TourDestination" HorizontalAlignment="Left" Margin="134,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Destination" HorizontalAlignment="Left" Margin="128,171,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
-        <TextBox x:Name="TourDescription" HorizontalAlignment="Left" Margin="134,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Tour Description" HorizontalAlignment="Left" Margin="128,215,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TourTransportType" HorizontalAlignment="Left" Margin="134,246,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Transport Type" HorizontalAlignment="Left" Margin="128,260,0,0" VerticalAlignment="Top"/>
-
-        <!--save data in object-->
-        <Button Click="Button_Click" Content="Add / Save" HorizontalAlignment="Left" Margin="635,374,0,0" VerticalAlignment="Top"/>
+        <Frame x:Name="mainView" Margin="130,43,10,10" NavigationUIVisibility="Hidden"/>
 
     </Grid>
 </Window>
