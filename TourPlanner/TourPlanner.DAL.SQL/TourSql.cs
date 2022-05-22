@@ -27,8 +27,9 @@ namespace TourPlanner.DAL.SQL
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            using (var cmd = new NpgsqlCommand(@$"INSERT INTO Tour (name, description, start, destination, transport, distance, duration, image)", conn))
-                {
+            var cmd = new NpgsqlCommand(@$"INSERT INTO Tour (name, description, start, destination, transport, distance, duration, image) 
+                                                VALUES(@name, @description, @start, @destination, @transport, @distance, @duration, @image)", conn);
+
                 cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourData.Name);
                 cmd.Parameters.AddWithValue("description", NpgsqlDbType.Text, TourData.Description);
                 cmd.Parameters.AddWithValue("start", NpgsqlDbType.Varchar, TourData.Start);
@@ -39,10 +40,45 @@ namespace TourPlanner.DAL.SQL
                 cmd.Parameters.AddWithValue("image", NpgsqlDbType.Varchar, TourData.Image);
 
                 cmd.ExecuteNonQuery();
-            }
 
-            
-            
+            conn.Close();
+        }
+
+        public Tour GetTourSQL(string TourName, int TourId)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM Tour WHERE uname=@name AND id=@id", conn);
+
+            cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourName);
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Varchar, TourId);
+
+            var reader = cmd.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                return null;
+            }
+            else
+            {
+                reader.Read();
+
+                var description = reader.GetString(reader.GetOrdinal("description"));
+                var start = reader.GetString(reader.GetOrdinal("start"));
+                var destination = reader.GetString(reader.GetOrdinal("destination"));
+                var transportType = reader.GetString(reader.GetOrdinal("transport"));
+                var distance = reader.GetInt32(reader.GetOrdinal("distance"));
+                var duration = reader.GetString(reader.GetOrdinal("description"));
+                var image = reader.GetString(reader.GetOrdinal("image"));
+
+                var tourData = new Tour(TourName, start, destination, transportType, distance, description, duration, image)
+                {
+                    Id = TourId
+                };
+
+
+                return tourData;
+            }
         }
     }
 }
