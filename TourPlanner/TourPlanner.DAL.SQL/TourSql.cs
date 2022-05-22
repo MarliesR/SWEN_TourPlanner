@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,27 +27,21 @@ namespace TourPlanner.DAL.SQL
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand(@$"INSERT INTO Tour
-                    (
-                        name,
-                        description,
-                        start,
-                        destination,
-                        transport,
-                        distance,
-                        duration,
-                        image
-                    )", conn);
+            using (var cmd = new NpgsqlCommand(@$"INSERT INTO Tour (name, description, start, destination, transport, distance, duration, image)", conn))
+                {
+                cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourData.Name);
+                cmd.Parameters.AddWithValue("description", NpgsqlDbType.Text, TourData.Description);
+                cmd.Parameters.AddWithValue("start", NpgsqlDbType.Varchar, TourData.Start);
+                cmd.Parameters.AddWithValue("distance", NpgsqlDbType.Double, TourData.Distance);
+                cmd.Parameters.AddWithValue("destination", NpgsqlDbType.Varchar, TourData.Destination);
+                cmd.Parameters.AddWithValue("transport", NpgsqlDbType.Varchar, TourData.TransportType);
+                cmd.Parameters.AddWithValue("duration", NpgsqlDbType.Varchar, TourData.Duration);
+                cmd.Parameters.AddWithValue("image", NpgsqlDbType.Varchar, TourData.Image);
 
-            cmd.Parameters.AddWithValue("name", TourData.Name);
-            cmd.Parameters.AddWithValue("description", TourData.Description);
-            cmd.Parameters.AddWithValue("start", TourData.Start);
-            cmd.Parameters.AddWithValue("destination", TourData.Destination);
-            cmd.Parameters.AddWithValue("transport", TourData.TransportType);
-            cmd.Parameters.AddWithValue("duration", TourData.Duration);
-            cmd.Parameters.AddWithValue("image", TourData.Image);
+                cmd.ExecuteNonQuery();
+            }
 
-            cmd.ExecuteNonQuery();
+            
             
         }
     }

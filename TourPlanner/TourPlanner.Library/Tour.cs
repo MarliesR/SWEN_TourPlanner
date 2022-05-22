@@ -9,7 +9,7 @@ namespace TourPlanner.Library
         public string Start { get; set; }
         public string Destination { get; set; }
         public string TransportType { get; set; }
-        public float Distance { get; set; } //von MApquest
+        public double Distance { get; set; } //von MApquest
         public string Description { get; set; }
         public string Duration { get; set; } //von Mapquest
         public string Image { get; set; } //von Mapquest
