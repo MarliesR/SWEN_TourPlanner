@@ -32,7 +32,7 @@ namespace TourPlanner.DAL.SQL
                 cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourData.Name);
                 cmd.Parameters.AddWithValue("description", NpgsqlDbType.Text, TourData.Description);
                 cmd.Parameters.AddWithValue("start", NpgsqlDbType.Varchar, TourData.Start);
-                cmd.Parameters.AddWithValue("distance", NpgsqlDbType.Double, TourData.Distance);
+                cmd.Parameters.AddWithValue("distance", NpgsqlDbType.Integer, TourData.Distance);
                 cmd.Parameters.AddWithValue("destination", NpgsqlDbType.Varchar, TourData.Destination);
                 cmd.Parameters.AddWithValue("transport", NpgsqlDbType.Varchar, TourData.TransportType);
                 cmd.Parameters.AddWithValue("duration", NpgsqlDbType.Varchar, TourData.Duration);
