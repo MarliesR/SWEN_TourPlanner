@@ -7,18 +7,9 @@ using TourPlanner.Library;
 
 namespace TourPlanner.ViewModels
 {
-    public class AddTourViewModel 
+    public class AddTourViewModel()
     {
-        public Tour Tour { get; }
-
-        public AddTourViewModel(Tour TourData)
-        {
-            Tour = TourData;
-            // objekt mit tour daten
-
-            // Check if data valid 
-            // maybe transform data
-        }
+        
         
     }
 

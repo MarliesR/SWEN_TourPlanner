@@ -18,18 +18,16 @@ namespace TourPlanner.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //get data from textbox --> put in object (have to create object with tour data prop)
-            //this.DataContext = new AddTourViewModel(this, mainView);
+            this.DataContext = new AddTourViewModel(this);
 
-            Tour TourData = new Tour
-            {
-                Name = TourName.Text,
-                Start = TourOrigin.Text,
-                Destination = TourDestination.Text,
-                Description = TourDescription.Text,
-                TransportType = TourTransportType.Text
-            };
-
-
+            //Tour TourData = new Tour()
+            //{
+            //    Name = TourName.Text,
+            //    Start = TourOrigin.Text,
+            //    Destination = TourDestination.Text,
+            //    Description = TourDescription.Text,
+            //    TransportType = TourTransportType.Text
+            //};
 
             // add tourname to tourlist
             // TourList.Items.Add(TourName.Text);

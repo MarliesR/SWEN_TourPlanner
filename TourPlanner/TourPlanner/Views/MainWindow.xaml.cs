@@ -16,7 +16,8 @@ namespace TourPlanner
 
         private void TourList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+            mainView.Content = new EditTourView();
+            // tour name und id müssen irgendwie verlinkt sein
         }
 
         private void Button_Click_AddNewTour(object sender, RoutedEventArgs e)
