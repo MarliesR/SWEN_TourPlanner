@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
+        xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Tour-Planner" Height="420" Width="707">
+
     <Grid>
 
         <!--searchbar-->
@@ -20,8 +22,8 @@
         <Button Content="Edit" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
         <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>-->
 
-        <Button Content="Add New Tour" Click="Button_Click_AddNewTour" HorizontalAlignment="Left" Margin="10,41,584,10" VerticalAlignment="Top" Width="113"/>
-        <ListBox x:Name="TourList" Margin="10,61,584,10" SelectionChanged="TourList_SelectionChanged">
+        <Button Content="Add New Tour" Click="Button_Click_AddNewTour" HorizontalAlignment="Left" Margin="10,41,584,10" VerticalAlignment="Top" Width="113" Command="{Binding showTourPageCommand}"/>
+        <ListBox x:Name="TourList" Margin="10,61,584,10" ItemsSource="{Binding TourItems}" SelectedItem="{Binding CurrentItem}" SelectionChanged="TourList_SelectionChanged">
             <!--später contet auslesen von DB und neues element über DB einfügen-->
             <!--OnSelect die infos zeigen -> neue seite laden?-->
 

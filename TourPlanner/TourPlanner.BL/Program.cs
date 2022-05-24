@@ -8,7 +8,7 @@ namespace TourPlanner.BL
         {
             Console.WriteLine("Hello World!");
             TourHandler handler = new TourHandler();
-            handler.AddTour("route1", "Berlin", "Vienna", "Auto", "erste Route");
+            handler.AddTour("route2", "Berlin", "Vienna", "Auto", "zweite Route");
         }
     }
 }
