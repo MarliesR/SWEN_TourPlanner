@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using TourPlanner.BL;
-
+using TourPlanner.ViewModels;
 
 namespace TourPlanner.ViewModels
 {
@@ -103,6 +103,12 @@ namespace TourPlanner.ViewModels
             
         }
 
+        private RelayCommand closeCommand1;
+        public ICommand closeCommand => closeCommand1 ??= new RelayCommand(close);
+
+        private void close(object commandParameter)
+        {
+        }
     }
 
 }

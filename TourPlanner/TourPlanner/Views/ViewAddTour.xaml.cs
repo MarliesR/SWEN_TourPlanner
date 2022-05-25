@@ -23,6 +23,7 @@ namespace TourPlanner.Views
         public ViewAddTour()
         {
             InitializeComponent();
+           
         }
     }
 }
