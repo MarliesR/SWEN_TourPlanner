@@ -24,7 +24,7 @@
         <Label x:Name="TourDescription" Margin="120,243,10,10"/>
 
         <Image x:Name="MapImage" HorizontalAlignment="Left" Height="346" Margin="284,0,0,0" VerticalAlignment="Top" Width="281"/>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="100,320,0,0" VerticalAlignment="Top" Width="65" Command="{Binding EditTourCommand}"/>
+        <!--<Button Content="Edit" HorizontalAlignment="Left" Margin="100,320,0,0" VerticalAlignment="Top" Width="65" Command="{Binding EditTourCommand}"/>-->
 
     </Grid>
 </UserControl>

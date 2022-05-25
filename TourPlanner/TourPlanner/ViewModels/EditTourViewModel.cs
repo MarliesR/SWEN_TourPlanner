@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner.BL;
-using TourPlanner.ViewModels;
 
 namespace TourPlanner.ViewModels
 {
-    public class AddTourViewModel : ViewModelBase
+    public class EditTourViewModel : ViewModelBase
     {
-
         private RelayCommand saveTourCommand;
         public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
-        private RelayCommand closeCommand1;
-        public ICommand closeCommand => closeCommand1 ??= new RelayCommand(close);
 
         private string tourName;
         private string tourStart;
@@ -89,26 +89,11 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        //public ObservableCollection<MediaItem> Items {get; set;}
-
-        public AddTourViewModel()
-        {
-
-        }
-
-
-
         private void SaveTour(object commandParameter)
         {
             TourHandler handler = new TourHandler();
             handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
-            
-        }
 
-
-        private void close(object commandParameter)
-        {
         }
     }
-
 }

@@ -11,12 +11,12 @@ namespace TourPlanner.ViewModels
     public class ShowTourViewModel : ViewModelBase
     {
 
-        private RelayCommand editTourCommand;
-        public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
+        //private RelayCommand editTourCommand;
+        //public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
 
-        private void EditTour(object commandParameter)
-        {
+        //private void EditTour(object commandParameter)
+        //{
 
-        }
+        //}
     }
 }

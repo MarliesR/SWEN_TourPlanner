@@ -38,9 +38,20 @@ namespace TourPlanner.ViewModels
         private void showTourPage(object commandParameter)
         {
             SelectedViewModel = new AddTourViewModel();
+
+            // Tourdaten übergeben 
         }
 
-        
+        private RelayCommand editTourPageCommand1;
+        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(editTourPage);
+
+        private void editTourPage(object commandParameter)
+        {
+            SelectedViewModel = new EditTourViewModel();
+
+            // ID oder Tourdaten übergeben
+        }
+
         //https://github.com/BernLeWal/fhtw-bif4-layeredarchitecture-cs 
         //viewmodelbase ist vorgegeben
         //MainViewModel muss im View auch hinterlegt werden 
