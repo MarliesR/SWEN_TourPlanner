@@ -12,6 +12,9 @@
         <viewmodels:MainViewModel></viewmodels:MainViewModel>
     </Window.DataContext>
     <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:ShowTourViewModel}">
+            <views:ShowTourView></views:ShowTourView>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:AddTourViewModel}">
             <views:ViewAddTour></views:ViewAddTour>
         </DataTemplate>

@@ -23,7 +23,6 @@ namespace TourPlanner.DAL.SQL
         
         public void AddTourSQL(Tour TourData)
         {
-            Console.WriteLine(connectionString);
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 

@@ -11,6 +11,11 @@ namespace TourPlanner.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        public MainViewModel()
+        {
+            SelectedViewModel = new AddTourViewModel();
+        }
+
         public object selectedViewModel; //DATA binding mit dem MainWindow
         public object SelectedViewModel  //schaut ob sich die value des viewmodels ändert
         {
