@@ -9,19 +9,19 @@
              d:DesignHeight="351" d:DesignWidth="567">
     <Grid>
         <Label Content="Tour Name:" Margin="10,3,460,10"/>
-        <Label Content="bla" Margin="120,3,10,10"/>
+        <Label x:Name="TourName" Margin="120,3,10,10"/>
         <Label Content="Start:" Margin="10,43,460,10"/>
-        <Label Content="bla" Margin="120,43,10,10"/>
+        <Label x:Name="TourStart" Margin="120,43,10,10"/>
         <Label Content="Destination:" Margin="10,83,460,10"/>
-        <Label Content="bla" Margin="120,83,10,10"/>
+        <Label x:Name="TourDestination" Margin="120,83,10,10"/>
         <Label Content="Transporttype:" Margin="10,123,460,10"/>
-        <Label Content="bla" Margin="120,123,10,10"/>
+        <Label x:Name="TourTransportType" Margin="120,123,10,10"/>
         <Label Content="Distance:" Margin="10,163,460,10"/>
-        <Label Content="bla" Margin="120,163,10,10"/>
+        <Label x:Name="TourDistance" Margin="120,163,10,10"/>
         <Label Content="Duration:" Margin="10,203,460,10"/>
-        <Label Content="bla" Margin="120,203,10,10"/>
+        <Label x:Name="TourDuration" Margin="120,203,10,10"/>
         <Label Content="Desctiption:" Margin="10,243,460,10"/>
-        <Label Content="bla" Margin="120,243,10,10"/>
+        <Label x:Name="TourDescription" Margin="120,243,10,10"/>
 
         <Image x:Name="MapImage" HorizontalAlignment="Left" Height="346" Margin="284,0,0,0" VerticalAlignment="Top" Width="281"/>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="100,320,0,0" VerticalAlignment="Top" Width="65" Command="{Binding EditTourCommand}"/>
