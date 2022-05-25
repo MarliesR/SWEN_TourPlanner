@@ -13,7 +13,7 @@ namespace TourPlanner.ViewModels
     {
         public MainViewModel()
         {
-            SelectedViewModel = new AddTourViewModel();
+            SelectedViewModel = new ShowTourViewModel();
         }
 
         public object selectedViewModel; //DATA binding mit dem MainWindow

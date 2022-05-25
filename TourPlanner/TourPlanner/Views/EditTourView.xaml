@@ -10,7 +10,7 @@
 
     <Grid>
         <Label Content="Tour Name:" Margin="10,3,10,10"/>
-        <TextBox HorizontalAlignment="Left" Margin="120,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <Label Content="Start:" Margin="10,43,10,10"/>
         <TextBox HorizontalAlignment="Left" Margin="120,43,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <Label Content="Destination:" Margin="10,83,10,10"/>

@@ -79,5 +79,19 @@ namespace TourPlanner.DAL.SQL
                 return tourData;
             }
         }
+
+        public void DeleteTourSQL(int TourId)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+
+            var cmd = new NpgsqlCommand(@$"DELETE FROM CustomersTour WHERE id=@id", conn);
+
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Varchar, TourId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
     }
 }

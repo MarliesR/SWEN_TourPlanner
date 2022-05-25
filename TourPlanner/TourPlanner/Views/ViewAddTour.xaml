@@ -23,7 +23,6 @@
         <TextBox x:Name="TourTransportType" HorizontalAlignment="Left" Margin="14,196,0,0" TextWrapping="Wrap" Text="{Binding TourTransportType, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
         <Label Content="Transport Type" HorizontalAlignment="Left" Margin="18,210,0,0" VerticalAlignment="Top"/>
 
-        <!--save data in object-->
         <Button Content="Add / Save" HorizontalAlignment="Left" Margin="470,300,0,0" VerticalAlignment="Top" Command="{Binding SaveTourCommand}"/>
         <Button Content="close " HorizontalAlignment="Left" Margin="470,300,0,0" VerticalAlignment="Top" Command="{Binding closeCommand}"/>
     </Grid>
