@@ -1,14 +1,11 @@
-﻿<Page x:Class="TourPlanner.Views.AddTourView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TourPlanner.Views"
-       xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddTourViewModel}"
-      mc:Ignorable="d" 
-      d:DesignHeight="351" d:DesignWidth="567"
-      Title="AddTourView">
-
+﻿<UserControl x:Class="TourPlanner.Views.ViewAddTour"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="351" d:DesignWidth="567">
     <Grid>
         <!--tourname wird später vllt automatisch generiert-->
         <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="{Binding TourName, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
@@ -28,4 +25,4 @@
         <!--save data in object-->
         <Button Content="Add / Save" HorizontalAlignment="Left" Margin="470,300,0,0" VerticalAlignment="Top" Command="{Binding SaveTourCommand}"/>
     </Grid>
-</Page>
+</UserControl>
