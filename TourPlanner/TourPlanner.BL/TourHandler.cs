@@ -54,6 +54,12 @@ namespace TourPlanner.BL
             //report.TourReport(tour,);
         }
 
+        public List<Tour> ListAllTours()
+        {
+            TourSql db = new TourSql();
+            List<Tour> tourlist = db.GetToursSQL();
+            return tourlist;
+        }
 
     }
 }

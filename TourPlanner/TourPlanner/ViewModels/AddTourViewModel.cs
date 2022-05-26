@@ -89,7 +89,7 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        //public ObservableCollection<MediaItem> Items {get; set;}
+       
 
         public AddTourViewModel()
         {

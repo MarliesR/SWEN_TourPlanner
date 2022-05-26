@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         xmlns:views ="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="420" Width="707">
+        Title="Tour-Planner" Height="500" Width="800">
     <Window.DataContext>
         <viewmodels:MainViewModel></viewmodels:MainViewModel>
     </Window.DataContext>
@@ -21,39 +21,84 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
 
         <!--searchbar-->
-        <TextBox Grid.Row="0" x:Name="SearchBar" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="249" Height="20"/>
-        <Button Grid.Row="0" Content="     " HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top">
-            <!--<Button.Background>
+        <!-- ROW 1-->
+        <DockPanel Grid.Column="0" LastChildFill="True" Background="#FFE4E2E2">
+            <Label DockPanel.Dock="Top" Content="Tours" HorizontalAlignment="Left"></Label>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" LastChildFill="True" Background="#FFE4E2E2">
+
+            <Button Content="Report Tours" DockPanel.Dock="Right"  >
+            </Button>
+            <Button Content="Summary Report Tours" DockPanel.Dock="Right" >
+            </Button>
+            <Button Content="export Tours" DockPanel.Dock="Right" >
+            </Button>
+            <Button Content="import Tours" DockPanel.Dock="Right" >
+            </Button>
+            <Button Content="search" DockPanel.Dock="Right"  >
+                <!--<Button.Background>
                 <ImageBrush ImageSource="/Views/694985.png"/>
             </Button.Background>-->
-        </Button>
+            </Button>
+            <TextBox  x:Name="SearchBar"  DockPanel.Dock="Right" TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Search"  />
+        </DockPanel>
+
+
 
         <!--<Button Content="File" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="66" Background="{x:Null}"/>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
         <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>-->
-        <DockPanel Grid.Row="1">
-            <Button Content="Add New Tour" DockPanel.Dock="Left"  Command="{Binding showTourPageCommand}"/>
-            <Button Content="Edit Tour"  DockPanel.Dock="Left"  Command="{Binding editTourPageCommand}"/>
-            <Button Content="delete Tour"  DockPanel.Dock="Left"/>
+
+
+        <!--das ist der bereich mit den tours und den möglichkeiten zu ADD / EDIT / DELETE tours -->
+        <DockPanel Grid.Row="1" Background="#FFE4E2E2" >
+            <DockPanel LastChildFill="True" Height="25" DockPanel.Dock="Bottom">
+                <Button Content="+ add Tour" DockPanel.Dock="left" Command="{Binding showTourPageCommand}"/>
+                <Button Content="edit"  DockPanel.Dock="left"  Command="{Binding editTourPageCommand}"/>
+                <Button Content="delete"  DockPanel.Dock="left" Command="{Binding deleteTourCommand}"/>
+            </DockPanel>
+            <ListBox DockPanel.Dock="Top"
+                    VerticalAlignment="Stretch" 
+                 Name="TourList" 
+                 ItemsSource="{Binding TourList}"
+                 SelectedItem="{Binding CurrentTour}"
+                 AlternationCount="2"
+                 DisplayMemberPath="Name"/>
         </DockPanel>
 
-        <ListBox Grid.Row="2" x:Name="TourList" Margin="10,10,584,10" ItemsSource="{Binding TourItems}" SelectedItem="{Binding CurrentItem}" >
-            <!--später contet auslesen von DB und neues element über DB einfügen-->
-            <!--OnSelect die infos zeigen -> neue seite laden?-->
+        <!-- Bereich für die Details von Tours und logs -->
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ContentControl  Grid.Row="0" x:Name="Pages"  Content="{Binding SelectedViewModel}" ></ContentControl>
 
-            <ListBoxItem>Tour 1</ListBoxItem>
+            <DockPanel Grid.Row="1" LastChildFill="false" Background="#FFE4E2E2">
+                <Label Content="Logs"></Label>
+                <Button Content="delete Log"  DockPanel.Dock="Right"  Command="{Binding deleteLogCommand}"/>
+                <Button Content="edit Log"  DockPanel.Dock="Right"  Command="{Binding editLogCommand}"/>
+                <Button Content="+ add Log"  DockPanel.Dock="Right"  Command="{Binding addLogPageCommand}"/>
+            </DockPanel>
+            <DataGrid Grid.Row="2" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}">
+                <DataGrid.Columns>
 
-        </ListBox>
-
-        <!--statt FRAME gibt es ContentControl, hier werden die Sachen eingeblendet welche oben definiert worden sind unter window.resource-->
-        <!--bei den jeweiligen buttons zu den verschiedenen ansichten muss ein command hinterlegt sein, dieser ändern im MainViewModel die variable "selectedViewModel"-->
-        <ContentControl x:Name="Pages" Margin="134,10,5,10" Content="{Binding SelectedViewModel}" Grid.Row="2"></ContentControl>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
 
     </Grid>
+
 </Window>

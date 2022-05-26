@@ -93,5 +93,43 @@ namespace TourPlanner.DAL.SQL
 
             conn.Close();
         }
+
+        public List<Tour> GetToursSQL()
+        {
+            
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            List<Tour> tourlist = new();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM Tour", conn);
+
+
+            var reader = cmd.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                return null;
+            }
+            else
+            {
+                while (reader.Read())
+                {
+                    var id = reader.GetInt32(reader.GetOrdinal("id"));
+                    var name = reader.GetString(reader.GetOrdinal("name"));
+                    var description = reader.GetString(reader.GetOrdinal("description"));
+                    var start = reader.GetString(reader.GetOrdinal("start"));
+                    var destination = reader.GetString(reader.GetOrdinal("destination"));
+                    var transportType = reader.GetString(reader.GetOrdinal("transport"));
+                    var distance = reader.GetInt32(reader.GetOrdinal("distance"));
+                    var duration = reader.GetString(reader.GetOrdinal("duration"));
+                    var image = reader.GetString(reader.GetOrdinal("image"));
+
+                    Tour tourData = new Tour(name, start, destination, transportType, distance, description, duration, image);
+                    tourData.Id = id;
+                    tourlist.Add(tourData);
+                }
+            }
+            conn.Close();
+            return tourlist;
+        }
     }
 }
