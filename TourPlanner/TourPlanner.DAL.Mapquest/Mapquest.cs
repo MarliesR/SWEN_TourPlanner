@@ -20,19 +20,24 @@ namespace TourPlanner.DAL.Mapquest
         private string location;
         private string destination;
         private string filePath;
+        private string transportType;
 
-        public Mapquest(string startAddress, string endAddress)
+        private int ErrorInvalidLocation = 402;
+        private int ErrorPedestrianRouteTooLong = 607;
+
+        public Mapquest(string startAddress, string endAddress, string routeType)
         {
             mapquestKey = ConfigurationManager.AppSettings["KeyMapQuest"];
             client = new HttpClient();
             location = startAddress;
             destination = endAddress;
+            transportType = routeType;
             filePath = GetImagePath();
             directionsData = GetDirections();
 
-            if (directionsData.info.statuscode.Equals(402) || directionsData == null)
+            if (directionsData.info.statuscode.Equals(ErrorInvalidLocation) || directionsData == null || directionsData.info.statuscode.Equals(ErrorPedestrianRouteTooLong))
             {
-                Console.WriteLine("Error, invalid location or destination");
+                Console.WriteLine("Error, invalid location or destination or pedestrian route too long");
             }
             else
             {
@@ -40,16 +45,14 @@ namespace TourPlanner.DAL.Mapquest
                 GetImageStaticMap();
             }
 
-           
             client.Dispose();
 
         }
 
-    
 
         private DirectionsRouteData GetDirections()
         {
-            string fullURL = CreateDirectionsAPIstring(location, destination);
+            string fullURL = CreateDirectionsAPIstring(location, destination, transportType);
 
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Clear();
@@ -107,7 +110,7 @@ namespace TourPlanner.DAL.Mapquest
         }
 
 
-        private string CreateDirectionsAPIstring(string startAddress, string endAddress)
+        private string CreateDirectionsAPIstring(string startAddress, string endAddress, string routeType)
         {
             string BaseURL = "https://www.mapquestapi.com/directions/v2/route?";
 
@@ -116,6 +119,7 @@ namespace TourPlanner.DAL.Mapquest
             queryString.Add("key", mapquestKey);
             queryString.Add("from", startAddress);
             queryString.Add("to", endAddress);
+            queryString.Add("routeType", routeType);
 
             string APIString = BaseURL + queryString.ToString();
             Console.WriteLine(APIString);

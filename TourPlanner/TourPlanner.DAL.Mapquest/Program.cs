@@ -8,7 +8,8 @@ namespace TourPlanner.DAL.Mapquest
         static void Main(string[] args)
         {
             Console.WriteLine("test mapAPI");
-            Mapquest mapquest = new Mapquest("Vienna", "Berlin");
+            Mapquest mapquest = new Mapquest("Vienna", "Berlin", "fastest");
+            //fastest, pedestrian, bicycle
             
         }
     }

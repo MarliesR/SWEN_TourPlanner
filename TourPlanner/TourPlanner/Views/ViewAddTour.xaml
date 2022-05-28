@@ -6,7 +6,7 @@
              xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddTourViewModel}"
              xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="351" d:DesignWidth="567">
+             d:DesignHeight="250" d:DesignWidth="650">
     <Grid>
         <!--tourname wird später vllt automatisch generiert-->
         <TextBox x:Name="TourName" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="{Binding TourName, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>

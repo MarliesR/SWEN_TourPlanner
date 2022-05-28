@@ -14,7 +14,7 @@ namespace TourPlanner.BL
         public void AddTour(string name, string start, string destination, string transporttype, string description )
         {
            
-            Mapquest mapquest = new Mapquest(start, destination);
+            Mapquest mapquest = new Mapquest(start, destination,transporttype);
             int distance = mapquest.GetDistance();
             string imagePath = mapquest.GetImage();
             string duration = mapquest.GetTime();

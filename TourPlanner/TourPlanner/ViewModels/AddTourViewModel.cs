@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.ViewModels;
@@ -8,18 +11,38 @@ namespace TourPlanner.ViewModels
     public class AddTourViewModel : ViewModelBase
     {
 
+        private Window currentWindow;
         private RelayCommand saveTourCommand;
         public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
-        private RelayCommand closeCommand1;
-        public ICommand closeCommand => closeCommand1 ??= new RelayCommand(close);
+  
+
 
         private string tourName;
         private string tourStart;
         private string tourDestination;
         private string tourDescription;
-        private string tourTransportType;
+        private string tourTransportType = "fastest";
+     
+        public ObservableCollection<string> RouteTypes { get; set; }
 
+        public AddTourViewModel(Window window)
+        {
+            currentWindow = window;
+            RouteTypes = new ObservableCollection<string>();
+            InitialiseRouteTypes();
 
+        }
+
+        private void InitialiseRouteTypes()
+        {
+            RouteTypes.Clear();
+            RouteTypes.Add("fastest");
+            RouteTypes.Add("shortest");
+            RouteTypes.Add("pedestrian");
+            RouteTypes.Add("bicycle");
+        }
+
+    
 
         public String TourName //das ist der name der im binding angegeben ist im view von add tour
         {
@@ -89,26 +112,31 @@ namespace TourPlanner.ViewModels
             }
         }
 
-       
-
-        public AddTourViewModel()
-        {
-
-        }
-
-
 
         private void SaveTour(object commandParameter)
         {
             TourHandler handler = new TourHandler();
             handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
-            
+            //ClearInput(this);
+            currentWindow.Close();
+
+
         }
 
+        private RelayCommand clearInputCommand;
+        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ClearInput);
 
-        private void close(object commandParameter)
+        private void ClearInput(object commandParameter)
         {
+            TourName = string.Empty;
+            TourStart = string.Empty;
+            TourDestination = string.Empty;
+            TourDescription = string.Empty;
         }
+
+
+
+
     }
 
 }

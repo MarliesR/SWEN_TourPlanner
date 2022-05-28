@@ -15,7 +15,7 @@
             <views:ShowTourView></views:ShowTourView>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:AddTourViewModel}">
-            <views:ViewAddTour></views:ViewAddTour>
+            <views:AddTourView></views:AddTourView>
         </DataTemplate>
     </Window.Resources>
 
@@ -64,7 +64,7 @@
         <!--das ist der bereich mit den tours und den möglichkeiten zu ADD / EDIT / DELETE tours -->
         <DockPanel Grid.Row="1" Background="#FFE4E2E2" >
             <DockPanel LastChildFill="True" Height="25" DockPanel.Dock="Bottom">
-                <Button Content="+ add Tour" DockPanel.Dock="left" Command="{Binding showTourPageCommand}"/>
+                <Button Content="+ add Tour" DockPanel.Dock="left" Command="{Binding showTourWindowCommand}"/>
                 <Button Content="edit"  DockPanel.Dock="left"  Command="{Binding editTourPageCommand}"/>
                 <Button Content="delete"  DockPanel.Dock="left" Command="{Binding deleteTourCommand}"/>
             </DockPanel>
