@@ -11,6 +11,10 @@ namespace TourPlanner.BL
 {
     public class TourHandler
     {
+        public void InitialiseDB()
+        {
+            Database db = new Database();
+        }
         public void AddTour(string name, string start, string destination, string transporttype, string description )
         {
            
@@ -59,6 +63,21 @@ namespace TourPlanner.BL
             TourSql db = new TourSql();
             List<Tour> tourlist = db.GetToursSQL();
             return tourlist;
+        }
+
+        public List<TourLog> ListAllLogsOfSingleTour(int id)
+        {
+            LogSql db = new LogSql();
+            List<TourLog> loglist = db.GetLogsSQL(id);
+            return loglist;
+        }
+
+        public void AddLog(TourLog log)
+        {
+            LogSql db = new LogSql();
+            db.AddLogSQL(log);
+            Console.WriteLine("log added");
+
         }
 
     }

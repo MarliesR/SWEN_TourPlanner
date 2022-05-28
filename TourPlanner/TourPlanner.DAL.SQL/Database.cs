@@ -111,10 +111,10 @@ namespace TourPlanner.DAL.SQL
                     (
                         id serial NOT NULL,
                         tourid bigint NOT NULL,
-                        datetime timestamp without time zone[],
+                        datetime character varying,
                         comment text,
                         difficulty integer,
-                        totaltime time without time zone[],
+                        totaltime character varying,
                         rating integer,
                         PRIMARY KEY (id)
                     )", conn))

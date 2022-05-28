@@ -15,5 +15,15 @@ namespace TourPlanner.Library
         public int Difficulty { get; set; }
         public string TotalTime { get; set; } //w/o time zone
         public int Rating { get; set; }
+
+        public TourLog(int tourid, string datetime, string comment, int difficulty, string totaltime, int rating)
+        {
+            TourId = tourid;
+            DateTime = datetime;
+            Comment = comment;
+            Difficulty = difficulty;
+            TotalTime = totaltime;
+            Rating = rating;
+        }
     }
 }

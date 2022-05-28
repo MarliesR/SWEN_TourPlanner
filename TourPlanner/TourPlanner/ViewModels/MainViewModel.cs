@@ -9,6 +9,7 @@ using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
+using System.Windows;
 
 namespace TourPlanner.ViewModels
 {
@@ -17,12 +18,15 @@ namespace TourPlanner.ViewModels
         public ObservableCollection<Tour> TourList { get; set; }
         public ObservableCollection<TourLog> LogList { get; set; }
         private Tour currentTour;
+        private TourHandler handler = new TourHandler();
 
         public MainViewModel()
         {
+            handler.InitialiseDB();
             SelectedViewModel = new ShowTourViewModel(currentTour);
             TourList = new ObservableCollection<Tour>();
             LogList = new ObservableCollection<TourLog>();
+            
             LoadAllTours();
         }
 
@@ -52,7 +56,8 @@ namespace TourPlanner.ViewModels
                     if (currentTour != null)
                     {
                         SelectedViewModel = new ShowTourViewModel(currentTour);
-                        //LoadLogs(_currentTour);
+                        LoadLogsCurrentTour();
+                        
                     }
                 }
             }
@@ -74,11 +79,30 @@ namespace TourPlanner.ViewModels
             TourList.Clear();
             TourHandler handler = new TourHandler();
             List <Tour> tourlist = handler.ListAllTours();
-         
-            foreach (var tour in tourlist)
+            if (tourlist != null)
             {
-                TourList.Add(tour);
+                foreach (var tour in tourlist)
+                {
+                    TourList.Add(tour);
+                }
             }
+            
+        }
+
+        private void LoadLogsCurrentTour()
+        {
+            LogList.Clear();
+            TourHandler handler = new TourHandler();
+            List <TourLog> loglist = handler.ListAllLogsOfSingleTour(CurrentTour.Id);
+            if (loglist != null)
+            {
+                foreach (var log in loglist)
+                {
+                    LogList.Add(log);
+                }
+            }
+           
+
         }
 
         private RelayCommand showTourWindowCommand1;
@@ -89,7 +113,30 @@ namespace TourPlanner.ViewModels
             AddTourView newTourWindow = new AddTourView();
             newTourWindow.Show();
         }
-        //https://github.com/BernLeWal/fhtw-bif4-layeredarchitecture-cs 
+
+        private RelayCommand addLogPageCommand1;
+        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(addLogPage);
+
+        private void addLogPage(object commandParameter)
+        {
+            if (currentTour != null)
+            {
+                AddLogView newLogWindow = new AddLogView(currentTour);
+                newLogWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
+        }
+
+        private RelayCommand refreshToursCommand1;
+        public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(refreshTours);
+
+        private void refreshTours(object commandParameter)
+        {
+            LoadAllTours();
+        }        //https://github.com/BernLeWal/fhtw-bif4-layeredarchitecture-cs 
         //viewmodelbase ist vorgegeben
         //MainViewModel muss im View auch hinterlegt werden 
         //xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type = viewmodels:MainViewModel}"

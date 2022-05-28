@@ -1,0 +1,51 @@
+﻿<Window x:Class="TourPlanner.Views.AddLogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourPlanner.Views"
+        mc:Ignorable="d"
+        Title="AddLogView" Height="450" Width="800">
+    <Grid>
+        <DockPanel Grid.Column="0">
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Add new Log" DockPanel.Dock="left"/>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Tour Name:" DockPanel.Dock="left"/>
+                <Label x:Name="TourName" DockPanel.Dock="Left" Content="{Binding TourName, Mode=TwoWay}"/>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Date:"  DockPanel.Dock="Left"/>
+                <TextBox x:Name="Date"  DockPanel.Dock="Left" Text="{Binding LogDate, Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Comment:"   DockPanel.Dock="Left" />
+                <TextBox x:Name="Comment"  DockPanel.Dock="Left" Text="{Binding LogComment, Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+
+                <Label Content="Difficulty:"  DockPanel.Dock="Left" />
+                <ComboBox Name="RouteTypes"
+                         VerticalContentAlignment="Center"
+                         ItemsSource="{Binding DifficultyTypes}"
+                         SelectedItem="{Binding LogDifficulty}">
+                </ComboBox>
+                <!--<TextBox x:Name="TourTransportType"  DockPanel.Dock="Left" Text="{Binding TourTransportType, Mode=TwoWay}" />-->
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Time Total:"  DockPanel.Dock="Left" />
+                <TextBox x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Rating:"  DockPanel.Dock="Left" />
+                <TextBox x:Name="Rating"  DockPanel.Dock="Left" Text="{Binding LogRating, Mode=TwoWay}" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button Content="Add" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding SaveLogCommand}"/>
+                <Button Content="clear" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding ClearLogCommand}"/>
+            </DockPanel>
+
+        </DockPanel>
+    </Grid>
+</Window>

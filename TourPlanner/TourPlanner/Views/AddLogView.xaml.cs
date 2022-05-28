@@ -10,20 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner.ViewModels;
+using TourPlanner.Library;
 
 namespace TourPlanner.Views
 {
     /// <summary>
-    /// Interaction logic for ViewAddTour.xaml
+    /// Interaction logic for AddLogView.xaml
     /// </summary>
-    public partial class ViewAddTour : UserControl
+    public partial class AddLogView : Window
     {
-        public ViewAddTour()
+        public AddLogView(Tour tour)
         {
             InitializeComponent();
-           
+            this.DataContext = new AddLogViewModel(this, tour);
         }
     }
 }

@@ -16,7 +16,6 @@ namespace TourPlanner.ViewModels
         public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
   
 
-
         private string tourName;
         private string tourStart;
         private string tourDestination;
@@ -117,10 +116,7 @@ namespace TourPlanner.ViewModels
         {
             TourHandler handler = new TourHandler();
             handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
-            //ClearInput(this);
             currentWindow.Close();
-
-
         }
 
         private RelayCommand clearInputCommand;

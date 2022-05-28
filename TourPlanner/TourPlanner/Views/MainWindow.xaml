@@ -32,8 +32,9 @@
 
         <!--searchbar-->
         <!-- ROW 1-->
-        <DockPanel Grid.Column="0" LastChildFill="True" Background="#FFE4E2E2">
-            <Label DockPanel.Dock="Top" Content="Tours" HorizontalAlignment="Left"></Label>
+        <DockPanel Grid.Column="0" Background="#FFE4E2E2">
+            <Label DockPanel.Dock="Left" Content="Tours" HorizontalAlignment="Left"></Label>
+            <Button DockPanel.Dock="left" Content="refresh Tours"  Command="{Binding refreshToursCommand}"/>
         </DockPanel>
 
         <DockPanel Grid.Column="1" LastChildFill="True" Background="#FFE4E2E2">
@@ -54,11 +55,6 @@
             <TextBox  x:Name="SearchBar"  DockPanel.Dock="Right" TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Search"  />
         </DockPanel>
 
-
-
-        <!--<Button Content="File" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="66" Background="{x:Null}"/>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>
-        <Button Content="Options" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Width="65" Background="{x:Null}"/>-->
 
 
         <!--das ist der bereich mit den tours und den möglichkeiten zu ADD / EDIT / DELETE tours -->
