@@ -1,0 +1,59 @@
+﻿<Window x:Class="TourPlanner.Views.EditLogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:EditLogViewModel}"
+        xmlns:local="clr-namespace:TourPlanner.Views"
+        mc:Ignorable="d"
+        Title="Edit log" Height="400" Width="400">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Edit your chosen log entry" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Tour Name" />
+            <Label Grid.Column="1" Grid.Row="1" x:Name="TourName" Content="{Binding TourName, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Date"  />
+            <DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Short" SelectedDate="{Binding LogDate, Mode=TwoWay}"></DatePicker>
+            <Label Grid.Column="0" Grid.Row="3" Content="Time Total"  DockPanel.Dock="Left" />
+            <TextBox Grid.Column="1" Grid.Row="3"  x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay}" />
+            <Label Grid.Column="0" Grid.Row="4" >
+                <TextBlock TextWrapping="Wrap" Text="Rating (1 = not good, 5 = nice tour)"></TextBlock>
+            </Label>
+            <ComboBox Grid.Column="1" Grid.Row="4" 
+                            Name="RatingTypes"
+                         VerticalContentAlignment="Center"
+                         ItemsSource="{Binding RatingTypes}"
+                         SelectedItem="{Binding LogRating}">
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="5" >
+                <TextBlock TextWrapping="Wrap" Text="Difficulty (1 = easy, 5 = very hard)"></TextBlock>
+            </Label>
+            <ComboBox Grid.Column="1" Grid.Row="5" 
+                         Name="RouteTypes"
+                         VerticalContentAlignment="Center"
+                         ItemsSource="{Binding DifficultyTypes}"
+                         SelectedItem="{Binding LogDifficulty}">
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="6" Content="Comment" />
+            <TextBox Grid.Column="1" Grid.Row="6" x:Name="Comment" TextWrapping="Wrap" Text="{Binding LogComment, Mode=TwoWay}" />
+            <DockPanel Grid.Column="1" Grid.Row="7" LastChildFill="False">
+                <Button DockPanel.Dock="Right" Content="reset"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding ResetLogCommand}"/>
+                <Button DockPanel.Dock="Right" Content="save changes"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding SaveLogCommand}"/>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>

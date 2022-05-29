@@ -43,6 +43,12 @@ namespace TourPlanner.BL
             TourSql db = new TourSql();
             db.UpdateTourSQL(tourname,tourdescription,id);
         }
+
+        public void ModifyLogEntry(TourLog log)
+        {
+            LogSql db = new LogSql();
+            db.UpdateLogSQL(log);
+        }
         public bool DeleteLog(int id)
         {
             LogSql db = new LogSql();

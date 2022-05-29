@@ -34,6 +34,8 @@ namespace TourPlanner.ViewModels
         private RelayCommand deleteLogCommand;
         public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
 
+        private RelayCommand editLogCommand;
+        public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
 
 
 
@@ -199,6 +201,20 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a log entry");
             }
 
+        }
+
+
+        private void EditLog(object commandParameter)
+        {
+            if (currentTour != null && currentLog != null)
+            {
+                EditLogView editLogWindow = new EditLogView(currentLog, currentTour.Name);
+                editLogWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please choose a log entry");
+            }
         }
     }
 }

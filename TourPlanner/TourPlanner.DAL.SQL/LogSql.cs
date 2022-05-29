@@ -97,5 +97,24 @@ namespace TourPlanner.DAL.SQL
             }
             return false;
         }
+
+        public void UpdateLogSQL(TourLog log)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            var cmd = new NpgsqlCommand(@$"UPDATE Tourlog SET datetime=@datetime, comment=@comment, difficulty=@difficulty, totaltime=@totaltime, rating=@rating WHERE id=@id", conn);
+
+            
+            cmd.Parameters.AddWithValue("datetime", NpgsqlDbType.Varchar, log.DateTime);
+            cmd.Parameters.AddWithValue("comment", NpgsqlDbType.Varchar, log.Comment);
+            cmd.Parameters.AddWithValue("difficulty", NpgsqlDbType.Integer, log.Difficulty);
+            cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Varchar, log.TotalTime);
+            cmd.Parameters.AddWithValue("rating", NpgsqlDbType.Integer, log.Rating);
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, log.Id);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+        }
     }
 }
