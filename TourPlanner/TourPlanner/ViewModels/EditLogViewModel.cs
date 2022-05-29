@@ -24,7 +24,6 @@ namespace TourPlanner.ViewModels
         private int logDifficulty;
         public ObservableCollection<int> DifficultyTypes { get; set; }
         private string logComment;
-        private int tourid;
         private string defaultTourname;
         private TourLog baseLog;
 

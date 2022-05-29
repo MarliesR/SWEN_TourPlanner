@@ -7,6 +7,8 @@
         xmlns:views ="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="Tour-Planner" Height="500" Width="800">
+    
+    
     <Window.DataContext>
         <viewmodels:MainViewModel></viewmodels:MainViewModel>
     </Window.DataContext>
@@ -14,14 +16,11 @@
         <DataTemplate DataType="{x:Type viewmodels:ShowTourViewModel}">
             <views:ShowTourView></views:ShowTourView>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:AddTourViewModel}">
-            <views:AddTourView></views:AddTourView>
-        </DataTemplate>
     </Window.Resources>
-
+   
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -29,15 +28,20 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-
-        <!--searchbar-->
+       
+            <!--searchbar-->
         <!-- ROW 1-->
-        <DockPanel Grid.Column="0" Background="#FFE4E2E2">
-            <Label DockPanel.Dock="Left" Content="Tours" HorizontalAlignment="Left"></Label>
-            <Button DockPanel.Dock="left" Content="refresh Tours"  Command="{Binding refreshToursCommand}"/>
+        
+        <DockPanel Grid.Column="0" LastChildFill="False" Background="AliceBlue">
+            <Label DockPanel.Dock="Left" Content="TOURS" VerticalAlignment="Center"  HorizontalAlignment="Left"></Label>
+                <Button DockPanel.Dock="Left" Command="{Binding refreshToursCommand}"  Content="refresh">
+                   
+                </Button>
         </DockPanel>
 
-        <DockPanel Grid.Column="1" LastChildFill="True" Background="#FFE4E2E2">
+
+
+        <DockPanel Grid.Column="1" LastChildFill="True" Background="AliceBlue">
 
             <Button Content="Report Tours" DockPanel.Dock="Right"  >
             </Button>
@@ -47,50 +51,64 @@
             </Button>
             <Button Content="import Tours" DockPanel.Dock="Right" >
             </Button>
-            <Button Content="search" DockPanel.Dock="Right"  >
-                <!--<Button.Background>
-                <ImageBrush ImageSource="/Views/694985.png"/>
-            </Button.Background>-->
+            <Button  DockPanel.Dock="Right" Height="25" Width="25"  >
+                <!-- <Button.Background>
+                   searchicon properties auf resource setzen damit es funktioniert
+                   <ImageBrush ImageSource="/TourPlanner;component/Utilities/searchicon.png"/>
+
+                </Button.Background> -->
+                <Image Source="/TourPlanner;component/Utilities/searchicon.png"/>
             </Button>
-            <TextBox  x:Name="SearchBar"  DockPanel.Dock="Right" TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Search"  />
-        </DockPanel>
+            <TextBox  x:Name="SearchBar" DockPanel.Dock="Right" TextWrapping="Wrap" VerticalAlignment="Center" Text="Search here .." Height="25" Margin="5,5,0,5" />
+        </DockPanel> 
 
 
 
         <!--das ist der bereich mit den tours und den möglichkeiten zu ADD / EDIT / DELETE tours -->
-        <DockPanel Grid.Row="1" Background="#FFE4E2E2" >
-            <DockPanel LastChildFill="True" Height="25" DockPanel.Dock="Bottom">
-                <Button Content="+ add Tour" DockPanel.Dock="left" Command="{Binding showTourWindowCommand}"/>
-                <Button Content="edit"  DockPanel.Dock="left"  Command="{Binding editTourPageCommand}"/>
-                <Button Content="delete"  DockPanel.Dock="left" Command="{Binding DeleteTourCommand}"/>
-            </DockPanel>
-            <ListBox DockPanel.Dock="Top"
-                    VerticalAlignment="Stretch" 
+        <DockPanel Grid.Row="1" Background="AliceBlue" >
+                <DockPanel LastChildFill="True" Height="40" DockPanel.Dock="Bottom">
+                <Button  DockPanel.Dock="right"  Command="{Binding editTourPageCommand}" Height="25" Width="25">
+                        <Image Source="/TourPlanner;component/Utilities/editicon.png"/>
+                    </Button>
+                    <Button   DockPanel.Dock="Right" Command="{Binding DeleteTourCommand}" Height="25" Width="25">
+                        <Image Source="/TourPlanner;component/Utilities/deleteicon.png"/>
+                    </Button>
+                    <Button Content="+ add Tour" DockPanel.Dock="right" Command="{Binding showTourWindowCommand}" Height="25" />
+                </DockPanel>
+            <Border Background="White" BorderBrush="LightGray" BorderThickness="2" >
+                <ListBox DockPanel.Dock="Top" 
+                 FontWeight="Bold"
+                 BorderThickness="0"
+                 VerticalAlignment="Stretch" 
+                 Margin="5,10,5,5"
                  Name="TourList" 
                  ItemsSource="{Binding TourList}"
                  SelectedItem="{Binding CurrentTour}"
                  AlternationCount="2"
                  DisplayMemberPath="Name"/>
+            </Border>
         </DockPanel>
 
         <!-- Bereich für die Details von Tours und logs -->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="250"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+            <Border Background="White" BorderBrush="LightGray" BorderThickness="0,2,2,2">
             <ContentControl  Grid.Row="0" x:Name="Pages"  Content="{Binding SelectedViewModel}" ></ContentControl>
+            </Border>
 
-            <DockPanel Grid.Row="1" LastChildFill="false" Background="#FFE4E2E2">
-                <Label Content="Logs"></Label>
+            <DockPanel Grid.Row="1" LastChildFill="false" Background="AliceBlue">
+                <Label Content="LOGS" VerticalAlignment="Center"></Label>
                 <Button Content="delete Log"  DockPanel.Dock="Right"  Command="{Binding DeleteLogCommand}"/>
                 <Button Content="edit Log"  DockPanel.Dock="Right"  Command="{Binding EditLogCommand}"/>
                 <Button Content="+ add Log"  DockPanel.Dock="Right"  Command="{Binding addLogPageCommand}"/>
             </DockPanel>
-            <DataGrid Grid.Row="2" SelectionMode="Single" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding DateTime}" Header="Date">
+            <DataGrid Grid.Row="2" SelectionMode="Single" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}" Background="White" BorderBrush="LightGray" BorderThickness="0,2,2,2" DataGrid.GridLinesVisibility="None">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding DateTime}" Header="Date" >
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding TotalTime}" Header="Time">
                     </DataGridTextColumn>
@@ -105,5 +123,5 @@
         </Grid>
 
     </Grid>
-
+ 
 </Window>

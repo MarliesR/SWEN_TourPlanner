@@ -7,12 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Utilities\deleteicon.png" />
+    <None Remove="Utilities\editicon.png" />
+    <None Remove="Utilities\searchicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TourPlanner.BL\TourPlanner.BL.csproj" />
     <ProjectReference Include="..\TourPlanner.Library\TourPlanner.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Utilities\deleteicon.png" />
+    <Resource Include="Utilities\editicon.png" />
+    <Resource Include="Utilities\searchicon.png" />
   </ItemGroup>
 
 </Project>
