@@ -8,45 +8,57 @@
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="650">
     <Grid>
+        
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+      
         <DockPanel Grid.Column="0">
             <DockPanel DockPanel.Dock="Top">
-                <Label Content="Tour Name:" DockPanel.Dock="left"/>
-                <Label x:Name="TourName" DockPanel.Dock="Left" Content="{Binding TourName, Mode=TwoWay}"/>
+                <Label Content="Tour Name" DockPanel.Dock="left"/>
+                
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
-                <Label Content="Start:"  DockPanel.Dock="Left"/>
-                <Label x:Name="TourStart"  DockPanel.Dock="Left" Content="{Binding TourStart, Mode=TwoWay}" />
+                <Label Content="Start"  DockPanel.Dock="Left"/>
+                
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
-                <Label Content="Destination:"   DockPanel.Dock="Left" />
-                <Label x:Name="TourDestination"  DockPanel.Dock="Left" Content="{Binding TourDestination, Mode=TwoWay}" />
+                <Label Content="Destination"   DockPanel.Dock="Left" />
+               
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
-                <Label Content="Transporttype:"  DockPanel.Dock="Left" />
-                <Label x:Name="TourTransportType"  DockPanel.Dock="Left" Content="{Binding TourTransportType, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-
-                <Label Content="Distance:"  DockPanel.Dock="Left" />
-                <Label x:Name="TourDistance"  DockPanel.Dock="Left" Content="{Binding TourDistance, Mode=TwoWay}" />
+                <Label Content="Transporttype"  DockPanel.Dock="Left" />
+                
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
 
-                <Label Content="Duration:"  DockPanel.Dock="Left"/>
-                <Label x:Name="TourDuration"  DockPanel.Dock="Left" Content="{Binding TourDuration, Mode=TwoWay}" />
+                <Label Content="Distance (in km)"  DockPanel.Dock="Left" />
+               
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
-                <Label Content="Description:"  DockPanel.Dock="Left" />
-                <Label x:Name="TourDescription"  DockPanel.Dock="Left" Content="{Binding TourDescription, Mode=TwoWay}" />
+
+                <Label Content="Duration"  DockPanel.Dock="Left"/>
+                
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Description"  DockPanel.Dock="Left" />
+         
             </DockPanel>
 
         </DockPanel>
+        <DockPanel Grid.Column="1">
+            <Label x:Name="TourName" DockPanel.Dock="Top" Content="{Binding TourName, Mode=TwoWay}"/>
+            <Label x:Name="TourStart"  DockPanel.Dock="Top" Content="{Binding TourStart, Mode=TwoWay}" />
+            <Label x:Name="TourDestination"  DockPanel.Dock="Top" Content="{Binding TourDestination, Mode=TwoWay}" />
+            <Label x:Name="TourTransportType"  DockPanel.Dock="Top" Content="{Binding TourTransportType, Mode=TwoWay}" />
+            <Label x:Name="TourDistance"  DockPanel.Dock="Top" Content="{Binding TourDistance, Mode=TwoWay}" />
+            <Label x:Name="TourDuration"  DockPanel.Dock="Top" Content="{Binding TourDuration, Mode=TwoWay}" />
+            <Label x:Name="TourDescription"  DockPanel.Dock="Top" Content="{Binding TourDescription, Mode=TwoWay}" />
+        </DockPanel>
 
-        <Image Grid.Column="1" x:Name="MapImage" Source ="{Binding TourImage}" AutomationProperties.HelpText="Image"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <Image Grid.Column="2" x:Name="MapImage" Source ="{Binding TourImage}" AutomationProperties.HelpText="Image"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
 
         <!--<Button Content="Edit" HorizontalAlignment="Left" Margin="100,320,0,0" VerticalAlignment="Top" Width="65" Command="{Binding EditTourCommand}"/>-->

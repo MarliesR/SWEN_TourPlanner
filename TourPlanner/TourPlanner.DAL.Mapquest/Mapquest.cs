@@ -187,7 +187,8 @@ namespace TourPlanner.DAL.Mapquest
             {
                 return 0;
             }
-            return (int)directionsData.route.distance;
+            double km = (int)directionsData.route.distance / 0.62137;
+            return (int)km;
 
         }
 
