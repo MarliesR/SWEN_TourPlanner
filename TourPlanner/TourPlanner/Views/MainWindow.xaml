@@ -62,7 +62,7 @@
             <DockPanel LastChildFill="True" Height="25" DockPanel.Dock="Bottom">
                 <Button Content="+ add Tour" DockPanel.Dock="left" Command="{Binding showTourWindowCommand}"/>
                 <Button Content="edit"  DockPanel.Dock="left"  Command="{Binding editTourPageCommand}"/>
-                <Button Content="delete"  DockPanel.Dock="left" Command="{Binding deleteTourCommand}"/>
+                <Button Content="delete"  DockPanel.Dock="left" Command="{Binding DeleteTourCommand}"/>
             </DockPanel>
             <ListBox DockPanel.Dock="Top"
                     VerticalAlignment="Stretch" 
@@ -84,11 +84,11 @@
 
             <DockPanel Grid.Row="1" LastChildFill="false" Background="#FFE4E2E2">
                 <Label Content="Logs"></Label>
-                <Button Content="delete Log"  DockPanel.Dock="Right"  Command="{Binding deleteLogCommand}"/>
+                <Button Content="delete Log"  DockPanel.Dock="Right"  Command="{Binding DeleteLogCommand}"/>
                 <Button Content="edit Log"  DockPanel.Dock="Right"  Command="{Binding editLogCommand}"/>
                 <Button Content="+ add Log"  DockPanel.Dock="Right"  Command="{Binding addLogPageCommand}"/>
             </DockPanel>
-            <DataGrid Grid.Row="2" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}">
+            <DataGrid Grid.Row="2" SelectionMode="Single" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding DateTime}" Header="Date">
                     </DataGridTextColumn>

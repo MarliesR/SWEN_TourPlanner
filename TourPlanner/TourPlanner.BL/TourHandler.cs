@@ -42,10 +42,16 @@ namespace TourPlanner.BL
         {
 
         }
-
-        public void DeleteTour()
+        public bool DeleteLog(int id)
         {
+            LogSql db = new LogSql();
+            return db.DeleteLogSQL(id);
+        }
 
+        public void DeleteTour(int id)
+        {
+            TourSql db = new TourSql();
+            db.DeleteTourSQL(id);
         }
 
         public void GenerateTourReport(int id)

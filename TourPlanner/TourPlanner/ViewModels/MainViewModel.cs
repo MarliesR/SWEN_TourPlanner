@@ -18,7 +18,25 @@ namespace TourPlanner.ViewModels
         public ObservableCollection<Tour> TourList { get; set; }
         public ObservableCollection<TourLog> LogList { get; set; }
         private Tour currentTour;
+        private TourLog currentLog;
         private TourHandler handler = new TourHandler();
+
+        private RelayCommand refreshToursCommand1;
+        public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(RefreshTours);
+        private RelayCommand editTourPageCommand1;
+        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(editTourPage);
+        private RelayCommand showTourWindowCommand1;
+        public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
+        private RelayCommand addLogPageCommand1;
+        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowLogWindow);
+        private RelayCommand deleteTourCommand;
+        public ICommand DeleteTourCommand => deleteTourCommand ??= new RelayCommand(DeleteTour);
+        private RelayCommand deleteLogCommand;
+        public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
+
+
+
+
 
         public MainViewModel()
         {
@@ -63,9 +81,21 @@ namespace TourPlanner.ViewModels
             }
         }
 
+        public TourLog CurrentLog
+        {
+            get => currentLog;
+            set
+            {
+                if (currentLog != value)
+                {
+                    currentLog = value;
+                    RaisePropertyChangedEvent(nameof(CurrentLog));
 
-        private RelayCommand editTourPageCommand1;
-        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(editTourPage);
+                }
+            }
+        }
+
+
 
         private void editTourPage(object commandParameter)
         {
@@ -73,7 +103,6 @@ namespace TourPlanner.ViewModels
 
             // ID oder Tourdaten übergeben
         }
-
         private void LoadAllTours()
         {
             TourList.Clear();
@@ -86,7 +115,6 @@ namespace TourPlanner.ViewModels
                     TourList.Add(tour);
                 }
             }
-            
         }
 
         private void LoadLogsCurrentTour()
@@ -101,23 +129,17 @@ namespace TourPlanner.ViewModels
                     LogList.Add(log);
                 }
             }
-           
-
         }
 
-        private RelayCommand showTourWindowCommand1;
-        public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(showTourWindow);
 
-        private void showTourWindow(object commandParameter)
+        private void ShowTourWindow(object commandParameter)
         {
             AddTourView newTourWindow = new AddTourView();
             newTourWindow.Show();
+            currentTour = null;
         }
 
-        private RelayCommand addLogPageCommand1;
-        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(addLogPage);
-
-        private void addLogPage(object commandParameter)
+        private void ShowLogWindow(object commandParameter)
         {
             if (currentTour != null)
             {
@@ -130,15 +152,30 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        private RelayCommand refreshToursCommand1;
-        public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(refreshTours);
 
-        private void refreshTours(object commandParameter)
+        private void RefreshTours(object commandParameter)
         {
             LoadAllTours();
-        }        //https://github.com/BernLeWal/fhtw-bif4-layeredarchitecture-cs 
-        //viewmodelbase ist vorgegeben
-        //MainViewModel muss im View auch hinterlegt werden 
-        //xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type = viewmodels:MainViewModel}"
+        }
+
+        private void DeleteTour(object commandParameter)
+        {
+            TourHandler handler = new TourHandler();
+            handler.DeleteTour(currentTour.Id);
+            currentTour = null;
+            LoadAllTours();
+          
+        }
+
+
+        private void DeleteLog(object commandParameter)
+        {
+            TourHandler handler = new TourHandler();
+            bool done = handler.DeleteLog(currentLog.Id);
+            if (done)
+            {
+                LoadLogsCurrentTour();
+            }
+        }
     }
 }

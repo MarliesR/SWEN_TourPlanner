@@ -84,14 +84,11 @@ namespace TourPlanner.DAL.SQL
         {
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
-
-            var cmd = new NpgsqlCommand(@$"DELETE FROM CustomersTour WHERE id=@id", conn);
-
-            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Varchar, TourId);
-
+            var cmd = new NpgsqlCommand(@$"DELETE FROM Tour WHERE id=@id", conn);
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, TourId);
             cmd.ExecuteNonQuery();
-
             conn.Close();
+
         }
 
         public List<Tour> GetToursSQL()

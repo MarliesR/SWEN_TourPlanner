@@ -77,5 +77,25 @@ namespace TourPlanner.DAL.SQL
 
             conn.Close();
         }
+
+        public bool DeleteLogSQL(int logId)
+        {
+            int rowsAffected;
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+
+            var cmd = new NpgsqlCommand(@$"DELETE FROM Tourlog WHERE id=@id", conn);
+
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, logId);
+
+            rowsAffected = cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
