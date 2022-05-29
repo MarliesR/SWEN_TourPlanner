@@ -6,47 +6,44 @@
         xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddTourViewModel}"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="New Tour" Height="400" Width="400">
-    <!-- <Window.DataContext>
-            <viewmodels:AddTourViewModel></viewmodels:AddTourViewModel>
-    </Window.DataContext>-->
+        Title="New Tour" Height="300" Width="400">
+   
     <Grid>
-       
-        <DockPanel Grid.Column="0">
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Add new Tour" DockPanel.Dock="left"/>
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Tour Name:" DockPanel.Dock="left"/>
-                <TextBox x:Name="TourName" DockPanel.Dock="Left" Text="{Binding TourName, Mode=TwoWay}"/>
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Start:"  DockPanel.Dock="Left"/>
-                <TextBox x:Name="TourStart"  DockPanel.Dock="Left" Text="{Binding TourStart, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Destination:"   DockPanel.Dock="Left" />
-                <TextBox x:Name="TourDestination"  DockPanel.Dock="Left" Text="{Binding TourDestination, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                
-                <Label Content="Transporttype:"  DockPanel.Dock="Left" />
-                <ComboBox Name="RouteTypes"
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Add a new tour" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Tour Name" />
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="TourName" Text="{Binding TourName, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Start"  />
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="TourStart"  Text="{Binding TourStart, Mode=TwoWay}" />
+            <Label Grid.Column="0" Grid.Row="3" Content="Destination"   />
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="TourDestination"   Text="{Binding TourDestination, Mode=TwoWay}" />
+            <Label Grid.Column="0" Grid.Row="4" Content="Transporttype"   />
+            <ComboBox Grid.Column="1" Grid.Row="4"
+                         Name="RouteTypes"
                          VerticalContentAlignment="Center"
                          ItemsSource="{Binding RouteTypes}"
                          SelectedItem="{Binding TourTransportType}">
-                </ComboBox>
-                <!--<TextBox x:Name="TourTransportType"  DockPanel.Dock="Left" Text="{Binding TourTransportType, Mode=TwoWay}" />-->
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="5" Content="Description"   />
+            <TextBox Grid.Column="1" Grid.Row="5" x:Name="TourDescription"   TextWrapping="Wrap" Text="{Binding TourDescription, Mode=TwoWay}" />
+            <DockPanel Grid.Column="1" Grid.Row="6" LastChildFill="False">
+                <Button  DockPanel.Dock="Right" Content="clear"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding ClearInputCommand}"/>
+                <Button DockPanel.Dock="Right" Content="Add Tour"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding SaveTourCommand}"/>
             </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Description:"  DockPanel.Dock="Left" />
-                <TextBox x:Name="TourDescription"  DockPanel.Dock="Left" Text="{Binding TourDescription, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button Content="Add" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding SaveTourCommand}"/>
-                <Button Content="clear" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding ClearInputCommand}"/>
-            </DockPanel>
-
-        </DockPanel>
+        </Grid>
     </Grid>
 </Window>

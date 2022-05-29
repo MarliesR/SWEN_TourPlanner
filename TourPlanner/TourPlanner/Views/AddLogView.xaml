@@ -3,49 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddLogViewModel}"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="AddLogView" Height="450" Width="800">
+        Title="Add Log" Height="400" Width="400">
     <Grid>
-        <DockPanel Grid.Column="0">
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Add new Log" DockPanel.Dock="left"/>
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Tour Name:" DockPanel.Dock="left"/>
-                <Label x:Name="TourName" DockPanel.Dock="Left" Content="{Binding TourName, Mode=TwoWay}"/>
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Date:"  DockPanel.Dock="Left"/>
-                <TextBox x:Name="Date"  DockPanel.Dock="Left" Text="{Binding LogDate, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Comment:"   DockPanel.Dock="Left" />
-                <TextBox x:Name="Comment"  DockPanel.Dock="Left" Text="{Binding LogComment, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-
-                <Label Content="Difficulty:"  DockPanel.Dock="Left" />
-                <ComboBox Name="RouteTypes"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Add a new log to the current tour" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Tour Name" />
+            <Label Grid.Column="1" Grid.Row="1" x:Name="TourName" Content="{Binding TourName, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Date"  />
+            <DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Short" SelectedDate="{Binding LogDate, Mode=TwoWay}"></DatePicker>
+            <Label Grid.Column="0" Grid.Row="3" Content="Time Total"  DockPanel.Dock="Left" />
+            <TextBox Grid.Column="1" Grid.Row="3"  x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay}" />
+            <Label Grid.Column="0" Grid.Row="4" >
+                <TextBlock TextWrapping="Wrap" Text="Rating (1 = not good, 5 = nice tour)"></TextBlock>
+            </Label>
+            <ComboBox Grid.Column="1" Grid.Row="4" 
+                            Name="RatingTypes"
+                         VerticalContentAlignment="Center"
+                         ItemsSource="{Binding RatingTypes}"
+                         SelectedItem="{Binding LogRating}">
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="5" >
+                <TextBlock TextWrapping="Wrap" Text="Difficulty (1 = easy, 5 = very hard)"></TextBlock>
+            </Label>
+            <ComboBox Grid.Column="1" Grid.Row="5" 
+                         Name="RouteTypes"
                          VerticalContentAlignment="Center"
                          ItemsSource="{Binding DifficultyTypes}"
                          SelectedItem="{Binding LogDifficulty}">
-                </ComboBox>
-                <!--<TextBox x:Name="TourTransportType"  DockPanel.Dock="Left" Text="{Binding TourTransportType, Mode=TwoWay}" />-->
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="6" Content="Comment" />
+            <TextBox Grid.Column="1" Grid.Row="6" x:Name="Comment" TextWrapping="Wrap" Text="{Binding LogComment, Mode=TwoWay}" />
+            <DockPanel Grid.Column="1" Grid.Row="7" LastChildFill="False">
+                <Button DockPanel.Dock="Right" Content="clear"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding ClearLogCommand}"/>
+                <Button DockPanel.Dock="Right" Content="Add Log"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding SaveLogCommand}"/>
             </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Time Total:"  DockPanel.Dock="Left" />
-                <TextBox x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Rating:"  DockPanel.Dock="Left" />
-                <TextBox x:Name="Rating"  DockPanel.Dock="Left" Text="{Binding LogRating, Mode=TwoWay}" />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button Content="Add" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding SaveLogCommand}"/>
-                <Button Content="clear" HorizontalAlignment="right"  VerticalAlignment="Top" Command="{Binding ClearLogCommand}"/>
-            </DockPanel>
-
-        </DockPanel>
+        </Grid>
+      
     </Grid>
 </Window>

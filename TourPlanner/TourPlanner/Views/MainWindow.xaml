@@ -90,7 +90,16 @@
             </DockPanel>
             <DataGrid Grid.Row="2" ItemsSource="{Binding LogList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"  SelectedItem="{Binding CurrentLog, Mode=TwoWay}">
                 <DataGrid.Columns>
-
+                    <DataGridTextColumn Binding="{Binding DateTime}" Header="Date">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding TotalTime}" Header="Time">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Difficulty}" Header="Difficulty">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Rating}" Header="Rating">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Comment}"  Header="Comment">
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
