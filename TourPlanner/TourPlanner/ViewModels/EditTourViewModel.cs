@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
+using TourPlanner.Library;
+using TourPlanner.ViewModels;
 
 namespace TourPlanner.ViewModels
 {
     public class EditTourViewModel : ViewModelBase
     {
-        private RelayCommand saveTourCommand;
-        public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
+        private Window currentWindow;
+        private Tour baseTour; 
+       
+        private RelayCommand editTourCommand;
+        public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
+        private RelayCommand clearInputCommand;
+        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ResetInput);
+
 
         private string tourName;
         private string tourStart;
@@ -19,6 +28,16 @@ namespace TourPlanner.ViewModels
         private string tourDescription;
         private string tourTransportType;
 
+        public EditTourViewModel(Window window, Tour tour)
+        {
+            currentWindow = window;
+            baseTour = tour;
+            TourName = tour.Name;
+            TourStart = tour.Start;
+            TourDestination = tour.Destination;
+            TourDescription = tour.Description;
+            TourTransportType = tour.TransportType;
+        }
 
 
         public String TourName //das ist der name der im binding angegeben ist im view von add tour
@@ -89,11 +108,33 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        private void SaveTour(object commandParameter)
+        private void EditTour(object commandParameter)
         {
-            TourHandler handler = new TourHandler();
-            handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
+           
+            if (string.IsNullOrEmpty(TourName))
+            {
+                MessageBox.Show("Name cannot be empty");
+                resetUserInput();
 
+            }
+            else
+            {
+                TourHandler handler = new TourHandler();
+                handler.ModifyTour(tourName, tourDescription, baseTour.Id);
+                currentWindow.Close();
+            }
+        }
+
+
+        private void ResetInput(object commandParameter)
+        {
+            resetUserInput();
+        }
+
+        private void resetUserInput()
+        {
+            TourName = baseTour.Name;
+            TourDescription = baseTour.Description;
         }
     }
 }

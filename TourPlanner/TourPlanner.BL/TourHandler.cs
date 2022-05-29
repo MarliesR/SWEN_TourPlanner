@@ -38,9 +38,10 @@ namespace TourPlanner.BL
             return tour;
         }
 
-        public void ModifyTour()
+        public void ModifyTour(string tourname, string tourdescription, int id)
         {
-
+            TourSql db = new TourSql();
+            db.UpdateTourSQL(tourname,tourdescription,id);
         }
         public bool DeleteLog(int id)
         {

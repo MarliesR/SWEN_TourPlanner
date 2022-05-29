@@ -10,19 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner.ViewModels;
+using TourPlanner.Library;
 
 namespace TourPlanner.Views
 {
     /// <summary>
-    /// Interaktionslogik für EditTourView.xaml
+    /// Interaction logic for EditTourView.xaml
     /// </summary>
-    public partial class EditTourView : Page
+    public partial class EditTourView : Window
     {
-        public EditTourView()
+        
+        public EditTourView(Tour tour)
         {
             InitializeComponent();
+            this.DataContext = new EditTourViewModel(this, tour);
         }
     }
 }

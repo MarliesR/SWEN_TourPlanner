@@ -60,8 +60,5 @@
 
         <Image Grid.Column="2" x:Name="MapImage" Source ="{Binding TourImage}" AutomationProperties.HelpText="Image"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-
-        <!--<Button Content="Edit" HorizontalAlignment="Left" Margin="100,320,0,0" VerticalAlignment="Top" Width="65" Command="{Binding EditTourCommand}"/>-->
-
     </Grid>
 </UserControl>

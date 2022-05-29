@@ -18,7 +18,7 @@ namespace TourPlanner.ViewModels
         private string tourTransportType;
         private string tourDistance;
         private string tourDuration;
-        private string tourImagePath;
+        private string tourImagePath = @"C:\SWEN_semesterproject_images\default.jpg";
 
 
         public ShowTourViewModel(Tour tour)

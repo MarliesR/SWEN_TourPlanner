@@ -24,11 +24,11 @@ namespace TourPlanner.ViewModels
         private RelayCommand refreshToursCommand1;
         public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(RefreshTours);
         private RelayCommand editTourPageCommand1;
-        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(editTourPage);
+        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         private RelayCommand showTourWindowCommand1;
         public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         private RelayCommand addLogPageCommand1;
-        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowLogWindow);
+        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
         private RelayCommand deleteTourCommand;
         public ICommand DeleteTourCommand => deleteTourCommand ??= new RelayCommand(DeleteTour);
         private RelayCommand deleteLogCommand;
@@ -97,11 +97,19 @@ namespace TourPlanner.ViewModels
 
 
 
-        private void editTourPage(object commandParameter)
+        private void EditTourWindow(object commandParameter)
         {
-            SelectedViewModel = new EditTourViewModel();
+            if(currentTour != null)
+            {
+                EditTourView newTourWindow = new EditTourView(currentTour);
+                newTourWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
 
-            // ID oder Tourdaten übergeben
+
         }
         private void LoadAllTours()
         {
@@ -139,7 +147,7 @@ namespace TourPlanner.ViewModels
             currentTour = null;
         }
 
-        private void ShowLogWindow(object commandParameter)
+        private void ShowNewLogWindow(object commandParameter)
         {
             if (currentTour != null)
             {
@@ -160,22 +168,37 @@ namespace TourPlanner.ViewModels
 
         private void DeleteTour(object commandParameter)
         {
-            TourHandler handler = new TourHandler();
-            handler.DeleteTour(currentTour.Id);
-            currentTour = null;
-            LoadAllTours();
-          
+            if(currentTour != null)
+            {
+                TourHandler handler = new TourHandler();
+                handler.DeleteTour(currentTour.Id);
+                currentTour = null;
+                SelectedViewModel = new ShowTourViewModel(currentTour);
+                LoadAllTours();
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
         }
 
 
         private void DeleteLog(object commandParameter)
         {
-            TourHandler handler = new TourHandler();
-            bool done = handler.DeleteLog(currentLog.Id);
-            if (done)
+            if(currentLog != null)
             {
-                LoadLogsCurrentTour();
+                TourHandler handler = new TourHandler();
+                bool done = handler.DeleteLog(currentLog.Id);
+                if (done)
+                {
+                    LoadLogsCurrentTour();
+                }
             }
+            else
+            {
+                MessageBox.Show("Please choose a log entry");
+            }
+
         }
     }
 }

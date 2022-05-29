@@ -91,6 +91,20 @@ namespace TourPlanner.DAL.SQL
 
         }
 
+        public void UpdateTourSQL(string tourname, string tourdescription, int id)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            var cmd = new NpgsqlCommand(@$"UPDATE Tour SET name=@name, description=@description WHERE id=@id", conn);
+
+            cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, tourname);
+            cmd.Parameters.AddWithValue("description", NpgsqlDbType.Varchar, tourdescription);
+            cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
         public List<Tour> GetToursSQL()
         {
             
