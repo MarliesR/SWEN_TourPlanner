@@ -4,8 +4,8 @@ using System.Windows.Input;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
-using TourPlanner.Logger;
 using System.Windows;
+using TourPlanner.Logger;
 
 namespace TourPlanner.ViewModels
 {
@@ -17,7 +17,7 @@ namespace TourPlanner.ViewModels
         private TourLog currentLog;
         private TourHandler handler = new TourHandler();
 
-        private static readonly log4net.ILog _logger = LogHelper.GetLogger();
+        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
 
         private RelayCommand refreshToursCommand1;
         public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(RefreshTours);

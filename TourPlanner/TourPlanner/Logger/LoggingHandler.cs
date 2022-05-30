@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace TourPlanner.BL
+namespace TourPlanner.Logger
 {
     public class LoggingHandler
     {
