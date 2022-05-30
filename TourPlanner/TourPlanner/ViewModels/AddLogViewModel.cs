@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using TourPlanner.Library;
 using TourPlanner.BL;
-using TourPlanner.ViewModels;
+using TourPlanner.Logger;
 
 namespace TourPlanner.ViewModels
 {
@@ -25,6 +25,7 @@ namespace TourPlanner.ViewModels
         private string logComment;
         private int tourid;
 
+        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
 
         public AddLogViewModel(Window window, Tour tour)
         {
@@ -155,6 +156,8 @@ namespace TourPlanner.ViewModels
             TourHandler handler = new TourHandler();
             handler.AddLog(log);
             currentWindow.Close();
+
+            _logger.Info("Added new TourLog.");
         }
     }
 }

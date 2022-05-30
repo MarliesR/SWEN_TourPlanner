@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.Library;
-using TourPlanner.ViewModels;
+using TourPlanner.Logger;
 
 namespace TourPlanner.ViewModels
 {
@@ -21,6 +17,7 @@ namespace TourPlanner.ViewModels
         private RelayCommand clearInputCommand;
         public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ResetInput);
 
+        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
 
         private string tourName;
         private string tourStart;
@@ -122,6 +119,8 @@ namespace TourPlanner.ViewModels
                 TourHandler handler = new TourHandler();
                 handler.ModifyTour(tourName, tourDescription, baseTour.Id);
                 currentWindow.Close();
+
+                _logger.Info("Edited Tour data");
             }
         }
 
@@ -135,6 +134,8 @@ namespace TourPlanner.ViewModels
         {
             TourName = baseTour.Name;
             TourDescription = baseTour.Description;
+
+            _logger.Info("Restet Tour data from edit.");
         }
     }
 }

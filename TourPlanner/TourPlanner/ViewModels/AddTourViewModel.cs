@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
-using TourPlanner.ViewModels;
+using TourPlanner.Logger;
 
 namespace TourPlanner.ViewModels
 {
@@ -14,7 +14,9 @@ namespace TourPlanner.ViewModels
         private Window currentWindow;
         private RelayCommand saveTourCommand;
         public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
-  
+
+        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+
 
         private string tourName;
         private string tourStart;
@@ -117,6 +119,8 @@ namespace TourPlanner.ViewModels
             TourHandler handler = new TourHandler();
             handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
             currentWindow.Close();
+
+            _logger.Info("Added new Tour.");
         }
 
         private RelayCommand clearInputCommand;
@@ -129,9 +133,6 @@ namespace TourPlanner.ViewModels
             TourDestination = string.Empty;
             TourDescription = string.Empty;
         }
-
-
-
 
     }
 

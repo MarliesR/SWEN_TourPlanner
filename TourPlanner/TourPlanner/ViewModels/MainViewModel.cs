@@ -107,7 +107,8 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a tour");
             }
 
-
+            _logger.Info("Edit tour with id: 123.");
+            // muss ich noch fertig schreiben 
         }
         private void LoadAllTours()
         {
@@ -120,6 +121,8 @@ namespace TourPlanner.ViewModels
                 {
                     TourList.Add(tour);
                 }
+
+                _logger.Info("All tours loaded.");
             }
         }
 
@@ -134,6 +137,8 @@ namespace TourPlanner.ViewModels
                 {
                     LogList.Add(log);
                 }
+
+                _logger.Info("Loaded TourLog of current tour.");
             }
         }
 
@@ -173,6 +178,9 @@ namespace TourPlanner.ViewModels
                 currentTour = null;
                 SelectedViewModel = new ShowTourViewModel(currentTour);
                 LoadAllTours();
+
+                _logger.Info("Delete tour with id: 123.");
+                // todo
             }
             else
             {
@@ -191,6 +199,8 @@ namespace TourPlanner.ViewModels
                 {
                     LoadLogsCurrentTour();
                 }
+
+                _logger.Info("Deleted TourLog.");
             }
             else
             {
@@ -206,6 +216,8 @@ namespace TourPlanner.ViewModels
             {
                 EditLogView editLogWindow = new EditLogView(currentLog, currentTour.Name);
                 editLogWindow.Show();
+
+                _logger.Info("Edit current TourLog.");
             }
             else
             {

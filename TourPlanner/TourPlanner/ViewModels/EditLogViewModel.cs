@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.Library;
-using TourPlanner.ViewModels;
+using TourPlanner.Logger;
 
 namespace TourPlanner.ViewModels
 {
@@ -33,7 +29,7 @@ namespace TourPlanner.ViewModels
         private RelayCommand resetLogCommand;
         public ICommand ResetLogCommand => resetLogCommand ??= new RelayCommand(ResetLog);
 
-
+        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
 
 
         public EditLogViewModel(Window window, TourLog log, string tourname)
@@ -154,6 +150,8 @@ namespace TourPlanner.ViewModels
             LogRating = baseLog.Rating;
             LogDifficulty = baseLog.Difficulty;
             LogComment = baseLog.Comment;
+
+            _logger.Info("Restet TourLog data from edit.");
         }
 
 
@@ -164,6 +162,8 @@ namespace TourPlanner.ViewModels
             TourHandler handler = new TourHandler();
             handler.ModifyLogEntry(modifiedLog);
             currentWindow.Close();
+
+            _logger.Info("Edited TourLog data.");
         }
 
         
