@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
+using TourPlanner.Logger;
 using System.Windows;
 
 namespace TourPlanner.ViewModels
@@ -20,6 +16,8 @@ namespace TourPlanner.ViewModels
         private Tour currentTour;
         private TourLog currentLog;
         private TourHandler handler = new TourHandler();
+
+        private static readonly log4net.ILog _logger = LogHelper.GetLogger();
 
         private RelayCommand refreshToursCommand1;
         public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(RefreshTours);
@@ -36,8 +34,6 @@ namespace TourPlanner.ViewModels
 
         private RelayCommand editLogCommand;
         public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
-
-
 
 
         public MainViewModel()

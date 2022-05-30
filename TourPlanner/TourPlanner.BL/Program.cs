@@ -12,3 +12,6 @@ namespace TourPlanner.BL
         }
     }
 }
+
+// wird das noch gebraucht? 
+// sollte am ende entfernt werden können
