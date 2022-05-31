@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         xmlns:views ="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="500" Width="800">
+        Title="Tour-Planner" Height="500" Width="800" MinHeight="450" MinWidth="650">
     
     
     <Window.DataContext>
