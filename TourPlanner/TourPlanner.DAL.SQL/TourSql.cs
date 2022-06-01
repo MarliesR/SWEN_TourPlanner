@@ -208,7 +208,6 @@ namespace TourPlanner.DAL.SQL
                         avg = reader.GetTimeSpan(reader.GetOrdinal("avg"));
                     }
                 }
-               
             }
             conn.Close();
             return avg;

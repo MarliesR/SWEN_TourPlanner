@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TourPlanner.Library;
 using TourPlanner.DAL.Mapquest;
 using TourPlanner.DAL.SQL;
+using System.Collections.ObjectModel;
 
 namespace TourPlanner.BL
 {
@@ -70,11 +71,12 @@ namespace TourPlanner.BL
             return popularity;
         }
 
-        public void GenerateTourReport(int id)
+        public void GenerateTourReport(Tour tour, ObservableCollection<TourLog> loglist)
         {
             PDFGenerator report = new PDFGenerator();
-            TourSql db = new TourSql();
-            Tour tour = db.GetTourSQL(id);
+            report.TourReport(tour, loglist);
+
+            
             //get tour logs from single tour
             //List <TourLog>
             //report.TourReport(tour,);

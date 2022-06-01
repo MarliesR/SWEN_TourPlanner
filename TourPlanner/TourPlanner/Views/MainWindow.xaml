@@ -43,7 +43,7 @@
 
         <DockPanel Grid.Column="1" LastChildFill="True" Background="AliceBlue">
 
-            <Button Content="Report Tours" DockPanel.Dock="Right"  >
+            <Button Content="Report Tours" DockPanel.Dock="Right"  Command="{Binding genereateReportCommand}" >
             </Button>
             <Button Content="Summary Report Tours" DockPanel.Dock="Right" >
             </Button>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
@@ -37,6 +38,9 @@ namespace TourPlanner.ViewModels
 
         private RelayCommand editLogCommand;
         public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
+
+        private RelayCommand genereateReportCommand1;
+        public ICommand genereateReportCommand => genereateReportCommand1 ??= new RelayCommand(genereateReport);
 
 
         public MainViewModel()
@@ -226,6 +230,22 @@ namespace TourPlanner.ViewModels
             {
                 MessageBox.Show("Please choose a log entry");
             }
+        }
+
+        private void genereateReport(object commandParameter)
+        {
+            if (currentTour != null)
+            {
+                TourHandler handler = new TourHandler();
+                handler.GenerateTourReport(currentTour, LogList);
+                MessageBox.Show("Report Generated");
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
+            
+            
         }
     }
 }
