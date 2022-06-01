@@ -58,7 +58,9 @@ namespace TourPlanner.BL
         public void DeleteTour(int id)
         {
             TourSql db = new TourSql();
+            LogSql dbs = new LogSql();
             db.DeleteTourSQL(id);
+            dbs.DeleteAllLogsOfTourSQL(id);
         }
 
         public void GenerateTourReport(int id)
