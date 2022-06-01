@@ -37,7 +37,8 @@ namespace TourPlanner.ViewModels
                 tourDuration = tour.Duration.ToString();
                 tourTransportType = tour.TransportType;
                 tourImagePath = tour.Image;
-                tourPopularity = ComputeTourPopularity(tour.Id); 
+                tourPopularity = ComputeTourPopularity(tour.Id);
+                tourChildFriendlyness = ComputeTourChildFriendlyness(tour);
             }
         }
 
@@ -51,6 +52,13 @@ namespace TourPlanner.ViewModels
             }
             string popularityText = "Place Nr." + popularity.ToString();
             return popularityText;
+        }
+
+        private string ComputeTourChildFriendlyness(Tour tour)
+        {
+            TourHandler handler = new TourHandler();
+            string friendlyness = handler.GetTourChildFriendlyness(tour);
+            return friendlyness;
         }
 
         public String TourName

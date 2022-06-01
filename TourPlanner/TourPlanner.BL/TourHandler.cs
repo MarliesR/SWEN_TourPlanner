@@ -102,5 +102,26 @@ namespace TourPlanner.BL
 
         }
 
+        public string GetTourChildFriendlyness(Tour tour)
+        {
+            string childFriendly = "Child friendly Route!";
+            string notChildFriendly = "Not a Child friendly Route!";
+
+            TourSql db = new TourSql();
+            double difficultyAVG = db.GetDifficultyAverage(tour.Id);
+            TimeSpan totalTimeAVG = db.GetTimeTotalAverage(tour.Id); //default 00:00
+
+
+            int limitDifficulty = 2;
+            TimeSpan limitTime = TimeSpan.Parse("03:00"); //3 stunden ist grenze von der zeit
+            int limitDistance = 300; //300km grenze
+
+            if(difficultyAVG > limitDifficulty) { return notChildFriendly; };
+            if(totalTimeAVG > limitTime) { return notChildFriendly; };
+            if(tour.Distance > limitDistance) { return notChildFriendly; }
+
+            return childFriendly;
+        }
+
     }
 }

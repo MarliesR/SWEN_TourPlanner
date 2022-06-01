@@ -181,9 +181,34 @@ namespace TourPlanner.DAL.SQL
             {
                 while (reader.Read())
                 {
-                     avg = reader.GetInt32(reader.GetOrdinal("avg"));
-                   
+                    if (!Convert.IsDBNull(reader["avg"]))
+                    {
+                        avg = reader.GetInt32(reader.GetOrdinal("avg"));
+                    }
                 }
+            }
+            conn.Close();
+            return avg;
+        }
+
+        public TimeSpan GetTimeTotalAverage(int id)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            TimeSpan avg = TimeSpan.Parse("00:00");
+            using var cmd = new NpgsqlCommand("SELECT AVG(totaltime) FROM tourlog WHERE tourid = @tourid;", conn);
+            cmd.Parameters.AddWithValue("tourid", NpgsqlDbType.Integer, id);
+            var reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    if (!Convert.IsDBNull(reader["avg"]))
+                    {
+                        avg = reader.GetTimeSpan(reader.GetOrdinal("avg"));
+                    }
+                }
+               
             }
             conn.Close();
             return avg;
