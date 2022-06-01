@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.Library;
 using TourPlanner.Logger;
+using log4net;
 
 namespace TourPlanner.ViewModels
 {
@@ -29,7 +30,9 @@ namespace TourPlanner.ViewModels
         private RelayCommand resetLogCommand;
         public ICommand ResetLogCommand => resetLogCommand ??= new RelayCommand(ResetLog);
 
-        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
 
         public EditLogViewModel(Window window, TourLog log, string tourname)

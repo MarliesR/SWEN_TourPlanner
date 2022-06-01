@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.Logger;
+using log4net;
 
 namespace TourPlanner.ViewModels
 {
@@ -15,7 +16,9 @@ namespace TourPlanner.ViewModels
         private RelayCommand saveTourCommand;
         public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
 
-        private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
 
         private string tourName;
