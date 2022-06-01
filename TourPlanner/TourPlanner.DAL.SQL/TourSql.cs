@@ -143,34 +143,29 @@ namespace TourPlanner.DAL.SQL
             return tourlist;
         }
 
-        public List<int> GetTourPoularitySQL(int id)
+        public int GetTourPoularitySQL(int id)
         {
-
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
-            List<int> popularityList = new();
-
-            using var cmd = new NpgsqlCommand("SELECT tourid, count(id) FROM tourlog GROUP BY tourid ORDER BY COUNT(id) DESC; ", conn);
+            int popularityRate = 0;
+            using var cmd = new NpgsqlCommand("SELECT tourid, RANK() OVER(Order by COUNT(id) DESC) popularity FROM tourlog GROUP BY tourid; ", conn);
             var reader = cmd.ExecuteReader();
 
-            if (!reader.HasRows)
-            {
-                return null;
-            }
-            else
+            if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     var tourid = reader.GetInt32(reader.GetOrdinal("tourid"));
-                    var countid = reader.GetString(reader.GetOrdinal("id"));
-                    popularityList.Add(tourid);
-                    
-                    
+                    var popularity = reader.GetInt32(reader.GetOrdinal("popularity"));
+                    if (tourid.Equals(id))
+                    {
+                        popularityRate = popularity;
+                    }
                 }
             }
-            //hier weitermachen
+         
             conn.Close();
-            return popularityList;
+            return popularityRate;
         }
     }
 }

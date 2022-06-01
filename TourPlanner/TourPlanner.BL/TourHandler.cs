@@ -63,6 +63,13 @@ namespace TourPlanner.BL
             dbs.DeleteAllLogsOfTourSQL(id);
         }
 
+        public int GetTourPopularity(int id)
+        {
+            TourSql db = new TourSql();
+            int popularity = db.GetTourPoularitySQL(id);
+            return popularity;
+        }
+
         public void GenerateTourReport(int id)
         {
             PDFGenerator report = new PDFGenerator();

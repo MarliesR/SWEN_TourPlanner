@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner.ViewModels;
 using TourPlanner.Library;
+using TourPlanner.BL;
 
 namespace TourPlanner.ViewModels
 {
     public class ShowTourViewModel : ViewModelBase
     {
+      
         private string tourName;
         private string tourStart;
         private string tourDestination;
@@ -18,6 +20,8 @@ namespace TourPlanner.ViewModels
         private string tourTransportType;
         private string tourDistance;
         private string tourDuration;
+        private string tourPopularity;
+        private string tourChildFriendlyness;
         private string tourImagePath = @"C:\SWEN_semesterproject_images\default.jpg";
 
 
@@ -33,8 +37,19 @@ namespace TourPlanner.ViewModels
                 tourDuration = tour.Duration.ToString();
                 tourTransportType = tour.TransportType;
                 tourImagePath = tour.Image;
-
+                tourPopularity = ComputeTourPopularity(tour.Id); 
             }
+        }
+
+        private string ComputeTourPopularity(int id)
+        {
+            TourHandler handler = new TourHandler();
+            int popularity = handler.GetTourPopularity(id);
+            if (popularity == 0)
+            {
+                return "No logs have been added";
+            }
+            return popularity.ToString();
         }
 
         public String TourName 
@@ -46,6 +61,32 @@ namespace TourPlanner.ViewModels
                 {
                     tourName = value;
                     RaisePropertyChangedEvent(nameof(TourName));
+                }
+            }
+        }
+
+        public String TourPopularity
+        {
+            get => tourPopularity;
+            set
+            {
+                if (tourPopularity != value)
+                {
+                    tourPopularity = value;
+                    RaisePropertyChangedEvent(nameof(TourPopularity));
+                }
+            }
+        }
+
+        public String TourChildFriendlyness
+        {
+            get => tourChildFriendlyness;
+            set
+            {
+                if (tourChildFriendlyness != value)
+                {
+                    tourChildFriendlyness = value;
+                    RaisePropertyChangedEvent(nameof(TourChildFriendlyness));
                 }
             }
         }
@@ -145,12 +186,6 @@ namespace TourPlanner.ViewModels
         }
 
 
-        //private RelayCommand editTourCommand;
-        //public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
-
-        //private void EditTour(object commandParameter)
-        //{
-
-        //}
+       
     }
 }
