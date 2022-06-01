@@ -49,10 +49,11 @@ namespace TourPlanner.ViewModels
             {
                 return "No logs have been added";
             }
-            return popularity.ToString();
+            string popularityText = "Place Nr." + popularity.ToString();
+            return popularityText;
         }
 
-        public String TourName 
+        public String TourName
         {
             get => tourName;
             set

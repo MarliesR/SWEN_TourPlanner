@@ -32,7 +32,7 @@ namespace TourPlanner.DAL.SQL
                 cmd.Parameters.AddWithValue("name", NpgsqlDbType.Varchar, TourData.Name);
                 cmd.Parameters.AddWithValue("description", NpgsqlDbType.Text, TourData.Description);
                 cmd.Parameters.AddWithValue("start", NpgsqlDbType.Varchar, TourData.Start);
-                cmd.Parameters.AddWithValue("distance", NpgsqlDbType.Integer, TourData.Distance);
+                cmd.Parameters.AddWithValue("distance", NpgsqlDbType.Double, TourData.Distance);
                 cmd.Parameters.AddWithValue("destination", NpgsqlDbType.Varchar, TourData.Destination);
                 cmd.Parameters.AddWithValue("transport", NpgsqlDbType.Varchar, TourData.TransportType);
                 cmd.Parameters.AddWithValue("duration", NpgsqlDbType.Varchar, TourData.Duration);
@@ -130,7 +130,7 @@ namespace TourPlanner.DAL.SQL
                     var start = reader.GetString(reader.GetOrdinal("start"));
                     var destination = reader.GetString(reader.GetOrdinal("destination"));
                     var transportType = reader.GetString(reader.GetOrdinal("transport"));
-                    var distance = reader.GetInt32(reader.GetOrdinal("distance"));
+                    var distance = reader.GetDouble(reader.GetOrdinal("distance"));
                     var duration = reader.GetString(reader.GetOrdinal("duration"));
                     var image = reader.GetString(reader.GetOrdinal("image"));
 
@@ -166,6 +166,27 @@ namespace TourPlanner.DAL.SQL
          
             conn.Close();
             return popularityRate;
+        }
+
+        public double GetDifficultyAverage(int id)
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            double avg = 0;
+            using var cmd = new NpgsqlCommand("SELECT AVG(difficulty) FROM tourlog WHERE tourid = @tourid;", conn);
+            cmd.Parameters.AddWithValue("tourid", NpgsqlDbType.Integer, id);
+            var reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                     avg = reader.GetInt32(reader.GetOrdinal("avg"));
+                   
+                }
+            }
+            conn.Close();
+            return avg;
         }
     }
 }

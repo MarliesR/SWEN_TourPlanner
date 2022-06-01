@@ -19,7 +19,7 @@ namespace TourPlanner.BL
         {
            
             Mapquest mapquest = new Mapquest(start, destination,transporttype);
-            int distance = mapquest.GetDistance();
+            double distance = mapquest.GetDistance();
             string imagePath = mapquest.GetImage();
             string duration = mapquest.GetTime();
             TourSql db = new TourSql();

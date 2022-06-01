@@ -9,12 +9,12 @@ namespace TourPlanner.Library
         public string Start { get; set; }
         public string Destination { get; set; }
         public string TransportType { get; set; }
-        public int Distance { get; set; } //von MApquest
+        public double Distance { get; set; } //von MApquest
         public string Description { get; set; }
         public string Duration { get; set; } //von Mapquest
         public string Image { get; set; } //von Mapquest
 
-        public Tour(string name, string start, string destination, string transporttype, int distance, string description, string duration, string image)
+        public Tour(string name, string start, string destination, string transporttype, double distance, string description, string duration, string image)
         {
             Name = name;
             Start = start;

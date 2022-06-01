@@ -23,7 +23,7 @@ namespace TourPlanner.ViewModels
         private string logComment;
         private string defaultTourname;
         private TourLog baseLog;
-
+        TimeSpan convertedTotalTime;
 
         private RelayCommand saveLogCommand;
         public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveEditedLog);
@@ -149,7 +149,7 @@ namespace TourPlanner.ViewModels
         {
             TourName = defaultTourname;
             LogDate = baseLog.DateTime;
-            LogTimeTotal = baseLog.TotalTime;
+            LogTimeTotal = baseLog.TotalTime.ToString();
             LogRating = baseLog.Rating;
             LogDifficulty = baseLog.Difficulty;
             LogComment = baseLog.Comment;
@@ -160,7 +160,12 @@ namespace TourPlanner.ViewModels
 
         private void SaveEditedLog(object commandParameter)
         {
-            TourLog modifiedLog = new TourLog(baseLog.TourId, LogDate, LogComment, LogDifficulty, LogTimeTotal, LogRating);
+            if (!ConvertTimeInput(LogTimeTotal))
+            {
+                _logger.Info("Added new TourLog failed.");
+                return;
+            }
+            TourLog modifiedLog = new TourLog(baseLog.TourId, LogDate, LogComment, LogDifficulty, convertedTotalTime, LogRating);
             modifiedLog.Id = baseLog.Id;
             TourHandler handler = new TourHandler();
             handler.ModifyLogEntry(modifiedLog);
@@ -173,6 +178,26 @@ namespace TourPlanner.ViewModels
         private void ResetLog(object commandParameter)
         {
             ResetDefaultLogValues();
+        }
+
+        private bool ConvertTimeInput(string logTimeTotal)
+        {
+            TimeSpan ts;
+            try
+            {
+                ts = TimeSpan.Parse(logTimeTotal);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (OverflowException)
+            {
+                return false;
+            }
+            convertedTotalTime = ts;
+            return true;
+
         }
     }
 }

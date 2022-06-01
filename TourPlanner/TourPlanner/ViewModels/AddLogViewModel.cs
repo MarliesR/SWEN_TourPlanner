@@ -18,13 +18,14 @@ namespace TourPlanner.ViewModels
         private Window currentWindow;
         private string tourName;
         private string logDate;
-        private string logTimeTotal = "00:00";
+        private string logTimeTotal = "hh:mm";
         private int logRating = 1;
         public ObservableCollection<int> RatingTypes { get; set; }
         private int logDifficulty = 1;
         public ObservableCollection<int> DifficultyTypes { get; set; }
         private string logComment;
         private int tourid;
+        TimeSpan convertedTotalTime;
 
         //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -148,7 +149,7 @@ namespace TourPlanner.ViewModels
             LogComment = string.Empty;
             LogDifficulty = 1;
             LogRating = 1;
-            LogTimeTotal = "00:00";
+            LogTimeTotal = "hh:mm";
         }
 
         private RelayCommand saveLogCommand;
@@ -159,7 +160,12 @@ namespace TourPlanner.ViewModels
         private void SaveLog(object commandParameter)
         {
 
-            TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, logTimeTotal, logRating);
+           if (!ConvertTimeInput(logTimeTotal))
+            {
+                _logger.Info("Added new TourLog failed.");
+                return;
+            }
+            TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, convertedTotalTime, logRating);
             TourHandler handler = new TourHandler();
             handler.AddLog(log);
             currentWindow.Close();
@@ -171,6 +177,27 @@ namespace TourPlanner.ViewModels
         {
             DateTime today = DateTime.Now;
             return today.ToString(); 
+
+        }
+
+        private bool ConvertTimeInput(string logTimeTotal)
+        {
+            TimeSpan ts;
+            try
+            {
+                 ts = TimeSpan.Parse(logTimeTotal);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (OverflowException)
+            {
+                return false;
+            }
+
+            convertedTotalTime = ts;
+            return true;
 
         }
     }

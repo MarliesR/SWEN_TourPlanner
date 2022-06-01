@@ -35,7 +35,7 @@ namespace TourPlanner.DAL.Mapquest
         public bool hasTollRoad { get; set; }
         public bool hasBridge { get; set; }
         public Boundingbox boundingBox { get; set; }
-        public float distance { get; set; }
+        public double distance { get; set; }
         public bool hasTimedRestriction { get; set; }
         public bool hasTunnel { get; set; }
         public bool hasHighway { get; set; }

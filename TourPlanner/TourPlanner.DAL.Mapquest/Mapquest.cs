@@ -181,14 +181,15 @@ namespace TourPlanner.DAL.Mapquest
 
         }
 
-        public int GetDistance()
+        public double GetDistance()
         {
             if(directionsData is null)
             {
                 return 0;
             }
-            double km = (int)directionsData.route.distance / 0.62137;
-            return (int)km;
+            double km = directionsData.route.distance / 0.62137;
+            double roundedValue = Math.Round(km, 2);
+            return roundedValue;
 
         }
 

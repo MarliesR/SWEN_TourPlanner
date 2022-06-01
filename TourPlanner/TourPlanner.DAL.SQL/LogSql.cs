@@ -44,11 +44,11 @@ namespace TourPlanner.DAL.SQL
                     var datetime = reader.GetString(reader.GetOrdinal("datetime"));
                     var comment = reader.GetString(reader.GetOrdinal("comment"));
                     var difficulty = reader.GetInt32(reader.GetOrdinal("difficulty"));
-                    var totaltime = reader.GetString(reader.GetOrdinal("totaltime"));
+                    var totaltime = reader.GetTimeSpan(reader.GetOrdinal("totaltime"));
                     var rating = reader.GetInt32(reader.GetOrdinal("rating"));
             
 
-                    TourLog logData = new TourLog(tourid, datetime.ToString(), comment, difficulty, totaltime.ToString(), rating);
+                    TourLog logData = new TourLog(tourid, datetime.ToString(), comment, difficulty, totaltime , rating);
                     logData.Id = id;
                     loglist.Add(logData);
                 }
@@ -69,7 +69,7 @@ namespace TourPlanner.DAL.SQL
             cmd.Parameters.AddWithValue("datetime", NpgsqlDbType.Varchar, log.DateTime);
             cmd.Parameters.AddWithValue("comment", NpgsqlDbType.Varchar, log.Comment);
             cmd.Parameters.AddWithValue("difficulty", NpgsqlDbType.Integer, log.Difficulty);
-            cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Varchar, log.TotalTime);
+            cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Interval, log.TotalTime);
             cmd.Parameters.AddWithValue("rating", NpgsqlDbType.Integer, log.Rating);
            
 
@@ -124,7 +124,7 @@ namespace TourPlanner.DAL.SQL
             cmd.Parameters.AddWithValue("datetime", NpgsqlDbType.Varchar, log.DateTime);
             cmd.Parameters.AddWithValue("comment", NpgsqlDbType.Varchar, log.Comment);
             cmd.Parameters.AddWithValue("difficulty", NpgsqlDbType.Integer, log.Difficulty);
-            cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Varchar, log.TotalTime);
+            cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Interval, log.TotalTime);
             cmd.Parameters.AddWithValue("rating", NpgsqlDbType.Integer, log.Rating);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Integer, log.Id);
 

@@ -92,7 +92,7 @@ namespace TourPlanner.DAL.SQL
                         start character varying(40),
                         destination character varying(40),
                         transport character varying(40),
-                        distance integer,
+                        distance double precision,
                         duration character varying(40),
                         image character varying,
                         PRIMARY KEY (id)
@@ -114,7 +114,7 @@ namespace TourPlanner.DAL.SQL
                         datetime character varying,
                         comment text,
                         difficulty integer,
-                        totaltime character varying,
+                        totaltime interval,
                         rating integer,
                         PRIMARY KEY (id)
                     )", conn))
