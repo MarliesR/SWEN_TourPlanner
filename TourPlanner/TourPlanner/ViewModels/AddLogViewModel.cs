@@ -16,7 +16,7 @@ namespace TourPlanner.ViewModels
     {
         private Window currentWindow;
         private string tourName;
-        private string logDate = "2022-01-01";
+        private string logDate;
         private string logTimeTotal = "00:00";
         private int logRating = 1;
         public ObservableCollection<int> RatingTypes { get; set; }
@@ -29,6 +29,7 @@ namespace TourPlanner.ViewModels
 
         public AddLogViewModel(Window window, Tour tour)
         {
+            LogDate = GetCurrentTimestamp();
             currentWindow = window;
             tourName = tour.Name;
             tourid = tour.Id;
@@ -140,7 +141,7 @@ namespace TourPlanner.ViewModels
 
         private void ClearLog(object commandParameter)
         {
-            LogDate = "2022-01-01";
+            LogDate = GetCurrentTimestamp();
             LogComment = string.Empty;
             LogDifficulty = 1;
             LogRating = 1;
@@ -150,14 +151,24 @@ namespace TourPlanner.ViewModels
         private RelayCommand saveLogCommand;
         public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveLog);
 
+        
+
         private void SaveLog(object commandParameter)
         {
+
             TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, logTimeTotal, logRating);
             TourHandler handler = new TourHandler();
             handler.AddLog(log);
             currentWindow.Close();
 
             _logger.Info("Added new TourLog.");
+        }
+
+        private string GetCurrentTimestamp()
+        {
+            DateTime today = DateTime.Now;
+            return today.ToString(); 
+
         }
     }
 }

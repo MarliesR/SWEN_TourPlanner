@@ -27,7 +27,8 @@
             <Label Grid.Column="0" Grid.Row="1" Content="Tour Name" />
             <Label Grid.Column="1" Grid.Row="1" x:Name="TourName" Content="{Binding TourName, Mode=TwoWay}"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Date"  />
-            <DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Short" SelectedDate="{Binding LogDate, Mode=TwoWay}"></DatePicker>
+            <Label Grid.Column="1" Grid.Row="2"  Content="{Binding LogDate, Mode=TwoWay}"  />
+            <!--<DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Short" SelectedDate="{Binding LogDate, Mode=TwoWay}"></DatePicker>-->
             <Label Grid.Column="0" Grid.Row="3" Content="Time Total"  DockPanel.Dock="Left" />
             <TextBox Grid.Column="1" Grid.Row="3"  x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay}" />
             <Label Grid.Column="0" Grid.Row="4" >
