@@ -11,26 +11,28 @@ namespace TourPlanner.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
-
+        
+        private ITourPlannerFactory tourPlannerFactory;
         private Window currentWindow;
-        private RelayCommand saveTourCommand;
-        public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
-
         //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
-
 
         private string tourName;
         private string tourStart;
         private string tourDestination;
         private string tourDescription;
         private string tourTransportType = "fastest";
-     
         public ObservableCollection<string> RouteTypes { get; set; }
+
+        private RelayCommand saveTourCommand;
+        private RelayCommand clearInputCommand;
+        public ICommand SaveTourCommand => saveTourCommand ??= new RelayCommand(SaveTour);
+        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ClearInput);
+
 
         public AddTourViewModel(Window window)
         {
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             currentWindow = window;
             RouteTypes = new ObservableCollection<string>();
             InitialiseRouteTypes();
@@ -119,11 +121,8 @@ namespace TourPlanner.ViewModels
 
         private void SaveTour(object commandParameter)
         {
-            TourHandler handler = new TourHandler();
-            bool toursaved = handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
-            if (toursaved)
+            if (tourPlannerFactory.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription))
             {
-                
                 currentWindow.DialogResult = true;
                 currentWindow.Close();
                 _logger.Info("Added new Tour.");
@@ -135,8 +134,6 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        private RelayCommand clearInputCommand;
-        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ClearInput);
 
         private void ClearInput(object commandParameter)
         {

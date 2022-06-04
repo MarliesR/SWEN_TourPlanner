@@ -15,7 +15,11 @@ namespace TourPlanner.ViewModels
 {
     public class AddLogViewModel : ViewModelBase
     {
+        private ITourPlannerFactory tourPlannerFactory;
         private Window currentWindow;
+        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private string tourName;
         private string logDate;
         private string logTimeTotal = "hh:mm";
@@ -27,12 +31,15 @@ namespace TourPlanner.ViewModels
         private int tourid;
         TimeSpan convertedTotalTime;
 
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
-        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private RelayCommand clearLogCommand;
+        private RelayCommand saveLogCommand;
+        public ICommand ClearLogCommand => clearLogCommand ??= new RelayCommand(ClearLog);
+        public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveLog);
 
 
         public AddLogViewModel(Window window, Tour tour)
         {
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             LogDate = GetCurrentTimestamp();
             currentWindow = window;
             tourName = tour.Name;
@@ -140,9 +147,6 @@ namespace TourPlanner.ViewModels
 
 
 
-        private RelayCommand clearLogCommand;
-        public ICommand ClearLogCommand => clearLogCommand ??= new RelayCommand(ClearLog);
-
         private void ClearLog(object commandParameter)
         {
             LogDate = GetCurrentTimestamp();
@@ -152,10 +156,6 @@ namespace TourPlanner.ViewModels
             LogTimeTotal = "hh:mm";
         }
 
-        private RelayCommand saveLogCommand;
-        public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveLog);
-
-        
 
         private void SaveLog(object commandParameter)
         {
@@ -166,8 +166,7 @@ namespace TourPlanner.ViewModels
                 return;
             }
             TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, convertedTotalTime, logRating);
-            TourHandler handler = new TourHandler();
-            handler.AddLog(log);
+            tourPlannerFactory.AddLog(log);
             currentWindow.DialogResult = true;
             currentWindow.Close();
 

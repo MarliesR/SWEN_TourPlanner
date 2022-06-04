@@ -10,26 +10,30 @@ namespace TourPlanner.ViewModels
 {
     public class EditTourViewModel : ViewModelBase
     {
-        private Window currentWindow;
-        private Tour baseTour; 
-       
-        private RelayCommand editTourCommand;
-        public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
-        private RelayCommand clearInputCommand;
-        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ResetInput);
 
+        private ITourPlannerFactory tourPlannerFactory;
+        private Window currentWindow;
         //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-
+        
+        private Tour baseTour; 
         private string tourName;
         private string tourStart;
         private string tourDestination;
         private string tourDescription;
         private string tourTransportType;
 
+        private RelayCommand editTourCommand;
+        private RelayCommand clearInputCommand;
+        public ICommand EditTourCommand => editTourCommand ??= new RelayCommand(EditTour);
+        public ICommand ClearInputCommand => clearInputCommand ??= new RelayCommand(ResetInput);
+
+
+
+
         public EditTourViewModel(Window window, Tour tour)
         {
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             currentWindow = window;
             baseTour = tour;
             TourName = tour.Name;
@@ -119,8 +123,7 @@ namespace TourPlanner.ViewModels
             }
             else
             {
-                TourHandler handler = new TourHandler();
-                handler.ModifyTour(tourName, tourDescription, baseTour.Id);
+                this.tourPlannerFactory.ModifyTour(tourName, tourDescription, baseTour.Id);
                 currentWindow.DialogResult = true;
                 currentWindow.Close();
 

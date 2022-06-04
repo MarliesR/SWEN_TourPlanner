@@ -7,12 +7,16 @@ namespace TourPlanner.UnitTests
 {
     public class TourHandlerTest
     {
-        TourHandler TourTest = new TourHandler();
+        ITourPlannerFactory tourPlannerFactory = TourPlannerFactory.GetInstance();
 
         [Fact]
         public void AddTourTest()
         {
             // problem mit db, schreibt in db soll aber nicht
+
+
+            //tourPlannerFactory.AddTour()
+
 
             //string name = "abc";
             //string start = "hier";

@@ -11,7 +11,10 @@ namespace TourPlanner.ViewModels
 {
     public class EditLogViewModel : ViewModelBase
     {
+        private ITourPlannerFactory tourPlannerFactory;
         private Window currentWindow;
+        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private string tourName;
         private string logDate;
@@ -26,17 +29,16 @@ namespace TourPlanner.ViewModels
         TimeSpan convertedTotalTime;
 
         private RelayCommand saveLogCommand;
-        public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveEditedLog);
         private RelayCommand resetLogCommand;
+        public ICommand SaveLogCommand => saveLogCommand ??= new RelayCommand(SaveEditedLog);
         public ICommand ResetLogCommand => resetLogCommand ??= new RelayCommand(ResetLog);
 
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
-        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
 
         public EditLogViewModel(Window window, TourLog log, string tourname)
         {
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             currentWindow = window;
             defaultTourname = tourname;
             baseLog = log;
@@ -45,9 +47,6 @@ namespace TourPlanner.ViewModels
             initializeRatingTypes();
             initializeDifficultyTypes();
             ResetDefaultLogValues();
-
-
-
         }
 
         private void initializeRatingTypes()
@@ -167,8 +166,7 @@ namespace TourPlanner.ViewModels
             }
             TourLog modifiedLog = new TourLog(baseLog.TourId, LogDate, LogComment, LogDifficulty, convertedTotalTime, LogRating);
             modifiedLog.Id = baseLog.Id;
-            TourHandler handler = new TourHandler();
-            handler.ModifyLogEntry(modifiedLog);
+            this.tourPlannerFactory.ModifyLogEntry(modifiedLog);
             currentWindow.DialogResult = true;
             currentWindow.Close();
 

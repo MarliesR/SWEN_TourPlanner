@@ -6,6 +6,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,10 +22,11 @@ namespace TourPlanner.BL
 {
     public class PDFGenerator
     {
-        
+        private string folderPath;
         public PDFGenerator()
         {
-
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsetting.json", false, true).Build();
+            folderPath = config["Folderpath:PDF"];
         }
 
         public void SummarizeReport()
@@ -137,7 +139,7 @@ namespace TourPlanner.BL
 
         public string GetPDFFilePath(string tourname)
         {
-            string folderPath = ConfigurationManager.AppSettings["PDFFolderPath"];
+            
             string filename = tourname + DateTime.Now.ToString("ffff") + ".pdf";
 
             try

@@ -6,13 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\TourPlanner\appsetting.json" Link="appsetting.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\TourPlanner\App.config" Link="App.config" />
+    <Content Include="..\TourPlanner\appsetting.json" Link="appsetting.json" />
   </ItemGroup>
 
   <ItemGroup>

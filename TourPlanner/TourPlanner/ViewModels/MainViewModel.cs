@@ -1,57 +1,54 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
 using System.Windows;
 using TourPlanner.Logger;
 using log4net;
-using System;
+
 
 namespace TourPlanner.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private ITourPlannerFactory tourPlannerFactory; 
+        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public ObservableCollection<Tour> TourList { get; set; }
         public ObservableCollection<TourLog> LogList { get; set; }
         private Tour currentTour;
         private TourLog currentLog;
-        private TourHandler handler = new TourHandler();
+        public object selectedViewModel; 
 
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
-        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private RelayCommand editTourPageCommand1;
-        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         private RelayCommand showTourWindowCommand1;
-        public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         private RelayCommand addLogPageCommand1;
-        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
         private RelayCommand deleteTourCommand;
-        public ICommand DeleteTourCommand => deleteTourCommand ??= new RelayCommand(DeleteTour);
         private RelayCommand deleteLogCommand;
-        public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
-
         private RelayCommand editLogCommand;
-        public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
-
         private RelayCommand genereateReportCommand1;
+        public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
+        public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
+        public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
+        public ICommand DeleteTourCommand => deleteTourCommand ??= new RelayCommand(DeleteTour);
+        public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
+        public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
         public ICommand genereateReportCommand => genereateReportCommand1 ??= new RelayCommand(genereateReport);
-
 
         public MainViewModel()
         {
-            handler.InitialiseDB();
-            SelectedViewModel = new ShowTourViewModel(currentTour);
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             TourList = new ObservableCollection<Tour>();
             LogList = new ObservableCollection<TourLog>();
-            
+          
+            SelectedViewModel = new ShowTourViewModel(currentTour);
             LoadAllTours();
         }
 
-        public object selectedViewModel; 
         public object SelectedViewModel  
         {
             get => selectedViewModel;
@@ -99,10 +96,9 @@ namespace TourPlanner.ViewModels
         }
 
 
-
         private void EditTourWindow(object commandParameter)
         {
-            if(currentTour != null)
+            if (currentTour != null)
             {
                 EditTourView newTourWindow = new EditTourView(currentTour);
                 bool? dialogResult = newTourWindow.ShowDialog();
@@ -119,11 +115,12 @@ namespace TourPlanner.ViewModels
             _logger.Info("Edit tour with id: 123.");
             // muss ich noch fertig schreiben 
         }
+
+        
         private void LoadAllTours()
         {
             TourList.Clear();
-            TourHandler handler = new TourHandler();
-            List <Tour> tourlist = handler.ListAllTours();
+            List<Tour> tourlist = this.tourPlannerFactory.ListAllTours();
             if (tourlist != null)
             {
                 foreach (var tour in tourlist)
@@ -138,8 +135,7 @@ namespace TourPlanner.ViewModels
         private void LoadLogsCurrentTour()
         {
             LogList.Clear();
-            TourHandler handler = new TourHandler();
-            List <TourLog> loglist = handler.ListAllLogsOfSingleTour(CurrentTour.Id);
+            List <TourLog> loglist = this.tourPlannerFactory.ListAllLogsOfSingleTour(CurrentTour.Id);
             if (loglist != null)
             {
                 foreach (var log in loglist)
@@ -185,14 +181,11 @@ namespace TourPlanner.ViewModels
         }
 
 
-       
-
         private void DeleteTour(object commandParameter)
         {
             if(currentTour != null)
             {
-                TourHandler handler = new TourHandler();
-                handler.DeleteTour(currentTour.Id);
+                this.tourPlannerFactory.DeleteTour(currentTour.Id);
                 currentTour = null;
                 SelectedViewModel = new ShowTourViewModel(currentTour);
                 LoadAllTours();
@@ -211,9 +204,7 @@ namespace TourPlanner.ViewModels
         {
             if(currentLog != null)
             {
-                TourHandler handler = new TourHandler();
-                bool done = handler.DeleteLog(currentLog.Id);
-                if (done)
+                if (this.tourPlannerFactory.DeleteLog(currentLog.Id))
                 {
                     LoadLogsCurrentTour();
                 }
@@ -251,15 +242,13 @@ namespace TourPlanner.ViewModels
         {
             if (currentTour != null)
             {
-                TourHandler handler = new TourHandler();
-                handler.GenerateTourReport(currentTour, LogList);
+                this.tourPlannerFactory.GenerateTourReport(currentTour, LogList);
                 MessageBox.Show("Report Generated");
             }
             else
             {
                 MessageBox.Show("Please choose a tour");
             }
-            
             
         }
     }

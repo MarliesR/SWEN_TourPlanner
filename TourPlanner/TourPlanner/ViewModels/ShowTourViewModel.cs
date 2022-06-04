@@ -12,7 +12,8 @@ namespace TourPlanner.ViewModels
 {
     public class ShowTourViewModel : ViewModelBase
     {
-      
+        private ITourPlannerFactory tourPlannerFactory;
+
         private string tourName;
         private string tourStart;
         private string tourDestination;
@@ -27,7 +28,8 @@ namespace TourPlanner.ViewModels
 
         public ShowTourViewModel(Tour tour)
         {
-            if(tour != null)
+            this.tourPlannerFactory = TourPlannerFactory.GetInstance();
+            if (tour != null)
             {
                 tourName = tour.Name;
                 tourStart = tour.Start;
@@ -44,8 +46,7 @@ namespace TourPlanner.ViewModels
 
         private string ComputeTourPopularity(int id)
         {
-            TourHandler handler = new TourHandler();
-            int popularity = handler.GetTourPopularity(id);
+            int popularity = this.tourPlannerFactory.GetTourPopularity(id);
             if (popularity == 0)
             {
                 return "No logs have been added";
@@ -56,8 +57,7 @@ namespace TourPlanner.ViewModels
 
         private string ComputeTourChildFriendlyness(Tour tour)
         {
-            TourHandler handler = new TourHandler();
-            string friendlyness = handler.GetTourChildFriendlyness(tour);
+            string friendlyness = this.tourPlannerFactory.GetTourChildFriendlyness(tour);
             return friendlyness;
         }
 
