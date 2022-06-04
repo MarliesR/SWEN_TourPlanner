@@ -1,0 +1,14 @@
+{
+  "Mapquest": {
+    "Key": "8JMGZdUPEZ3IFDGZC7t3gj6K4P7oLo3g"
+  },
+  "Folderpath": {
+    "Image": "C:/SWEN_semesterproject_images/",
+    "PDF": "C:/SWEN_semesterproject_pdf/",
+    "LOG": "C:/SWEN_semesterproject_log/"
+  },
+  "Database": {
+    "ConnectionString": "Server=localhost;Port=5432;User Id=swe1user;Password=swe1pw;",
+    "ConnectionStringDB": "Server=localhost;Port=5432;Database=tourplanner;User Id=swe1user;Password=swe1pw;"
+  }
+}

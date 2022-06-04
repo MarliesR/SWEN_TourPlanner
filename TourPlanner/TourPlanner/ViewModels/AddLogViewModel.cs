@@ -168,6 +168,7 @@ namespace TourPlanner.ViewModels
             TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, convertedTotalTime, logRating);
             TourHandler handler = new TourHandler();
             handler.AddLog(log);
+            currentWindow.DialogResult = true;
             currentWindow.Close();
 
             _logger.Info("Added new TourLog.");

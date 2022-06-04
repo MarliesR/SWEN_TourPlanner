@@ -16,20 +16,22 @@ namespace TourPlanner.BL
         {
             Database db = new Database();
         }
-        public void AddTour(string name, string start, string destination, string transporttype, string description )
+        public bool AddTour(string name, string start, string destination, string transporttype, string description )
         {
            
             Mapquest mapquest = new Mapquest(start, destination,transporttype);
+            mapquest.SaveImage();
             double distance = mapquest.GetDistance();
             string imagePath = mapquest.GetImage();
             string duration = mapquest.GetTime();
+            if (distance.Equals(0)|| String.IsNullOrEmpty(imagePath))
+            {
+                return false;
+            }
             TourSql db = new TourSql();
-            //string name, string start, string destination, string transporttype, float distance, string description, string duration, string image)
             Tour tour = new Tour(name, start, destination, transporttype, distance, description, duration, imagePath);
             db.AddTourSQL(tour);
-            Console.WriteLine("finished");
-         
-
+            return true;
         }
 
         public Tour GetTour( int id)

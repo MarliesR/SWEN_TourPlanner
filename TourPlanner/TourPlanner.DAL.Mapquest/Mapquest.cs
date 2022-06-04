@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using TourPlanner.Library;
+using Microsoft.Extensions.Configuration;
 
 namespace TourPlanner.DAL.Mapquest
 {
@@ -21,20 +22,28 @@ namespace TourPlanner.DAL.Mapquest
         private string destination;
         private string filePath;
         private string transportType;
+        private string folderPath;
 
         private int ErrorInvalidLocation = 402;
         private int ErrorPedestrianRouteTooLong = 607;
 
         public Mapquest(string startAddress, string endAddress, string routeType)
         {
-            mapquestKey = ConfigurationManager.AppSettings["KeyMapQuest"];
+            //mapquestKey = ConfigurationManager.AppSettings["KeyMapQuest"];
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsetting.json", false, true).Build();
+            mapquestKey = config["Mapquest:Key"];
+            folderPath = config["Folderpath:Image"];
+
             client = new HttpClient();
             location = startAddress;
             destination = endAddress;
             transportType = routeType;
-            filePath = GetImagePath();
             directionsData = GetDirections();
-
+        }
+        
+        public void SaveImage()
+        {
+            filePath = GetImagePath();
             if (directionsData.info.statuscode.Equals(ErrorInvalidLocation) || directionsData == null || directionsData.info.statuscode.Equals(ErrorPedestrianRouteTooLong))
             {
                 Console.WriteLine("Error, invalid location or destination or pedestrian route too long");
@@ -44,10 +53,10 @@ namespace TourPlanner.DAL.Mapquest
                 directionsData.PrintRouteInfo();
                 GetImageStaticMap();
             }
-
             client.Dispose();
-
         }
+
+
 
 
         private DirectionsRouteData GetDirections()
@@ -154,7 +163,7 @@ namespace TourPlanner.DAL.Mapquest
 
         private string GetImagePath()
         {
-            string folderPath = ConfigurationManager.AppSettings["ImgFolderPath"];
+            //string folderPath = ConfigurationManager.AppSettings["ImgFolderPath"];
             string filename = GenerateImageFilename();
 
             try
@@ -183,7 +192,7 @@ namespace TourPlanner.DAL.Mapquest
 
         public double GetDistance()
         {
-            if(directionsData is null)
+            if(directionsData == null)
             {
                 return 0;
             }
@@ -195,7 +204,7 @@ namespace TourPlanner.DAL.Mapquest
 
         public string GetTime()
         {
-            if (directionsData is null)
+            if (directionsData == null)
             {
                 return null;
             }

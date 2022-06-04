@@ -121,6 +121,7 @@ namespace TourPlanner.ViewModels
             {
                 TourHandler handler = new TourHandler();
                 handler.ModifyTour(tourName, tourDescription, baseTour.Id);
+                currentWindow.DialogResult = true;
                 currentWindow.Close();
 
                 _logger.Info("Edited Tour data");

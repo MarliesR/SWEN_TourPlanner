@@ -18,7 +18,7 @@ namespace TourPlanner.UnitTests
             string destination = "dort";
             string transport = "fastest";
             string description = "abc123";
-            int distance = 123;
+            double distance = 123;
             string duration = "123:123:123";
             string image = "abc.png";
 
@@ -40,13 +40,9 @@ namespace TourPlanner.UnitTests
             string transporttype = "fastest";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            // PROBLEM !!!
-            // constuctor hat GetImagePath() drinnen
-            // muss file bzw filepath hinzufügen 
+            double distance = mapquest.GetDistance();
 
-            int distance = mapquest.GetDistance();
-
-            //Assert.Equal( , distance);
+            Assert.Equal(1237.4, distance);
         }
 
         [Fact]
@@ -55,9 +51,9 @@ namespace TourPlanner.UnitTests
             string transporttype = "shortest";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            int distance = mapquest.GetDistance();
+            double distance = mapquest.GetDistance();
 
-            //Assert.Equal( , distance);
+            Assert.Equal(1189.29, distance);
         }
 
 
@@ -67,9 +63,9 @@ namespace TourPlanner.UnitTests
             string transporttype = "pedestrian";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            int distance = mapquest.GetDistance();
-
-            //Assert.Equal( , distance);
+            double distance = mapquest.GetDistance();
+            //pedestrian distance would be too long, so distance of object is zero;
+            Assert.Equal( 0, distance);
         }
 
 
@@ -79,9 +75,9 @@ namespace TourPlanner.UnitTests
             string transporttype = "bicycle";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            int distance = mapquest.GetDistance();
+            double distance = mapquest.GetDistance();
 
-            //Assert.Equal( , distance);
+            Assert.Equal(1376.58, distance);
         }
 
         [Fact]
@@ -90,7 +86,7 @@ namespace TourPlanner.UnitTests
             string transporttype = "fastest";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            int distance = mapquest.GetDistance();
+            double distance = mapquest.GetDistance();
 
             //Assert.Equal( , distance);
         }

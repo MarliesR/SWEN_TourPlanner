@@ -18,7 +18,7 @@ namespace TourPlanner.ViewModels
 
         //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        
 
 
         private string tourName;
@@ -120,10 +120,19 @@ namespace TourPlanner.ViewModels
         private void SaveTour(object commandParameter)
         {
             TourHandler handler = new TourHandler();
-            handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
-            currentWindow.Close();
-
-            _logger.Info("Added new Tour.");
+            bool toursaved = handler.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription);
+            if (toursaved)
+            {
+                
+                currentWindow.DialogResult = true;
+                currentWindow.Close();
+                _logger.Info("Added new Tour.");
+            }
+            else
+            {
+                MessageBox.Show("Tour saving failed, check for correct names of location, (pedestrian routes can be max. 200km long)");
+                _logger.Info("Adding new tour failed.");
+            }
         }
 
         private RelayCommand clearInputCommand;

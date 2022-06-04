@@ -8,6 +8,7 @@ using TourPlanner.BL;
 using System.Windows;
 using TourPlanner.Logger;
 using log4net;
+using System;
 
 namespace TourPlanner.ViewModels
 {
@@ -22,9 +23,6 @@ namespace TourPlanner.ViewModels
         //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-
-        private RelayCommand refreshToursCommand1;
-        public ICommand refreshToursCommand => refreshToursCommand1 ??= new RelayCommand(RefreshTours);
         private RelayCommand editTourPageCommand1;
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         private RelayCommand showTourWindowCommand1;
@@ -53,8 +51,8 @@ namespace TourPlanner.ViewModels
             LoadAllTours();
         }
 
-        public object selectedViewModel; //DATA binding mit dem MainWindow
-        public object SelectedViewModel  //schaut ob sich die value des viewmodels ändert
+        public object selectedViewModel; 
+        public object SelectedViewModel  
         {
             get => selectedViewModel;
             set
@@ -107,7 +105,11 @@ namespace TourPlanner.ViewModels
             if(currentTour != null)
             {
                 EditTourView newTourWindow = new EditTourView(currentTour);
-                newTourWindow.Show();
+                bool? dialogResult = newTourWindow.ShowDialog();
+                if (dialogResult == true)
+                {
+                    LoadAllTours();
+                }
             }
             else
             {
@@ -153,8 +155,15 @@ namespace TourPlanner.ViewModels
         private void ShowTourWindow(object commandParameter)
         {
             AddTourView newTourWindow = new AddTourView();
-            newTourWindow.Show();
-            currentTour = null;
+            CurrentTour = null;
+
+            bool? dialogResult = newTourWindow.ShowDialog();
+            if(dialogResult == true)
+            {
+                LoadAllTours();
+                MessageBox.Show("Tour saved!");
+            }
+
         }
 
         private void ShowNewLogWindow(object commandParameter)
@@ -162,7 +171,12 @@ namespace TourPlanner.ViewModels
             if (currentTour != null)
             {
                 AddLogView newLogWindow = new AddLogView(currentTour);
-                newLogWindow.Show();
+                bool? dialogResult = newLogWindow.ShowDialog();
+                if(dialogResult == true)
+                {
+                    LoadLogsCurrentTour();
+                    MessageBox.Show("Log saved!");
+                }
             }
             else
             {
@@ -171,10 +185,7 @@ namespace TourPlanner.ViewModels
         }
 
 
-        private void RefreshTours(object commandParameter)
-        {
-            LoadAllTours();
-        }
+       
 
         private void DeleteTour(object commandParameter)
         {
@@ -222,7 +233,11 @@ namespace TourPlanner.ViewModels
             if (currentTour != null && currentLog != null)
             {
                 EditLogView editLogWindow = new EditLogView(currentLog, currentTour.Name);
-                editLogWindow.Show();
+                bool? dialogResult = editLogWindow.ShowDialog();
+                if (dialogResult == true)
+                {
+                    LoadLogsCurrentTour();
+                }
 
                 _logger.Info("Edit current TourLog.");
             }

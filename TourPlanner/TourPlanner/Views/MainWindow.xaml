@@ -34,9 +34,6 @@
         
         <DockPanel Grid.Column="0" LastChildFill="False" Background="AliceBlue">
             <Label DockPanel.Dock="Left" Content="TOURS" VerticalAlignment="Center"  HorizontalAlignment="Left"></Label>
-                <Button DockPanel.Dock="Left" Command="{Binding refreshToursCommand}"  Content="refresh">
-                   
-                </Button>
         </DockPanel>
 
 

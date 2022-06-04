@@ -169,6 +169,7 @@ namespace TourPlanner.ViewModels
             modifiedLog.Id = baseLog.Id;
             TourHandler handler = new TourHandler();
             handler.ModifyLogEntry(modifiedLog);
+            currentWindow.DialogResult = true;
             currentWindow.Close();
 
             _logger.Info("Edited TourLog data.");
