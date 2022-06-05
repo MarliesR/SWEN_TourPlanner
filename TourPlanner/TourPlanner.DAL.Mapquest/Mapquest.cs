@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using TourPlanner.Library;
 using Microsoft.Extensions.Configuration;
 
 namespace TourPlanner.DAL.Mapquest
@@ -211,6 +209,7 @@ namespace TourPlanner.DAL.Mapquest
             return directionsData.route.formattedTime;
 
         }
+
         public string GetImage()
         {
             if (File.Exists(filePath))
