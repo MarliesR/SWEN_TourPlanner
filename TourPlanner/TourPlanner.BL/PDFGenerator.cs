@@ -29,14 +29,88 @@ namespace TourPlanner.BL
             folderPath = config["Folderpath:PDF"];
         }
 
-        public void SummarizeReport()
+        public bool SummarizeReport(string tourname, ObservableCollection<TourLog> loglist, string timeAVG)
         {
-            //average time
-            //average distance
-            //average rating of all tour logs of specific tour
+            
+            string pdfFilePath = GetPDFFilePath(tourname);
+            Console.WriteLine(pdfFilePath);
+
+            PdfWriter writer = new PdfWriter(pdfFilePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            //Header of the document
+            Paragraph reportHeader = new Paragraph("Specialreport of route: " + tourname + " \ndate: " + DateTime.Now.ToString("g"))
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                    .SetFontSize(12)
+                    .SetBold()
+                    .SetFontColor(ColorConstants.BLACK);
+            document.Add(reportHeader);
+
+            if (loglist.Count != 0)
+            {
+                double ratingAVG = loglist.Average(x => x.Rating);
+                double difficultyAVG = loglist.Average(x => x.Difficulty);
+
+
+                //tour details Header
+                Paragraph routeDetailsHeader = new Paragraph("Details:")
+                        .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                        .SetFontSize(12)
+                        .SetBold()
+                        .SetFontColor(ColorConstants.BLACK);
+                document.Add(routeDetailsHeader);
+
+                Table table = new Table(UnitValue.CreatePercentArray(3)).UseAllAvailableWidth()
+                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                 .SetFontSize(12);
+                table.AddHeaderCell("Average Time");
+                table.AddHeaderCell("Average Rating");
+                table.AddHeaderCell("Average Difficulty");
+                table.AddCell(timeAVG);
+                table.AddCell(ratingAVG.ToString());
+                table.AddCell(difficultyAVG.ToString());
+                document.Add(table);
+
+                Paragraph logHeader = new Paragraph("Current logs:")
+                       .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                       .SetFontSize(12)
+                       .SetBold()
+                       .SetFontColor(ColorConstants.BLACK);
+                document.Add(logHeader);
+
+                Table logtable = new Table(UnitValue.CreatePercentArray(5)).UseAllAvailableWidth()
+                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                 .SetFontSize(12);
+                logtable.AddCell("Date and Time of Log");
+                logtable.AddCell("Total Time:");
+                logtable.AddCell("Difficulty (1-easy, 5-very hard");
+                logtable.AddCell("Rating (1-good, 5-very bad)");
+                logtable.AddCell("Comment");
+                foreach (TourLog log in loglist)
+                {
+                    logtable.AddCell(log.DateTime);
+                    logtable.AddCell(log.TotalTime.ToString());
+                    logtable.AddCell(log.Difficulty.ToString());
+                    logtable.AddCell(log.Rating.ToString());
+                    logtable.AddCell(log.Comment);
+                }
+                document.Add(logtable);
+            }
+            else
+            {
+                Paragraph noLogs = new Paragraph("no logs available")
+                   .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                   .SetFontSize(12);
+                document.Add(noLogs);
+            }
+
+            document.Close();
+
+            return true;
         }
 
-        
+
         public void TourReport(Tour tour, ObservableCollection<TourLog> loglist) 
         {
             //all information of single tour
@@ -132,10 +206,7 @@ namespace TourPlanner.BL
             document.Close();
         }
 
-        private static Cell getHeaderCell(String s)
-        {
-            return new Cell().Add(new Paragraph(s)).SetBold().SetBackgroundColor(ColorConstants.GRAY);
-        }
+       
 
         public string GetPDFFilePath(string tourname)
         {

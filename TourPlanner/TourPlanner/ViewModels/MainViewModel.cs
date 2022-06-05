@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
@@ -31,6 +32,7 @@ namespace TourPlanner.ViewModels
         private RelayCommand deleteLogCommand;
         private RelayCommand editLogCommand;
         private RelayCommand genereateReportCommand1;
+        private RelayCommand genereateSummarizeReportCommand1;
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
@@ -38,7 +40,7 @@ namespace TourPlanner.ViewModels
         public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
         public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
         public ICommand genereateReportCommand => genereateReportCommand1 ??= new RelayCommand(genereateReport);
-
+        public ICommand genereateSummarizeReportCommand => genereateSummarizeReportCommand1 ??= new RelayCommand(genereateSummarizeReport);
         public MainViewModel()
         {
             this.tourPlannerFactory = TourPlannerFactory.GetInstance();
@@ -250,6 +252,21 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a tour");
             }
             
+        }
+
+        
+
+        private void genereateSummarizeReport(object commandParameter)
+        {
+            if (currentTour != null)
+            {
+                this.tourPlannerFactory.GenerateSummarizeReport(currentTour, LogList);
+                MessageBox.Show("Sumamrize Report Generated");
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace TourPlanner.BL
         public void DeleteTour(int id);
         public int GetTourPopularity(int id);
         public void GenerateTourReport(Tour tour, ObservableCollection<TourLog> loglist);
+        public bool GenerateSummarizeReport(Tour tour, ObservableCollection<TourLog> loglist);
         public List<TourLog> ListAllLogsOfSingleTour(int id);
         public void AddLog(TourLog log);
         public string GetTourChildFriendlyness(Tour tour);
