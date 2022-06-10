@@ -42,7 +42,7 @@
 
             <Button Content="Report Tours" DockPanel.Dock="Right"  Command="{Binding genereateReportCommand}" >
             </Button>
-            <Button Content="Summary Report Tours" DockPanel.Dock="Right" >
+            <Button Content="Summary Report Tours" DockPanel.Dock="Right" Command="{Binding genereateSummarizeReportCommand}" >
             </Button>
             <Button Content="export Tours" DockPanel.Dock="Right" >
             </Button>

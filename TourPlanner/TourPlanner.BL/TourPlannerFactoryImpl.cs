@@ -47,6 +47,13 @@ namespace TourPlanner.BL
             tourPlannerDAO.DeleteAllLogsOfTourSQL(id);
         }
 
+        public bool GenerateSummarizeReport(Tour tour, ObservableCollection<TourLog> loglist)
+        {
+            TimeSpan totalTimeAVG = tourPlannerDAO.GetTimeTotalAverage(tour.Id);
+            PDFGenerator report = new PDFGenerator();
+            return report.SummarizeReport(tour.Name, loglist, totalTimeAVG.ToString());
+        }
+
         public void GenerateTourReport(Tour tour, ObservableCollection<TourLog> loglist)
         {
             //return value

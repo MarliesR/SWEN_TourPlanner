@@ -32,6 +32,7 @@ namespace TourPlanner.ViewModels
         private RelayCommand deleteLogCommand;
         private RelayCommand editLogCommand;
         private RelayCommand genereateReportCommand1;
+        private RelayCommand genereateSummarizeReportCommand1;
         private RelayCommand searchCommand1;
         private RelayCommand clearCommand1;
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
@@ -41,6 +42,7 @@ namespace TourPlanner.ViewModels
         public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
         public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
         public ICommand genereateReportCommand => genereateReportCommand1 ??= new RelayCommand(genereateReport);
+        public ICommand genereateSummarizeReportCommand => genereateSummarizeReportCommand1 ??= new RelayCommand(genereateSummarizeReport);
         public ICommand searchCommand => searchCommand1 ??= new RelayCommand(search);
         public ICommand clearCommand => clearCommand1 ??= new RelayCommand(clear);
 
@@ -299,6 +301,21 @@ namespace TourPlanner.ViewModels
         {
             LoadAllTours();
             SearchText = "Search..";
+        }
+
+        
+
+        private void genereateSummarizeReport(object commandParameter)
+        {
+            if (currentTour != null)
+            {
+                this.tourPlannerFactory.GenerateSummarizeReport(currentTour, LogList);
+                MessageBox.Show("Sumamrize Report Generated");
+            }
+            else
+            {
+                MessageBox.Show("Please choose a tour");
+            }
         }
     }
 }
