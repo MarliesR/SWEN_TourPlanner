@@ -413,5 +413,39 @@ namespace TourPlanner.DAL.SQL
             conn.Close();
             return loglist;
         }
+
+        public List<TourLog> GetAllLogsSQL()
+        {
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            List<TourLog> loglist = new();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM tourlog ", conn);
+
+            var reader = cmd.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                return null;
+            }
+            else
+            {
+                while (reader.Read())
+                {
+                    var id = reader.GetInt32(reader.GetOrdinal("id"));
+                    var tourid = reader.GetInt32(reader.GetOrdinal("tourid"));
+                    var datetime = reader.GetString(reader.GetOrdinal("datetime"));
+                    var comment = reader.GetString(reader.GetOrdinal("comment"));
+                    var difficulty = reader.GetInt32(reader.GetOrdinal("difficulty"));
+                    var totaltime = reader.GetTimeSpan(reader.GetOrdinal("totaltime"));
+                    var rating = reader.GetInt32(reader.GetOrdinal("rating"));
+
+                    TourLog logData = new TourLog(tourid, datetime.ToString(), comment, difficulty, totaltime, rating);
+                    logData.Id = id;
+                    loglist.Add(logData);
+                }
+            }
+            conn.Close();
+            return loglist;
+        }
     }
 }

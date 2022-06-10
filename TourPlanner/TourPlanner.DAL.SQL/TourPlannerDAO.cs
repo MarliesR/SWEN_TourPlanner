@@ -73,5 +73,11 @@ namespace TourPlanner.DAL.SQL
         {
             return dataAccesss.GetLogsSQL(tourId);
         }
+
+        public List<TourLog> GetAllLogsSQL()
+        {
+            return dataAccesss.GetAllLogsSQL();
+        }
+
     }
 }

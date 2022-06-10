@@ -10,6 +10,7 @@ namespace TourPlanner.DAL.SQL
     interface IDataAccesss
     {
         public List<Tour> GetToursSQL();
+        public List<TourLog> GetAllLogsSQL();
         public TimeSpan GetTimeTotalAverage(int id);
         public double GetDifficultyAverage(int id);
         public int GetTourPoularitySQL(int id);

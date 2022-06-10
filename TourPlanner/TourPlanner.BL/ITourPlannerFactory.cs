@@ -7,9 +7,8 @@ namespace TourPlanner.BL
 {
     public interface ITourPlannerFactory
     {
-        IEnumerable<Tour> SearchTours(string tourname, bool caseSensitive = false);
-        IEnumerable<TourLog> SearchLogs(string tourname, bool caseSensitive = false);
-
+        IEnumerable<Tour> SearchTours(string tourname);
+        public IEnumerable<TourLog> ListAllLogs();
         public List<Tour> ListAllTours();
         public bool AddTour(string name, string start, string destination, string transporttype, string description);
         public Tour GetTour(int id);

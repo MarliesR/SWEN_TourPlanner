@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TourPlanner.ViewModels;
 using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
 using System.Windows;
 using TourPlanner.Logger;
 using log4net;
-
+using System.Collections;
 
 namespace TourPlanner.ViewModels
 {
@@ -21,8 +22,8 @@ namespace TourPlanner.ViewModels
         public ObservableCollection<TourLog> LogList { get; set; }
         private Tour currentTour;
         private TourLog currentLog;
+        private string searchText = "Search..";
         public object selectedViewModel; 
-
 
         private RelayCommand editTourPageCommand1;
         private RelayCommand showTourWindowCommand1;
@@ -31,6 +32,8 @@ namespace TourPlanner.ViewModels
         private RelayCommand deleteLogCommand;
         private RelayCommand editLogCommand;
         private RelayCommand genereateReportCommand1;
+        private RelayCommand searchCommand1;
+        private RelayCommand clearCommand1;
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
@@ -38,6 +41,8 @@ namespace TourPlanner.ViewModels
         public ICommand DeleteLogCommand => deleteLogCommand ??= new RelayCommand(DeleteLog);
         public ICommand EditLogCommand => editLogCommand ??= new RelayCommand(EditLog);
         public ICommand genereateReportCommand => genereateReportCommand1 ??= new RelayCommand(genereateReport);
+        public ICommand searchCommand => searchCommand1 ??= new RelayCommand(search);
+        public ICommand clearCommand => clearCommand1 ??= new RelayCommand(clear);
 
         public MainViewModel()
         {
@@ -95,6 +100,19 @@ namespace TourPlanner.ViewModels
             }
         }
 
+        public string SearchText
+        {
+            get => searchText;
+            set
+            {
+                if (searchText != value)
+                {
+                    searchText = value;
+                    RaisePropertyChangedEvent(nameof(SearchText));
+                }
+            }
+        }
+
 
         private void EditTourWindow(object commandParameter)
         {
@@ -105,6 +123,7 @@ namespace TourPlanner.ViewModels
                 if (dialogResult == true)
                 {
                     LoadAllTours();
+                    
                 }
             }
             else
@@ -250,6 +269,36 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a tour");
             }
             
+        }
+
+        
+
+        private void search(object commandParameter)
+        {
+            if (!string.IsNullOrEmpty(searchText) || !string.IsNullOrWhiteSpace(searchText))
+            {
+                IEnumerable foundTours = this.tourPlannerFactory.SearchTours(searchText);
+                TourList.Clear();
+                foreach (Tour tour in foundTours)
+                {
+                    TourList.Add(tour);
+                }
+
+            }
+            else
+            {
+                LoadAllTours();
+                SearchText = "";
+            }
+            
+        }
+
+        
+
+        private void clear(object commandParameter)
+        {
+            LoadAllTours();
+            SearchText = "Search..";
         }
     }
 }

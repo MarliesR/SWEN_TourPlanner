@@ -104,21 +104,25 @@ namespace TourPlanner.BL
            tourPlannerDAO.UpdateTourSQL(tourname, tourdescription, id);
         }
 
-        public IEnumerable<TourLog> SearchLogs(string tourname, bool caseSensitive = false)
+        public IEnumerable<TourLog> ListAllLogs()
         {
-            IEnumerable<Tour> tours = ListAllTours();
-
-            if (caseSensitive)
-            {
-                return (IEnumerable<TourLog>)tours.Where(x => x.Name.Contains(tourname));
-            }
-            return (IEnumerable<TourLog>)tours.Where(x => x.Name.ToLower().Contains(tourname.ToLower()));
-            throw new NotImplementedException();
+            return tourPlannerDAO.GetAllLogsSQL();
         }
 
-        public IEnumerable<Tour> SearchTours(string tourname, bool caseSensitive = false)
+        public IEnumerable<Tour> SearchTours(string searchstring)
         {
-            throw new NotImplementedException();
+            IEnumerable<Tour> tours = ListAllTours();
+            IEnumerable<TourLog> logs = ListAllLogs();
+            List<int> tourIds = new List<int>();
+            if (logs != null)
+            {
+                IEnumerable<TourLog> resultLogs = (IEnumerable<TourLog>)logs.Where(x => x.DateTime.ToLower().Contains(searchstring.ToLower()) || x.Comment.ToLower().Contains(searchstring.ToLower()) || x.Difficulty.ToString().Contains(searchstring.ToLower()) || x.TotalTime.ToString().Contains(searchstring) || x.Rating.ToString().Contains(searchstring));
+                foreach (TourLog log in resultLogs)
+                {
+                    tourIds.Add(log.TourId);
+                }
+            }
+           return (IEnumerable<Tour>)tours.Where(x => tourIds.Any(y => y == x.Id) || x.Name.ToLower().Contains(searchstring.ToLower()) || x.Start.ToLower().Contains(searchstring.ToLower()) || x.Destination.ToLower().Contains(searchstring.ToLower()) || x.TransportType.ToLower().Contains(searchstring.ToLower()) || x.Distance.ToString().ToLower().Contains(searchstring.ToLower()) || x.Duration.ToLower().Contains(searchstring.ToLower()) || x.Description.ToLower().Contains(searchstring.ToLower()));
         }
     }
 }
