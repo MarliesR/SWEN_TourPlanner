@@ -37,8 +37,6 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void MapQuestDistanceFastTest()
         {
-            string start = "Vienna";
-            string destination = "Paris";
             string transporttype = "fastest";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
@@ -50,8 +48,6 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void MapQuestDistanceShortTest()
         {
-            string start = "Vienna";
-            string destination = "Paris";
             string transporttype = "shortest";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
@@ -64,14 +60,12 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void MapQuestDistancePedestrianTest()
         {
-            //changed so we get shorter distance
             string startP = "Dortmund";
             string destinationP = "Cologne";
             string transporttype = "pedestrian";
 
             Mapquest mapquest = new Mapquest(startP, destinationP, transporttype);
             double distance = mapquest.GetDistance();
-            //pedestrian distance would be too long, so distance of object is zero;
             Assert.Equal( 89.4, distance);
         }
 
@@ -79,8 +73,6 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void MapQuestDistanceBicycleTest()
         {
-            string start = "Vienna";
-            string destination = "Paris";
             string transporttype = "bicycle";
 
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
@@ -114,12 +106,14 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void MapQuestTimePedestrianTest()
         {
+            string startP = "Dortmund";
+            string destinationP = "Cologne";
             string transporttype = "pedestrian";
 
-            Mapquest mapquest = new Mapquest(start, destination, transporttype);
+            Mapquest mapquest = new Mapquest(startP, destinationP, transporttype);
             string time = mapquest.GetTime();
 
-            Assert.Null(time);
+            Assert.Equal("22:13:20", time);
 
         }
 

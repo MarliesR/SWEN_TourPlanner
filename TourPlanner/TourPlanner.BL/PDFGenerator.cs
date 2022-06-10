@@ -8,13 +8,9 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TourPlanner.Library;
 
 

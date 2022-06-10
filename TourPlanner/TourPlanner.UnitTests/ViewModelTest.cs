@@ -6,6 +6,7 @@ namespace TourPlanner.UnitTests
 {
     public class ViewModelTest
     {
+
         [Fact]
         public void ConvertTimeInputLogTest()
         {

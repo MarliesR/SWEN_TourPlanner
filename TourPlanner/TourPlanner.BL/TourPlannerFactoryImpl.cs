@@ -8,7 +8,7 @@ using TourPlanner.Library;
 
 namespace TourPlanner.BL
 {
-    internal class TourPlannerFactoryImpl : ITourPlannerFactory
+    public class TourPlannerFactoryImpl : ITourPlannerFactory
     {
         private TourPlannerDAO tourPlannerDAO = new TourPlannerDAO(); //this objects creates connection with database class and returns results from sql statements
 
