@@ -43,6 +43,7 @@ namespace TourPlanner.UnitTests
             double distance = mapquest.GetDistance();
 
             Assert.Equal(1237.4, distance);
+            Assert.IsType<Double>(distance);
         }
 
         [Fact]
@@ -54,6 +55,7 @@ namespace TourPlanner.UnitTests
             double distance = mapquest.GetDistance();
 
             Assert.Equal(1189.29, distance);
+            Assert.IsType<Double>(distance);
         }
 
 
@@ -67,6 +69,7 @@ namespace TourPlanner.UnitTests
             Mapquest mapquest = new Mapquest(startP, destinationP, transporttype);
             double distance = mapquest.GetDistance();
             Assert.Equal( 89.4, distance);
+            Assert.IsType<Double>(distance);
         }
 
 
@@ -79,6 +82,7 @@ namespace TourPlanner.UnitTests
             double distance = mapquest.GetDistance();
 
             Assert.Equal(1376.58, distance);
+            Assert.IsType<Double>(distance);
         }
 
         [Fact]
@@ -90,6 +94,7 @@ namespace TourPlanner.UnitTests
             string time = mapquest.GetTime();
 
             Assert.Equal("11:15:53", time);
+            Assert.IsType<String>(time);
         }
 
         [Fact]
@@ -101,6 +106,7 @@ namespace TourPlanner.UnitTests
             string time = mapquest.GetTime();
 
             Assert.Equal("12:43:28", time);
+            Assert.IsType<String>(time);
         }
 
         [Fact]
@@ -114,6 +120,7 @@ namespace TourPlanner.UnitTests
             string time = mapquest.GetTime();
 
             Assert.Equal("22:13:20", time);
+            Assert.IsType<String>(time);
 
         }
 
@@ -126,6 +133,7 @@ namespace TourPlanner.UnitTests
             string time = mapquest.GetTime();
 
             Assert.Equal("60:57:53", time);
+            Assert.IsType<String>(time);
 
         }
     }

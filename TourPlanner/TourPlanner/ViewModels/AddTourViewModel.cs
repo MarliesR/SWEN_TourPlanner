@@ -121,17 +121,26 @@ namespace TourPlanner.ViewModels
 
         private void SaveTour(object commandParameter)
         {
-            if (tourPlannerFactory.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription))
+            if(tourPlannerFactory.ValidAddTourCall(tourName, tourStart, tourDestination, tourDescription))
             {
-                currentWindow.DialogResult = true;
-                currentWindow.Close();
-                _logger.Info("Added new Tour.");
+                if (tourPlannerFactory.AddTour(tourName, tourStart, tourDestination, tourTransportType, tourDescription))
+                {
+                    currentWindow.DialogResult = true;
+                    currentWindow.Close();
+                    _logger.Info("Added new Tour.");
+                }
+                else
+                {
+                    MessageBox.Show("Tour saving failed, check for correct names of location, (pedestrian routes can be max. 200km long)");
+                    _logger.Warn("Adding new tour failed.");
+                }
             }
             else
             {
-                MessageBox.Show("Tour saving failed, check for correct names of location, (pedestrian routes can be max. 200km long)");
-                _logger.Info("Adding new tour failed.");
+                MessageBox.Show("Tour saving failed, check for correct input");
+                _logger.Warn("Adding new tour failed.");
             }
+
         }
 
 
@@ -141,6 +150,7 @@ namespace TourPlanner.ViewModels
             TourStart = string.Empty;
             TourDestination = string.Empty;
             TourDescription = string.Empty;
+            _logger.Info("Clear Input.");
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner", "TourPlanner\TourPlanner.csproj", "{C403D220-AB33-4F26-BF5D-811F3601A7D9}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DAL.Mapquest", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.Library", "TourPlanner.Library\TourPlanner.Library.csproj", "{80B5E37B-E36E-49B7-B3F8-8B93A0A5F1D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.UnitTests", "TourPlanner.UnitTests\TourPlanner.UnitTests.csproj", "{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.UnitTests", "TourPlanner.UnitTests\TourPlanner.UnitTests.csproj", "{DDB43CE9-56E7-495C-B07D-01CB15FA2ADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

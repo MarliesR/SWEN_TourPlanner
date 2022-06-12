@@ -10,21 +10,99 @@ namespace TourPlanner.UnitTests
         TourPlannerFactoryImpl handler = new TourPlannerFactoryImpl();
 
         Tour testTour = new Tour("abc", "hier", "dort", "fastest", 123, "abc123", "123:123:123", "abc.png");
-       
 
         [Fact]
-        public void AddTourTest()
+        public void ValidateNameTrueTest()
         {
-            handler.AddTour(testTour.Name, testTour.Start, testTour.Destination, testTour.TransportType, testTour.Description);
-
-            Assert.True(false);
+            Assert.True(handler.ValidateStringInput("hallo"));
         }
 
         [Fact]
-        public void EditTourTest()
+        public void ValidateNameFalseTest()
         {
-            Assert.True(false);
+            Assert.False(handler.ValidateStringInput("INSTERT@//b"));
         }
+
+        [Fact]
+        public void ValidateStartTrueTest()
+        {
+            Assert.True(handler.ValidateStringInput("Vienna"));
+        }
+
+        [Fact]
+        public void ValidateStartFalseTest()
+        {
+            Assert.False(handler.ValidateStringInput("DELETE@//"));
+        }
+
+        [Fact]
+        public void ValidateDestinationTrueTest()
+        {
+            Assert.True(handler.ValidateStringInput("Berlin"));
+        }
+
+        [Fact]
+        public void ValidateDestinationFalseTest()
+        {
+            Assert.False(handler.ValidateStringInput("@//bSELECT"));
+        }
+
+        [Fact]
+        public void ValidateDescriptionTrueTest()
+        {
+            Assert.True(handler.ValidateStringInput("This is my first tour"));
+        }
+
+        [Fact]
+        public void ValidateDescriptionFalseTest()
+        {
+            Assert.False(handler.ValidateStringInput("@//bINSERT"));
+        }
+
+        // ------------- Still figuring out how mock works
+        //[Fact]
+        //public void AddTourTest()
+        //{
+        //    handler.AddTour(testTour.Name, testTour.Start, testTour.Destination, testTour.TransportType, testTour.Description);
+
+        //    Assert.True(false);
+        //}
+        
+        //[Fact]
+        //public void AddTourLogTest()
+        //{
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void GetTourTest()
+        //{
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void ModifyTourTest()
+        //{
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void ModifyTourLogEntryTest()
+        //{
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void DeleteTourTest()
+        //{
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void DeleteTourLogTest()
+        //{
+        //    Assert.True(false);
+        //}
 
         [Fact]
         public void GetTourChildFriendlynessTest()
@@ -34,12 +112,14 @@ namespace TourPlanner.UnitTests
             Assert.Equal("Child friendly Route!", result);
         }
 
+        //Always Failed --> have to figure out mocking for this
         [Fact]
         public void GetTourNotChildFriendlynessTest()
         {
-            testTour.Id = 1;
+
+            testTour.Id = 8;
             var result = handler.GetTourChildFriendlyness(testTour);
-            Assert.Equal("ot a Child friendly Route!", result);
+            Assert.Equal("Not a Child friendly Route!", result);
         }
 
         [Fact]

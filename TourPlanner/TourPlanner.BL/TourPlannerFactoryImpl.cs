@@ -12,7 +12,58 @@ namespace TourPlanner.BL
     {
         private TourPlannerDAO tourPlannerDAO = new TourPlannerDAO(); //this objects creates connection with database class and returns results from sql statements
 
-      
+        public bool ValidateStringInput(string input)
+        {
+            if (!String.IsNullOrEmpty(input))
+            {
+                bool valid;
+
+                string[] invalidStringsAndCharas = {"INSERT", "DELETE", "SELECT", "@", "/", "§", "%", "&", "#" };
+
+                valid = ContainsAny(input, invalidStringsAndCharas);
+
+                if (!valid)
+                {
+                    return true;
+                }
+            }
+
+            return false;   
+        }
+
+        public bool ContainsAny(string toBeTested, params string[] invalidStringsAndCharacters)
+        {
+            foreach (string parts in invalidStringsAndCharacters)
+            {
+                if (toBeTested.Contains(parts))
+                    return true;
+            }
+
+            return false;
+        }
+
+        // TOUR LOG VALIDATION TO-DO
+        //    cmd.Parameters.AddWithValue("datetime", NpgsqlDbType.Varchar, log.DateTime);
+        //    cmd.Parameters.AddWithValue("comment", NpgsqlDbType.Varchar, log.Comment);
+        //    cmd.Parameters.AddWithValue("difficulty", NpgsqlDbType.Integer, log.Difficulty);
+        //    cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Interval, log.TotalTime);
+        //    cmd.Parameters.AddWithValue("rating", NpgsqlDbType.Integer, log.Rating);
+
+        public bool ValidAddTourCall(string name, string start, string destination, string description)
+        {
+            bool validName = ValidateStringInput(name);
+            bool validStart = ValidateStringInput(start);
+            bool validDestination = ValidateStringInput(destination);
+            bool validDescription = ValidateStringInput(description);
+
+            if (validName && validStart && validDestination && validDescription)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void AddLog(TourLog log)
         {
             //return value

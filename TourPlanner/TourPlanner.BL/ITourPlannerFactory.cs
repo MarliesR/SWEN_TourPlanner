@@ -10,6 +10,7 @@ namespace TourPlanner.BL
         IEnumerable<Tour> SearchTours(string tourname);
         public IEnumerable<TourLog> ListAllLogs();
         public List<Tour> ListAllTours();
+        public bool ValidAddTourCall(string name, string start, string destination, string description);
         public bool AddTour(string name, string start, string destination, string transporttype, string description);
         public Tour GetTour(int id);
         public void ModifyTour(string tourname, string tourdescription, int id);

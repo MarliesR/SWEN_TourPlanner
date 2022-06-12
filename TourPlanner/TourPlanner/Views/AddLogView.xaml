@@ -17,7 +17,6 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
@@ -26,32 +25,30 @@
             <Label Grid.Column="1" Grid.Row="0" Content="Add a new log to the current tour" />
             <Label Grid.Column="0" Grid.Row="1" Content="Tour Name" />
             <Label Grid.Column="1" Grid.Row="1" x:Name="TourName" Content="{Binding TourName, Mode=TwoWay}"/>
-            <Label Grid.Column="0" Grid.Row="2" Content="Date"  />
-            <Label Grid.Column="1" Grid.Row="2"  Content="{Binding LogDate, Mode=TwoWay}"  />
             <!--<DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Short" SelectedDate="{Binding LogDate, Mode=TwoWay}"></DatePicker>-->
-            <Label Grid.Column="0" Grid.Row="3" Content="Time Total"  DockPanel.Dock="Left" />
-            <TextBox Grid.Column="1" Grid.Row="3"  x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay, StringFormat=HH:mm}" />
-            <Label Grid.Column="0" Grid.Row="4" >
+            <Label Grid.Column="0" Grid.Row="2" Content="Time Total"  DockPanel.Dock="Left" />
+            <TextBox Grid.Column="1" Grid.Row="2"  x:Name="TimeTotal"  DockPanel.Dock="Left" Text="{Binding LogTimeTotal, Mode=TwoWay, StringFormat=HH:mm}" />
+            <Label Grid.Column="0" Grid.Row="3" >
                 <TextBlock TextWrapping="Wrap" Text="Rating (1 = not good, 5 = nice tour)"></TextBlock>
             </Label>
-            <ComboBox Grid.Column="1" Grid.Row="4" 
+            <ComboBox Grid.Column="1" Grid.Row="3" 
                             Name="RatingTypes"
                          VerticalContentAlignment="Center"
                          ItemsSource="{Binding RatingTypes}"
                          SelectedItem="{Binding LogRating}">
             </ComboBox>
-            <Label Grid.Column="0" Grid.Row="5" >
+            <Label Grid.Column="0" Grid.Row="4" >
                 <TextBlock TextWrapping="Wrap" Text="Difficulty (1 = easy, 5 = very hard)"></TextBlock>
             </Label>
-            <ComboBox Grid.Column="1" Grid.Row="5" 
+            <ComboBox Grid.Column="1" Grid.Row="4" 
                          Name="RouteTypes"
                          VerticalContentAlignment="Center"
                          ItemsSource="{Binding DifficultyTypes}"
                          SelectedItem="{Binding LogDifficulty}">
             </ComboBox>
-            <Label Grid.Column="0" Grid.Row="6" Content="Comment" />
-            <TextBox Grid.Column="1" Grid.Row="6" x:Name="Comment" TextWrapping="Wrap" Text="{Binding LogComment, Mode=TwoWay}" />
-            <DockPanel Grid.Column="1" Grid.Row="7" LastChildFill="False">
+            <Label Grid.Column="0" Grid.Row="5" Content="Comment" />
+            <TextBox Grid.Column="1" Grid.Row="5" x:Name="Comment" TextWrapping="Wrap" Text="{Binding LogComment, Mode=TwoWay}" />
+            <DockPanel Grid.Column="1" Grid.Row="6" LastChildFill="False">
                 <Button DockPanel.Dock="Right" Content="clear"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding ClearLogCommand}"/>
                 <Button DockPanel.Dock="Right" Content="Add Log"  Margin="5,5,10,0" Padding="3,3,3,3" VerticalAlignment="Top" Command="{Binding SaveLogCommand}"/>
             </DockPanel>
