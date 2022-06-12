@@ -18,7 +18,7 @@ namespace TourPlanner.BL
             {
                 bool valid;
 
-                string[] invalidStringsAndCharas = {"INSERT", "DELETE", "SELECT", "@", "/", "§", "%", "&", "#" };
+                string[] invalidStringsAndCharas = {"INSERT", "DELETE", "SELECT", "UPDATE", "CREATE", "@", "/", "§", "%", "&", "#" };
 
                 valid = ContainsAny(input, invalidStringsAndCharas);
 
@@ -57,6 +57,19 @@ namespace TourPlanner.BL
             bool validDescription = ValidateStringInput(description);
 
             if (validName && validStart && validDestination && validDescription)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool ValidLogCall(TourLog log)
+        {
+            bool validComment = ValidateStringInput(log.Comment);
+            bool validDateTime = ValidateStringInput(log.DateTime);
+
+            if (validComment && validDateTime)
             {
                 return true;
             }

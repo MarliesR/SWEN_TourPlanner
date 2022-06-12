@@ -153,18 +153,27 @@ namespace TourPlanner.ViewModels
 
         private void SaveLog(object commandParameter)
         {
+           
 
            if (!ConvertTimeInput(logTimeTotal))
             {
-                _logger.Info("Added new TourLog failed.");
+                _logger.Warn("TimeTotal invalid");
                 return;
             }
-            TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, convertedTotalTime, logRating);
-            tourPlannerFactory.AddLog(log);
-            currentWindow.DialogResult = true;
-            currentWindow.Close();
 
-            _logger.Info("Added new TourLog.");
+            TourLog log = new TourLog(tourid, logDate, logComment, logDifficulty, convertedTotalTime, logRating);
+
+            if (tourPlannerFactory.ValidLogCall(log))
+            {
+                tourPlannerFactory.AddLog(log);
+                currentWindow.DialogResult = true;
+                currentWindow.Close();
+
+                _logger.Info("Added new TourLog.");
+            }
+
+            _logger.Warn("Log input is invalid");
+                
         }
 
         private string GetCurrentTimestamp()

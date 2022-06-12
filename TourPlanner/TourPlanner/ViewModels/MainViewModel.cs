@@ -6,7 +6,6 @@ using TourPlanner.Views;
 using TourPlanner.Library;
 using TourPlanner.BL;
 using System.Windows;
-using TourPlanner.Logger;
 using log4net;
 using System.Collections;
 

@@ -21,6 +21,7 @@ namespace TourPlanner.BL
         public void GenerateTourReport(Tour tour, ObservableCollection<TourLog> loglist);
         public bool GenerateSummarizeReport(Tour tour, ObservableCollection<TourLog> loglist);
         public List<TourLog> ListAllLogsOfSingleTour(int id);
+        public bool ValidLogCall(TourLog log);
         public void AddLog(TourLog log);
         public string GetTourChildFriendlyness(Tour tour);
 

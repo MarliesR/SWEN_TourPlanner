@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BL;
 using TourPlanner.Library;
-using TourPlanner.Logger;
 using log4net;
 
 namespace TourPlanner.ViewModels

@@ -9,55 +9,66 @@ namespace TourPlanner.UnitTests
     {
         TourPlannerFactoryImpl handler = new TourPlannerFactoryImpl();
 
-        Tour testTour = new Tour("abc", "hier", "dort", "fastest", 123, "abc123", "123:123:123", "abc.png");
+        Tour testTour = new Tour("TestTour1", "Vienna", "Dortmund", "fastest", 123, "This is my first tour", "10:10:10", "image.png");
+        TourLog testTourLog = new TourLog(1, "10:10", "This is my first log comment", 3, TimeSpan.Parse("10:10"), 3);
 
         [Fact]
         public void ValidateNameTrueTest()
         {
-            Assert.True(handler.ValidateStringInput("hallo"));
+            Assert.True(handler.ValidateStringInput(testTour.Name));
+            Assert.True(handler.ValidateStringInput(testTour.Start));
+            Assert.True(handler.ValidateStringInput(testTour.Destination));
+            Assert.True(handler.ValidateStringInput(testTour.Description));
+            Assert.True(handler.ValidateStringInput(testTourLog.Comment));
         }
 
         [Fact]
         public void ValidateNameFalseTest()
         {
-            Assert.False(handler.ValidateStringInput("INSTERT@//b"));
+            Assert.False(handler.ValidateStringInput("§/SELECThalloINSTERT@//bDELETE@/destination/%/aUPDATE/vienna/#//bCREATE"));
         }
 
         [Fact]
-        public void ValidateStartTrueTest()
+        public void ValidAddTourCallTrueTest()
         {
-            Assert.True(handler.ValidateStringInput("Vienna"));
+            Assert.True(handler.ValidAddTourCall(testTour.Name, testTour.Start, testTour.Destination, testTour.Description));
         }
 
         [Fact]
-        public void ValidateStartFalseTest()
+        public void ValidAddTourCallFalseTest()
         {
-            Assert.False(handler.ValidateStringInput("DELETE@//"));
+            Assert.False(handler.ValidAddTourCall("#/CREATE", "@/SELECT", "%/INSERT", "§/DELETE"));
         }
 
         [Fact]
-        public void ValidateDestinationTrueTest()
+        public void ValidAddTourLogCallTrueTest()
         {
-            Assert.True(handler.ValidateStringInput("Berlin"));
+            Assert.True(handler.ValidLogCall(testTourLog));
         }
 
         [Fact]
-        public void ValidateDestinationFalseTest()
+        public void ValidAddTourLogCallFalseTest()
         {
-            Assert.False(handler.ValidateStringInput("@//bSELECT"));
+            TourLog testTourLogFALSE = new TourLog(1, "§/SELECThalloINSTERT@//bDELETE@/destination/", "%/aUPDATE/vienna/#//bCREATE", 3, testTourLog.TotalTime, 3);
+            Assert.False(handler.ValidLogCall(testTourLogFALSE));
         }
 
         [Fact]
-        public void ValidateDescriptionTrueTest()
+        public void ContainsAnyTrueTest()
         {
-            Assert.True(handler.ValidateStringInput("This is my first tour"));
+            string[] invalidCharas = { "a", "b", "c" };
+            string toBeTested = "Hallo :)";
+            Assert.True(handler.ContainsAny(toBeTested, invalidCharas));
         }
 
         [Fact]
-        public void ValidateDescriptionFalseTest()
+        public void ContainsAnyFalseTest()
         {
-            Assert.False(handler.ValidateStringInput("@//bINSERT"));
+            string[] invalidCharas = { "!", "%", "?" };
+            string toBeTested = "Hallo :)";
+            Assert.False(handler.ContainsAny(toBeTested, invalidCharas));
         }
+
 
         // ------------- Still figuring out how mock works
         //[Fact]
@@ -67,7 +78,7 @@ namespace TourPlanner.UnitTests
 
         //    Assert.True(false);
         //}
-        
+
         //[Fact]
         //public void AddTourLogTest()
         //{
@@ -107,7 +118,7 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void GetTourChildFriendlynessTest()
         {
-            testTour.Id = 1;
+            testTour.Id = 25;
             var result = handler.GetTourChildFriendlyness(testTour);
             Assert.Equal("Child friendly Route!", result);
         }
@@ -117,7 +128,7 @@ namespace TourPlanner.UnitTests
         public void GetTourNotChildFriendlynessTest()
         {
 
-            testTour.Id = 8;
+            testTour.Id = 1;
             var result = handler.GetTourChildFriendlyness(testTour);
             Assert.Equal("Not a Child friendly Route!", result);
         }
