@@ -6,110 +6,44 @@ namespace TourPlanner.BL
 {
     public class ImportTour
     {
-        public Tour CreateTour(string line)
+        public string SplitString(string line)
         {
-            Tour tour = new Tour();
-
             string[] lineValues = line.Split(':');
 
-            switch (lineValues[0])
-            {
-                case "TourID:":
-                    tour.Id = Convert.ToInt32(lineValues[1]);
-                    break;
-
-                case "TourName:":
-                    tour.Name = lineValues[1];
-                    break;
-
-                case "Start:":
-                    tour.Start = lineValues[1];
-                    break;
-
-                case "Destination:":
-                    tour.Destination = lineValues[1];
-                    break;
-
-                case "TransportType:":
-                    tour.TransportType = lineValues[1];
-                    break;
-
-                case "Distance:":
-                    tour.Distance = Convert.ToInt32(lineValues[1]);
-                    break;
-
-                case "Description:":
-                    tour.Description = lineValues[1];
-                    break;
-
-                case "Duration:":
-                    tour.Duration = lineValues[1];
-                    break;
-
-                case "Image:":
-                    tour.Image = lineValues[1];
-                    break;
-            }
-
-            return tour;
+            return lineValues[1];
         }
 
         public Tour ReadFile(string path)
         {
             StreamReader sr = new StreamReader(path);
-            Tour tour = new Tour();
+            Tour readTour = new Tour();
 
             string line;
+            string result;
+            int count = 1;
 
             // Read and display lines from the file until the end of
             // the file is reached.
             while ((line = sr.ReadLine()) != null)
             {
-                string[] lineValues = line.Split(':');
+                result = SplitString(line);
 
-                switch (lineValues[0])
-                {
-                    case "TourID:":
-                        tour.Id = Convert.ToInt32(lineValues[1]);
-                        break;
+                if (count == 0) { readTour.Id = Convert.ToInt32(result); }
+                if (count == 1) { readTour.Name = result; }
+                if (count == 2) { readTour.Start = result; }
+                if (count == 3) { readTour.Destination = result; }
+                if (count == 4) { readTour.TransportType = result; }
+                if (count == 5) { readTour.Distance = Convert.ToInt32(result); }
+                if (count == 6) { readTour.Description = result; }
+                if (count == 7) { readTour.Duration = result; }
+                if (count == 8) { readTour.Image = result; }
 
-                    case "TourName:":
-                        tour.Name = lineValues[1];
-                        break;
-
-                    case "Start:":
-                        tour.Start = lineValues[1];
-                        break;
-
-                    case "Destination:":
-                        tour.Destination = lineValues[1];
-                        break;
-
-                    case "TransportType:":
-                        tour.TransportType = lineValues[1];
-                        break;
-
-                    case "Distance:":
-                        tour.Distance = Convert.ToInt32(lineValues[1]);
-                        break;
-
-                    case "Description:":
-                        tour.Description = lineValues[1];
-                        break;
-
-                    case "Duration:":
-                        tour.Duration = lineValues[1];
-                        break;
-
-                    case "Image:":
-                        tour.Image = lineValues[1];
-                        break;
-                }
+                count++;
             }
 
             //close StreamReader
 
-            return tour;
+            return readTour;
         }
     }
 }

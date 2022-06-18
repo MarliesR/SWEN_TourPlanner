@@ -22,7 +22,7 @@ namespace TourPlanner.UnitTests
         TourLog testTourLog = new TourLog(1, "10:10", "This is my first log comment", 3, TimeSpan.Parse("10:10"), 3);
 
         [Fact]
-        public void ValidateNameTrueTest()
+        public void ValidateTrueTest()
         {
             Assert.True(handler.ValidateStringInput(testTour.Name));
             Assert.True(handler.ValidateStringInput(testTour.Start));
@@ -32,7 +32,7 @@ namespace TourPlanner.UnitTests
         }
 
         [Fact]
-        public void ValidateNameFalseTest()
+        public void ValidateFalseTest()
         {
             Assert.False(handler.ValidateStringInput("§/SELECThalloINSTERT@//bDELETE@/destination/%/aUPDATE/vienna/#//bCREATE"));
         }

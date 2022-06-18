@@ -34,22 +34,24 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void WriteTourIntoFileTest()
         {
-            
+
         }
+
 
         // ====================================== Import Tests ======================================
         [Fact]
-        public void CreateTourTest()
+        public void SplitStringTest()
         {
-            Tour testTour = new Tour();
-            testTour = importObjectTest.CreateTour("TourName:Ha");
-            Assert.Equal("Ha", testTour.Name);
+            var result = importObjectTest.SplitString("TourName:Ha");
+            Assert.Equal("Ha", result);
         }
 
-        [Fact]
-        public void ReadFileTest()
-        {
-            
-        }
+        // ---- Später anpassen
+        //[Fact]
+        //public void ReadFileTest()
+        //{
+        //    Tour testTour = importObjectTest.ReadFile("TourName:Ha");
+        //    Assert.Equal("Ha", testTour.Name);
+        //}
     }
 }
