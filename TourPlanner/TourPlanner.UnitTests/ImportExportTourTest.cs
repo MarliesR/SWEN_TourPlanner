@@ -8,6 +8,18 @@ namespace TourPlanner.UnitTests
 {
     public class ImportExportTourTest
     {
+        Tour testTour = new Tour
+        {
+            Id = 5,
+            Name = "TestTour1",
+            Start = "Vienna",
+            Destination = "Dortmund",
+            TransportType = "fastest",
+            Distance = 123,
+            Description = "This is my first tour",
+            Duration = "10:10:10",
+            Image = "image.png"
+        };
         ExportTour exportObjectTest = new ExportTour();
         ImportTour importObjectTest = new ImportTour();
 
@@ -34,7 +46,9 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void WriteTourIntoFileTest()
         {
+            exportObjectTest.WriteTourIntoFile(testTour);
 
+            Assert.True(true);
         }
 
 
@@ -46,12 +60,21 @@ namespace TourPlanner.UnitTests
             Assert.Equal("Ha", result);
         }
 
-        // ---- Später anpassen
-        //[Fact]
-        //public void ReadFileTest()
-        //{
-        //    Tour testTour = importObjectTest.ReadFile("TourName:Ha");
-        //    Assert.Equal("Ha", testTour.Name);
-        //}
+
+        [Fact]
+        public void ReadFileTest()
+        {
+            Tour readTourTest = importObjectTest.ReadFile(@"C:\TestDir\TestTour1.txt");
+
+            Assert.Equal(testTour.Id, readTourTest.Id);
+            Assert.Equal(testTour.Name, readTourTest.Name);
+            Assert.Equal(testTour.Start, readTourTest.Start);
+            Assert.Equal(testTour.Destination, readTourTest.Destination);
+            Assert.Equal(testTour.TransportType, readTourTest.TransportType);
+            Assert.Equal(testTour.Distance, readTourTest.Distance);
+            Assert.Equal(testTour.Description, readTourTest.Description);
+            Assert.Equal(testTour.Duration, readTourTest.Duration);
+            Assert.Equal(testTour.Image, readTourTest.Image);
+        }
     }
 }

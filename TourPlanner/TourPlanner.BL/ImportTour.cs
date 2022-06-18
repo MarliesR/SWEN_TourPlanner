@@ -6,12 +6,18 @@ namespace TourPlanner.BL
 {
     public class ImportTour
     {
+        public bool DoesFileExist(string path)
+        {
+            return true;
+        }
+
         public string SplitString(string line)
         {
-            string[] lineValues = line.Split(':');
+            string[] lineValues = line.Split('=');
 
             return lineValues[1];
         }
+
 
         public Tour ReadFile(string path)
         {
@@ -19,29 +25,32 @@ namespace TourPlanner.BL
             Tour readTour = new Tour();
 
             string line;
-            string result;
+            //string result;
             int count = 1;
 
             // Read and display lines from the file until the end of
             // the file is reached.
             while ((line = sr.ReadLine()) != null)
             {
-                result = SplitString(line);
+                //result = SplitString(line);
 
-                if (count == 0) { readTour.Id = Convert.ToInt32(result); }
-                if (count == 1) { readTour.Name = result; }
-                if (count == 2) { readTour.Start = result; }
-                if (count == 3) { readTour.Destination = result; }
-                if (count == 4) { readTour.TransportType = result; }
-                if (count == 5) { readTour.Distance = Convert.ToInt32(result); }
-                if (count == 6) { readTour.Description = result; }
-                if (count == 7) { readTour.Duration = result; }
-                if (count == 8) { readTour.Image = result; }
+                string[] lineValues = line.Split('=');
+                var result = lineValues[1];
+
+                if (count == 1) { readTour.Id = Convert.ToInt32(result); }
+                if (count == 2) { readTour.Name = result; }
+                if (count == 3) { readTour.Start = result; }
+                if (count == 4) { readTour.Destination = result; }
+                if (count == 5) { readTour.TransportType = result; }
+                if (count == 6) { readTour.Distance = Convert.ToDouble(result); }
+                if (count == 7) { readTour.Description = result; }
+                if (count == 8) { readTour.Duration = result; }
+                if (count == 9) { readTour.Image = result; }
 
                 count++;
             }
 
-            //close StreamReader
+            sr.Close();
 
             return readTour;
         }

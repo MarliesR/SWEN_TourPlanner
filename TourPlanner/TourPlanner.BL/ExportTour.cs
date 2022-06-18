@@ -9,9 +9,6 @@ namespace TourPlanner.BL
     {
         public string GetDirectory(string path)
         {
-            // ersetzen mit richtigen path!!!!!!!!!!
-            // string path = @"c:\MyDir";
-
             // See if folder exists
             if (Directory.Exists(path))
             {
@@ -45,28 +42,25 @@ namespace TourPlanner.BL
 
         public void WriteTourIntoFile(Tour tour)
         {
-            // get path 
-            string path = GetFullFilePath(@"C:\",tour.Name);
+            // get path
+            // insert correct path!!!
+            string path = GetFullFilePath(@"C:\TestDir",tour.Name);
 
             // create file 
             StreamWriter outputFile = new StreamWriter(path);
-            
-            outputFile.WriteLine($"TourID:{tour.Id}");
-            outputFile.WriteLine($"TourName:{tour.Name}");
-            outputFile.WriteLine($"Start:{tour.Start}");
-            outputFile.WriteLine($"Destination:{tour.Destination}");
-            outputFile.WriteLine($"TransportType:{tour.TransportType}");
-            outputFile.WriteLine($"Distance:{tour.Distance}");
-            outputFile.WriteLine($"Description:{tour.Description}");
-            outputFile.WriteLine($"Duration:{tour.Duration}");
-            outputFile.WriteLine($"Image:{tour.Image}");
 
+            outputFile.WriteLine($"TourID={tour.Id}");
+            outputFile.WriteLine($"TourName={tour.Name}");
+            outputFile.WriteLine($"Start={tour.Start}");
+            outputFile.WriteLine($"Destination={tour.Destination}");
+            outputFile.WriteLine($"TransportType={tour.TransportType}");
+            outputFile.WriteLine($"Distance={tour.Distance}");
+            outputFile.WriteLine($"Description={tour.Description}");
+            outputFile.WriteLine($"Duration={tour.Duration}");
+            outputFile.WriteLine($"Image={tour.Image}");
 
-            //// create file
-            //FileStream fs = File.Create(path);
-            //byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
-            //// Add some information to the file.
-            //fs.Write(info, 0, info.Length);
+            // close StreamWriter ?
+            outputFile.Close();
         }
 
         public void DeleteDirectory(string path)

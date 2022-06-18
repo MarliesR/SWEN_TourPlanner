@@ -8,7 +8,6 @@ namespace TourPlanner.UnitTests
     public class TourFactoryImplTest
     {
         TourPlannerFactoryImpl handler = new TourPlannerFactoryImpl();
-
         Tour testTour = new Tour { 
             Name = "TestTour1", 
             Start = "Vienna", 
