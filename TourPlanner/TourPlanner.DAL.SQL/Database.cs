@@ -139,8 +139,19 @@ namespace TourPlanner.DAL.SQL
                     var duration = reader.GetString(reader.GetOrdinal("duration"));
                     var image = reader.GetString(reader.GetOrdinal("image"));
 
-                    Tour tourData = new Tour(name, start, destination, transportType, distance, description, duration, image);
-                    tourData.Id = id;
+                    Tour tourData = new Tour
+                    {
+                        Id = id,
+                        Name = name,
+                        Start = start,
+                        Destination = destination,
+                        TransportType = transportType,
+                        Distance = distance,
+                        Description = description,
+                        Duration = duration,
+                        Image = image
+                    };
+
                     tourlist.Add(tourData);
                 }
             }
@@ -270,11 +281,18 @@ namespace TourPlanner.DAL.SQL
                 var duration = reader.GetString(reader.GetOrdinal("description"));
                 var image = reader.GetString(reader.GetOrdinal("image"));
 
-                var tourData = new Tour(name, start, destination, transportType, distance, description, duration, image)
+                var tourData = new Tour
                 {
-                    Id = TourId
+                    Id = TourId,
+                    Name = name,
+                    Start = start,
+                    Destination = destination,
+                    TransportType = transportType,
+                    Distance = distance,
+                    Description = description,
+                    Duration = duration,
+                    Image = image
                 };
-
 
                 return tourData;
             }

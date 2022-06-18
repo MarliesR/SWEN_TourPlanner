@@ -22,7 +22,17 @@ namespace TourPlanner.UnitTests
             string duration = "123:123:123";
             string image = "abc.png";
 
-            Tour testTour = new Tour(name, start, destination, transport, distance, description, duration, image);
+            Tour testTour = new Tour
+            {
+                Name = name,
+                Start = start,
+                Destination = destination,
+                TransportType = transport,
+                Distance = distance,
+                Description = description,
+                Duration = duration,
+                Image = image
+            };
 
             Assert.Equal(name, testTour.Name);
             Assert.Equal(start, testTour.Start);

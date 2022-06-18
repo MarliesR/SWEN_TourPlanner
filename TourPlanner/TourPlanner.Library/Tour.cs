@@ -14,16 +14,5 @@ namespace TourPlanner.Library
         public string Duration { get; set; } //von Mapquest
         public string Image { get; set; } //von Mapquest
 
-        public Tour(string name, string start, string destination, string transporttype, double distance, string description, string duration, string image)
-        {
-            Name = name;
-            Start = start;
-            Destination = destination;
-            TransportType = transporttype;
-            Distance = distance;
-            Description = description;
-            Duration = duration;
-            Image = image;
-        }
     }
 }

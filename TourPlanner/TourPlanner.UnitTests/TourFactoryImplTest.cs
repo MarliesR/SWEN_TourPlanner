@@ -9,7 +9,16 @@ namespace TourPlanner.UnitTests
     {
         TourPlannerFactoryImpl handler = new TourPlannerFactoryImpl();
 
-        Tour testTour = new Tour("TestTour1", "Vienna", "Dortmund", "fastest", 123, "This is my first tour", "10:10:10", "image.png");
+        Tour testTour = new Tour { 
+            Name = "TestTour1", 
+            Start = "Vienna", 
+            Destination = "Dortmund", 
+            TransportType = "fastest", 
+            Distance = 123, 
+            Description = "This is my first tour", 
+            Duration = "10:10:10", 
+            Image = "image.png" 
+        };
         TourLog testTourLog = new TourLog(1, "10:10", "This is my first log comment", 3, TimeSpan.Parse("10:10"), 3);
 
         [Fact]

@@ -94,7 +94,19 @@ namespace TourPlanner.BL
             {
                 return false;
             }
-            Tour tour = new Tour(name, start, destination, transporttype, distance, description, duration, imagePath);
+
+            Tour tour = new Tour
+            {
+                Name = name,
+                Start = start,
+                Destination = destination,
+                TransportType = transporttype,
+                Distance = distance,
+                Description = description,
+                Duration = duration,
+                Image = imagePath
+            };
+            
             tourPlannerDAO.AddTourSQL(tour);
             return true;
         }
