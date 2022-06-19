@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Utilities\alreadyFavourite.png" />
     <None Remove="Utilities\deleteicon.png" />
     <None Remove="Utilities\editicon.png" />
+    <None Remove="Utilities\favourite.png" />
     <None Remove="Utilities\searchicon.png" />
   </ItemGroup>
 
@@ -23,8 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Utilities\alreadyFavourite.png" />
     <Resource Include="Utilities\deleteicon.png" />
     <Resource Include="Utilities\editicon.png" />
+    <Resource Include="Utilities\favourite.png" />
     <Resource Include="Utilities\searchicon.png" />
   </ItemGroup>
 

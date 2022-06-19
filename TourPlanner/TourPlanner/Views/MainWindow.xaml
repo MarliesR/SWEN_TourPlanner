@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:TourPlanner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         xmlns:views ="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="500" Width="800" MinHeight="450" MinWidth="650">
+        Title="Tour-Planner" Height="500" Width="850" MinHeight="450" MinWidth="700">
     
     
     <Window.DataContext>
@@ -37,16 +37,18 @@
         </DockPanel>
 
 
-
+        
         <DockPanel Grid.Column="1" LastChildFill="True" Background="AliceBlue">
-
+            <Button DockPanel.Dock="Right"  Height="25" Width="25" Command="{Binding addFavouriteTour}" >
+                <Image Source="{Binding FavouriteIcon, Mode=OneWay}"/>
+            </Button>
             <Button Content="Report Tours" DockPanel.Dock="Right"  Command="{Binding genereateReportCommand}" >
             </Button>
             <Button Content="Summary Report Tours" DockPanel.Dock="Right" Command="{Binding genereateSummarizeReportCommand}" >
             </Button>
             <Button Content="export Tours" DockPanel.Dock="Right" Command="{Binding exportTourCommand}">
             </Button>
-            <Button Content="import Tours" DockPanel.Dock="Right" Command="{Binding importTourCommand}">
+            <Button Content="import Tours" DockPanel.Dock="Right" Margin="30,0,5,0" Command="{Binding importTourCommand}">
             </Button>
             <Button  DockPanel.Dock="Right" Height="25" Width="35" Content="clear" Command="{Binding clearCommand}" Margin="0,0,0,0" >
             </Button>
@@ -55,10 +57,10 @@
             </Button>
             
             <TextBox  x:Name="SearchBar" DockPanel.Dock="Right" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding SearchText, Mode=TwoWay}" Height="25" Margin="5,5,0,5"  />
-        </DockPanel> 
+        </DockPanel>
 
 
-
+        
         <!--das ist der bereich mit den tours und den möglichkeiten zu ADD / EDIT / DELETE tours -->
         <DockPanel Grid.Row="1" Background="AliceBlue" >
                 <DockPanel LastChildFill="True" Height="40" DockPanel.Dock="Bottom">
@@ -70,18 +72,37 @@
                     </Button>
                     <Button Content="+ add Tour" DockPanel.Dock="right" Command="{Binding showTourWindowCommand}" Height="25" />
                 </DockPanel>
+           
+                
             <Border Background="White" BorderBrush="LightGray" BorderThickness="2" >
-                <ListBox DockPanel.Dock="Top" 
-                 FontWeight="Bold"
-                 BorderThickness="0"
-                 VerticalAlignment="Stretch" 
-                 Margin="5,10,5,5"
-                 Name="TourList" 
-                 ItemsSource="{Binding TourList}"
-                 SelectedItem="{Binding CurrentTour}"
-                 AlternationCount="2"
-                 DisplayMemberPath="Name"/>
+                <TabControl>
+                    <TabItem Header="Tours">
+                        <ListBox DockPanel.Dock="Top" 
+                         FontWeight="Bold"
+                         BorderThickness="0"
+                         VerticalAlignment="Stretch" 
+                         Margin="5,10,5,5"
+                         Name="TourList" 
+                         ItemsSource="{Binding TourList}"
+                         SelectedItem="{Binding CurrentTour}"
+                         AlternationCount="2"
+                         DisplayMemberPath="Name"/>
+                    </TabItem>
+                    <TabItem Header="Favourites">
+                        <ListBox DockPanel.Dock="Top" 
+                         FontWeight="Bold"
+                         BorderThickness="0"
+                         VerticalAlignment="Stretch" 
+                         Margin="5,10,5,5"
+                         Name="FavouriteList" 
+                         ItemsSource="{Binding FavouriteTours}"
+                         SelectedItem="{Binding CurrentTour, Mode=TwoWay}"
+                         AlternationCount="1"
+                         DisplayMemberPath="Name"/>
+                    </TabItem>
+                </TabControl>
             </Border>
+           
         </DockPanel>
 
         <!-- Bereich für die Details von Tours und logs -->

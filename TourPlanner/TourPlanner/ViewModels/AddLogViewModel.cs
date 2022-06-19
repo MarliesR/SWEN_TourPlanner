@@ -154,7 +154,6 @@ namespace TourPlanner.ViewModels
         private void SaveLog(object commandParameter)
         {
            
-
            if (!ConvertTimeInput(logTimeTotal))
             {
                 _logger.Warn("TimeTotal is invalid.");
@@ -181,7 +180,6 @@ namespace TourPlanner.ViewModels
         {
             DateTime today = DateTime.Now;
             return today.ToString(); 
-
         }
 
         private bool ConvertTimeInput(string logTimeTotal)

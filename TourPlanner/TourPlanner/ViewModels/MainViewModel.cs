@@ -8,6 +8,7 @@ using TourPlanner.BL;
 using System.Windows;
 using log4net;
 using System.Collections;
+using System.Linq;
 
 namespace TourPlanner.ViewModels
 {
@@ -17,12 +18,17 @@ namespace TourPlanner.ViewModels
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ObservableCollection<Tour> TourList { get; set; }
+        public ObservableCollection<Tour> FavouriteTours { get; set; }
         public ObservableCollection<TourLog> LogList { get; set; }
         private Tour currentTour;
         private TourLog currentLog;
         private string searchText = "Search..";
         public object selectedViewModel;
         private string filePath;
+        private string favouriteIcon;
+        private string pathNotFavourite = "/TourPlanner;component/Utilities/favourite.png";
+        private string pathFavourite = "/TourPlanner;component/Utilities/alreadyFavourite.png";
+        
 
         private RelayCommand editTourPageCommand1;
         private RelayCommand showTourWindowCommand1;
@@ -36,7 +42,9 @@ namespace TourPlanner.ViewModels
         private RelayCommand clearCommand1;
         private RelayCommand exportTourCommand1;
         private RelayCommand importTourCommand1;
+        private RelayCommand addFavouriteTour1;
 
+        public ICommand addFavouriteTour => addFavouriteTour1 ??= new RelayCommand(PerformaddFavouriteTour);
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
@@ -55,8 +63,9 @@ namespace TourPlanner.ViewModels
             this.tourPlannerFactory = TourPlannerFactory.GetInstance();
             TourList = new ObservableCollection<Tour>();
             LogList = new ObservableCollection<TourLog>();
-          
+            FavouriteTours = new ObservableCollection<Tour>();
             SelectedViewModel = new ShowTourViewModel(currentTour);
+            favouriteIcon = pathNotFavourite;
             LoadAllTours();
         }
 
@@ -85,10 +94,20 @@ namespace TourPlanner.ViewModels
                     RaisePropertyChangedEvent(nameof(CurrentTour));
                     if (currentTour != null)
                     {
+                        if (UpdateFavourite(currentTour.Id))
+                        {
+                            FavouriteIcon = pathFavourite;
+                        }
+                        else
+                        {
+                            FavouriteIcon = pathNotFavourite; 
+                        }
+
                         SelectedViewModel = new ShowTourViewModel(currentTour);
                         LoadLogsCurrentTour();
-                        
+
                     }
+                   
                 }
             }
         }
@@ -120,11 +139,24 @@ namespace TourPlanner.ViewModels
             }
         }
 
+        public string FavouriteIcon
+        {
+            get => favouriteIcon;
+            set
+            {
+                if (favouriteIcon != value)
+                {
+                    favouriteIcon = value;
+                    RaisePropertyChangedEvent(nameof(FavouriteIcon));
+                }
+            }
+        }
 
         private void EditTourWindow(object commandParameter)
         {
             if (currentTour != null)
             {
+                _logger.Info($"Edit tour with id: {currentTour.Id}.");
                 EditTourView newTourWindow = new EditTourView(currentTour);
                 bool? dialogResult = newTourWindow.ShowDialog();
                 if (dialogResult == true)
@@ -137,7 +169,7 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a tour");
             }
 
-            _logger.Info($"Edit tour with id: {currentTour.Id}.");
+           
         }
 
         
@@ -145,15 +177,39 @@ namespace TourPlanner.ViewModels
         {
             TourList.Clear();
             List<Tour> tourlist = this.tourPlannerFactory.ListAllTours();
+            //helper list for favourites
+            List<Tour> favourites = new(); 
+            favourites.Clear();
             if (tourlist != null)
             {
                 foreach (var tour in tourlist)
                 {
                     TourList.Add(tour);
+                    //check if this tour from full tourlist is also in favourites list
+                    if (UpdateFavourite(tour.Id))
+                    {
+                        //add to helper list
+                        favourites.Add(tour);
+                    }
                 }
-
+                //clear current favourites observableCollection which are displayed
+                FavouriteTours.Clear();
+                //add replace favourites with updated helper list 
+                foreach(Tour favouriteTour in favourites)
+                {
+                    FavouriteTours.Add(favouriteTour);
+                }
                 _logger.Info("All tours loaded.");
             }
+        }
+
+        private bool UpdateFavourite(int tourid)
+        {
+            if(FavouriteTours.Any(x => x.Id == tourid))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void LoadLogsCurrentTour()
@@ -214,6 +270,10 @@ namespace TourPlanner.ViewModels
             {
                 _logger.Info($"Delete tour with id: {currentTour.Id}.");
                 this.tourPlannerFactory.DeleteTour(currentTour.Id);
+                if (UpdateFavourite(currentTour.Id))
+                {
+                    FavouriteTours.Remove(currentTour);
+                }
                 currentTour = null;
                 SelectedViewModel = new ShowTourViewModel(currentTour);
                 LoadAllTours();
@@ -358,6 +418,27 @@ namespace TourPlanner.ViewModels
             {
                 _logger.Warn("No tour has been choosen to import.");
                 MessageBox.Show("Please enter a path to a TourFile");
+            }
+        }
+
+      
+
+        private void PerformaddFavouriteTour(object commandParameter)
+        {
+            if (currentTour != null)
+            {
+                var alreadyFavourite = FavouriteTours.Where(x => x.Id == CurrentTour.Id).ToList();
+                if (alreadyFavourite.Count() == 1)
+                {
+                    FavouriteTours.Remove(currentTour);
+                    FavouriteIcon = pathNotFavourite;
+                }
+                else
+                {
+                    FavouriteTours.Add(currentTour);
+                    FavouriteIcon = pathFavourite;
+                }
+                
             }
         }
     }
