@@ -14,7 +14,6 @@ namespace TourPlanner.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private ITourPlannerFactory tourPlannerFactory; 
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ObservableCollection<Tour> TourList { get; set; }
@@ -22,7 +21,8 @@ namespace TourPlanner.ViewModels
         private Tour currentTour;
         private TourLog currentLog;
         private string searchText = "Search..";
-        public object selectedViewModel; 
+        public object selectedViewModel;
+        private string filePath;
 
         private RelayCommand editTourPageCommand1;
         private RelayCommand showTourWindowCommand1;
@@ -138,8 +138,7 @@ namespace TourPlanner.ViewModels
                 MessageBox.Show("Please choose a tour");
             }
 
-            _logger.Info("Edit tour with id: 123.");
-            // muss ich noch fertig schreiben 
+            _logger.Info($"Edit tour with id: {currentTour.Id}.");
         }
 
         
@@ -183,6 +182,7 @@ namespace TourPlanner.ViewModels
             if(dialogResult == true)
             {
                 LoadAllTours();
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Tour saved!");
             }
 
@@ -197,11 +197,13 @@ namespace TourPlanner.ViewModels
                 if(dialogResult == true)
                 {
                     LoadLogsCurrentTour();
+                    // ========================================================= ADD LOGGING MESAGE
                     MessageBox.Show("Log saved!");
                 }
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a tour");
             }
         }
@@ -211,16 +213,15 @@ namespace TourPlanner.ViewModels
         {
             if(currentTour != null)
             {
+                _logger.Info($"Delete tour with id: {currentTour.Id}.");
                 this.tourPlannerFactory.DeleteTour(currentTour.Id);
                 currentTour = null;
                 SelectedViewModel = new ShowTourViewModel(currentTour);
                 LoadAllTours();
-
-                _logger.Info($"Delete tour with id: {currentTour.Id}.");
-                // todo
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a tour");
             }
         }
@@ -230,15 +231,15 @@ namespace TourPlanner.ViewModels
         {
             if(currentLog != null)
             {
+                _logger.Info($"Deleted TourLog {currentLog.Id}.");
                 if (this.tourPlannerFactory.DeleteLog(currentLog.Id))
                 {
                     LoadLogsCurrentTour();
                 }
-
-                _logger.Info("Deleted TourLog.");
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a log entry");
             }
 
@@ -260,6 +261,7 @@ namespace TourPlanner.ViewModels
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a log entry");
             }
         }
@@ -269,16 +271,17 @@ namespace TourPlanner.ViewModels
             if (currentTour != null)
             {
                 this.tourPlannerFactory.GenerateTourReport(currentTour, LogList);
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Report Generated");
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a tour");
             }
             
         }
 
-        
 
         private void search(object commandParameter)
         {
@@ -315,22 +318,47 @@ namespace TourPlanner.ViewModels
             if (currentTour != null)
             {
                 this.tourPlannerFactory.GenerateSummarizeReport(currentTour, LogList);
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Sumamrize Report Generated");
             }
             else
             {
+                // ========================================================= ADD LOGGING MESAGE
                 MessageBox.Show("Please choose a tour");
             }
         }
 
         private void exportTour(object commandParameter)
         {
-            this.tourPlannerFactory.ExportTour(currentTour);
+            if(currentTour != null)
+            {
+                this.tourPlannerFactory.ExportTour(currentTour);
+                // ========================================================= ADD LOGGING MESAGE
+                MessageBox.Show("Tour has been succesfully exported!");
+            }
+            else
+            {
+                // ========================================================= ADD LOGGING MESAGE
+                MessageBox.Show("Please choose a tour");
+            }
+            
         }
 
 
         private void importTour(object commandParameter)
         {
+            ImportTourView importTourWindow = new ImportTourView();
+            bool? dialogResult = importTourWindow.ShowDialog();
+            if (dialogResult == true)
+            {
+                MessageBox.Show("Tour has been succesfully imported!");
+                LoadAllTours();
+            }
+            else
+            {
+                // ========================================================= ADD LOGGING MESAGE
+                MessageBox.Show("Please enter a path to a TourFile");
+            }
         }
     }
 }

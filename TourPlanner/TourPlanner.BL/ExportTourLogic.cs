@@ -61,7 +61,7 @@ namespace TourPlanner.BL
             outputFile.WriteLine($"Duration={tour.Duration}");
             outputFile.WriteLine($"Image={tour.Image}");
 
-            // close StreamWriter ?
+            // close StreamWriter
             outputFile.Close();
         }
 

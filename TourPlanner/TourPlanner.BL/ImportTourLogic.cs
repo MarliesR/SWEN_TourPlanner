@@ -4,10 +4,12 @@ using TourPlanner.Library;
 
 namespace TourPlanner.BL
 {
+    // C:\SWEN_semesterproject_tours\ExportTest1.txt
     public class ImportTourLogic
     {
         public bool DoesFileExist(string path)
         {
+            
             return true;
         }
 
@@ -25,17 +27,17 @@ namespace TourPlanner.BL
             Tour readTour = new Tour();
 
             string line;
-            //string result;
+            string result;
             int count = 1;
 
             // Read and display lines from the file until the end of
             // the file is reached.
             while ((line = sr.ReadLine()) != null)
             {
-                //result = SplitString(line);
+                result = SplitString(line);
 
-                string[] lineValues = line.Split('=');
-                var result = lineValues[1];
+                //string[] lineValues = line.Split('=');
+                //var result = lineValues[1];
 
                 if (count == 1) { readTour.Id = Convert.ToInt32(result); }
                 if (count == 2) { readTour.Name = result; }
@@ -51,7 +53,7 @@ namespace TourPlanner.BL
             }
 
             sr.Close();
-
+            path = string.Empty;
             return readTour;
         }
     }

@@ -209,5 +209,12 @@ namespace TourPlanner.BL
                 command.WriteTourIntoFile(tour);
             }
         }
+
+
+        public void ImportTour(Tour tour)
+        {
+            tourPlannerDAO.AddTourSQL(tour);
+            ListAllTours();
+        }
     }
 }

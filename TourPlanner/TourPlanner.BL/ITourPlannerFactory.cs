@@ -25,5 +25,6 @@ namespace TourPlanner.BL
         public void AddLog(TourLog log);
         public string GetTourChildFriendlyness(Tour tour);
         public void ExportTour(Tour tour);
+        public void ImportTour(Tour tour);
     }
 }

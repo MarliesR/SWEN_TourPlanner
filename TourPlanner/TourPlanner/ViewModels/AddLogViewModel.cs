@@ -11,7 +11,6 @@ namespace TourPlanner.ViewModels
     {
         private ITourPlannerFactory tourPlannerFactory;
         private Window currentWindow;
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private string tourName;
