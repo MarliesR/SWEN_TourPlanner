@@ -170,10 +170,11 @@ namespace TourPlanner.ViewModels
 
                 _logger.Info($"Added new TourLog from tour {log.TourId}.");
             }
-
-            MessageBox.Show("Log saving failed, check for correct input");
-            _logger.Warn("Log input is invalid.");
-                
+            else
+            {
+                MessageBox.Show("Log saving failed, check for correct input");
+                _logger.Warn("Log input is invalid.");
+            }
         }
 
         private string GetCurrentTimestamp()

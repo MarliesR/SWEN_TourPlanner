@@ -174,8 +174,11 @@ namespace TourPlanner.ViewModels
 
                 _logger.Info("Saved changed data tour log successfuly.");
             }
-            MessageBox.Show("Log saving failed, check for correct input");
-            _logger.Warn("Tour log data input is invalid.");
+            else
+            {
+                MessageBox.Show("Log saving failed, check for correct input");
+                _logger.Warn("Tour log data input is invalid.");
+            }
         }
 
         

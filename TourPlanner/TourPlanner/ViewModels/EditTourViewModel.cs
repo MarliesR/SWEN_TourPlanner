@@ -127,10 +127,14 @@ namespace TourPlanner.ViewModels
                     currentWindow.DialogResult = true;
                     currentWindow.Close();
 
+                    MessageBox.Show("Tour saved successfully.");
                     _logger.Info("Tour data hase successfully been edited.");
                 }
-                MessageBox.Show("Tour saving failed, check for correct input");
-                _logger.Warn("Tour data input is invalid.");
+                else
+                {
+                    MessageBox.Show("Tour saving failed, check for correct input.");
+                    _logger.Warn("Tour data input is invalid.");
+                }
             }
         }
 
