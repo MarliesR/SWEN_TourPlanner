@@ -70,6 +70,19 @@ namespace TourPlanner.BL
             return false;
         }
 
+        public bool ValidEditTourCall(string name, string description)
+        {
+            bool validName = ValidateStringInput(name);
+            bool validDescription = ValidateStringInput(description);
+
+            if (validName && validDescription)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void AddLog(TourLog log)
         {
             //return value

@@ -159,16 +159,23 @@ namespace TourPlanner.ViewModels
         {
             if (!ConvertTimeInput(LogTimeTotal))
             {
-                _logger.Info("Added new TourLog failed.");
+                _logger.Warn("Saving tour log failed.");
                 return;
             }
+
             TourLog modifiedLog = new TourLog(baseLog.TourId, LogDate, LogComment, LogDifficulty, convertedTotalTime, LogRating);
             modifiedLog.Id = baseLog.Id;
-            this.tourPlannerFactory.ModifyLogEntry(modifiedLog);
-            currentWindow.DialogResult = true;
-            currentWindow.Close();
 
-            _logger.Info("Edited TourLog data.");
+            if (tourPlannerFactory.ValidLogCall(modifiedLog))
+            {
+                this.tourPlannerFactory.ModifyLogEntry(modifiedLog);
+                currentWindow.DialogResult = true;
+                currentWindow.Close();
+
+                _logger.Info("Saved changed data tour log successfuly.");
+            }
+            MessageBox.Show("Log saving failed, check for correct input");
+            _logger.Warn("Tour log data input is invalid.");
         }
 
         

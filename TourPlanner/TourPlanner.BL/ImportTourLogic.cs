@@ -9,8 +9,13 @@ namespace TourPlanner.BL
     {
         public bool DoesFileExist(string path)
         {
-            
-            return true;
+
+            if (File.Exists(path))
+            {
+                Console.WriteLine("That path exists already.");
+                return true;
+            }
+            return false;
         }
 
         public string SplitString(string line)

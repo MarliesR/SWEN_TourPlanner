@@ -147,6 +147,7 @@ namespace TourPlanner.ViewModels
             LogDifficulty = 1;
             LogRating = 1;
             LogTimeTotal = "hh:mm";
+            _logger.Info("Clear input from add tour log.");
         }
 
 
@@ -156,7 +157,7 @@ namespace TourPlanner.ViewModels
 
            if (!ConvertTimeInput(logTimeTotal))
             {
-                _logger.Warn("TimeTotal invalid");
+                _logger.Warn("TimeTotal is invalid.");
                 return;
             }
 
@@ -168,10 +169,11 @@ namespace TourPlanner.ViewModels
                 currentWindow.DialogResult = true;
                 currentWindow.Close();
 
-                _logger.Info("Added new TourLog.");
+                _logger.Info($"Added new TourLog from tour {log.TourId}.");
             }
 
-            _logger.Warn("Log input is invalid");
+            MessageBox.Show("Log saving failed, check for correct input");
+            _logger.Warn("Log input is invalid.");
                 
         }
 

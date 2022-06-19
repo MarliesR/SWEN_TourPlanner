@@ -12,7 +12,6 @@ namespace TourPlanner.ViewModels
 
         private ITourPlannerFactory tourPlannerFactory;
         private Window currentWindow;
-        //private static readonly log4net.ILog _logger = LoggingHandler.GetLogger();
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
         private Tour baseTour; 
@@ -113,20 +112,25 @@ namespace TourPlanner.ViewModels
 
         private void EditTour(object commandParameter)
         {
-           
             if (string.IsNullOrEmpty(TourName))
             {
-                MessageBox.Show("Name cannot be empty");
+                _logger.Fatal("When editing a tour, name can not be empty.");
+                MessageBox.Show("Name cannot be empty.");
                 resetUserInput();
 
             }
             else
             {
-                this.tourPlannerFactory.ModifyTour(tourName, tourDescription, baseTour.Id);
-                currentWindow.DialogResult = true;
-                currentWindow.Close();
+                if (tourPlannerFactory.ValidEditTourCall(TourName, TourDescription))
+                {
+                    this.tourPlannerFactory.ModifyTour(tourName, tourDescription, baseTour.Id);
+                    currentWindow.DialogResult = true;
+                    currentWindow.Close();
 
-                _logger.Info("Edited Tour data");
+                    _logger.Info("Tour data hase successfully been edited.");
+                }
+                MessageBox.Show("Tour saving failed, check for correct input");
+                _logger.Warn("Tour data input is invalid.");
             }
         }
 

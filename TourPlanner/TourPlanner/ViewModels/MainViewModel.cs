@@ -130,7 +130,6 @@ namespace TourPlanner.ViewModels
                 if (dialogResult == true)
                 {
                     LoadAllTours();
-                    
                 }
             }
             else
@@ -182,7 +181,7 @@ namespace TourPlanner.ViewModels
             if(dialogResult == true)
             {
                 LoadAllTours();
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Info("Tour has been saved.");
                 MessageBox.Show("Tour saved!");
             }
 
@@ -197,14 +196,14 @@ namespace TourPlanner.ViewModels
                 if(dialogResult == true)
                 {
                     LoadLogsCurrentTour();
-                    // ========================================================= ADD LOGGING MESAGE
+                    _logger.Info($"Log to tour id {currentTour.Id} has been saved.");
                     MessageBox.Show("Log saved!");
                 }
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
-                MessageBox.Show("Please choose a tour");
+                _logger.Warn("No tour choosen for tour log.");
+                MessageBox.Show("Please choose a tour.");
             }
         }
 
@@ -221,8 +220,8 @@ namespace TourPlanner.ViewModels
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
-                MessageBox.Show("Please choose a tour");
+                _logger.Warn("No tour choosen delete.");
+                MessageBox.Show("Please choose a tour.");
             }
         }
 
@@ -239,8 +238,8 @@ namespace TourPlanner.ViewModels
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
-                MessageBox.Show("Please choose a log entry");
+                _logger.Warn("No tour log choosen to delete.");
+                MessageBox.Show("Please choose a log entry.");
             }
 
         }
@@ -261,8 +260,8 @@ namespace TourPlanner.ViewModels
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
-                MessageBox.Show("Please choose a log entry");
+                _logger.Warn("No tour has been choosen to edit.");
+                MessageBox.Show("Please choose a log entry.");
             }
         }
 
@@ -271,13 +270,13 @@ namespace TourPlanner.ViewModels
             if (currentTour != null)
             {
                 this.tourPlannerFactory.GenerateTourReport(currentTour, LogList);
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Info($"Report has been successfully created from tour id {currentTour.Id}.");
                 MessageBox.Show("Report Generated");
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
-                MessageBox.Show("Please choose a tour");
+                _logger.Warn("No tour has been choosen for PDF generation.");
+                MessageBox.Show("Please choose a tour.");
             }
             
         }
@@ -293,7 +292,7 @@ namespace TourPlanner.ViewModels
                 {
                     TourList.Add(tour);
                 }
-
+                _logger.Info($"Searching for: {searchText}.");
             }
             else
             {
@@ -318,12 +317,12 @@ namespace TourPlanner.ViewModels
             if (currentTour != null)
             {
                 this.tourPlannerFactory.GenerateSummarizeReport(currentTour, LogList);
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Info($"Report has been successfully created from tour id {currentTour.Id}.");
                 MessageBox.Show("Sumamrize Report Generated");
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Warn("No tour has been choosen for Report generation.");
                 MessageBox.Show("Please choose a tour");
             }
         }
@@ -333,12 +332,12 @@ namespace TourPlanner.ViewModels
             if(currentTour != null)
             {
                 this.tourPlannerFactory.ExportTour(currentTour);
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Warn($"Tour {currentTour.Id} has been succesfully exported.");
                 MessageBox.Show("Tour has been succesfully exported!");
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Warn("No tour has been choosen to export.");
                 MessageBox.Show("Please choose a tour");
             }
             
@@ -351,12 +350,13 @@ namespace TourPlanner.ViewModels
             bool? dialogResult = importTourWindow.ShowDialog();
             if (dialogResult == true)
             {
+                _logger.Warn($"Tour {currentTour.Id} has been succesfully imported.");
                 MessageBox.Show("Tour has been succesfully imported!");
                 LoadAllTours();
             }
             else
             {
-                // ========================================================= ADD LOGGING MESAGE
+                _logger.Warn("No tour has been choosen to import.");
                 MessageBox.Show("Please enter a path to a TourFile");
             }
         }

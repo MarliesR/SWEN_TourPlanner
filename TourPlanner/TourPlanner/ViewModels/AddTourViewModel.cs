@@ -148,7 +148,7 @@ namespace TourPlanner.ViewModels
             TourStart = string.Empty;
             TourDestination = string.Empty;
             TourDescription = string.Empty;
-            _logger.Info("Clear Input.");
+            _logger.Info("Clear input from add tour.");
         }
 
     }

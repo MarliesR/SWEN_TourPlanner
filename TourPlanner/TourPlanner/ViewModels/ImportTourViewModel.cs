@@ -54,7 +54,7 @@ namespace TourPlanner.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("To Do"); // =================================================================
+                    MessageBox.Show("Failed to import Tour");
                     _logger.Warn("Importing tour failed.");
                 }
             }
