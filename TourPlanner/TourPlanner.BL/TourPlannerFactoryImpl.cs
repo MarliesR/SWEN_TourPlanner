@@ -92,29 +92,31 @@ namespace TourPlanner.BL
         public bool AddTour(string name, string start, string destination, string transporttype, string description)
         {
             Mapquest mapquest = new Mapquest(start, destination, transporttype);
-            mapquest.SaveImage();
-            double distance = mapquest.GetDistance();
-            string imagePath = mapquest.GetImage();
-            string duration = mapquest.GetTime();
-            if (distance.Equals(0) || String.IsNullOrEmpty(imagePath))
-            {
-                return false;
-            }
+            if (mapquest.SaveImage()){
 
-            Tour tour = new Tour
-            {
-                Name = name,
-                Start = start,
-                Destination = destination,
-                TransportType = transporttype,
-                Distance = distance,
-                Description = description,
-                Duration = duration,
-                Image = imagePath
-            };
+                double distance = mapquest.GetDistance();
+                string imagePath = mapquest.GetImage();
+                string duration = mapquest.GetTime();
+                if (distance.Equals(0) || String.IsNullOrEmpty(imagePath))
+                {
+                    return false;
+                }
+                Tour tour = new Tour
+                {
+                    Name = name,
+                    Start = start,
+                    Destination = destination,
+                    TransportType = transporttype,
+                    Distance = distance,
+                    Description = description,
+                    Duration = duration,
+                    Image = imagePath
+                };
+                tourPlannerDAO.AddTourSQL(tour);
+                return true;
+            }
+            return false;
             
-            tourPlannerDAO.AddTourSQL(tour);
-            return true;
         }
 
         public bool DeleteLog(int id)
@@ -158,10 +160,12 @@ namespace TourPlanner.BL
             int limitDifficulty = 2;
             TimeSpan limitTime = TimeSpan.Parse("03:00"); //3 stunden ist grenze von der zeit
             int limitDistance = 300; //300km grenze
+            int limitDistanceWalking = 10; //300km grenze
 
             if (difficultyAVG > limitDifficulty) { return notChildFriendly; };
             if (totalTimeAVG > limitTime) { return notChildFriendly; };
             if (tour.Distance > limitDistance) { return notChildFriendly; }
+            if (tour.TransportType == "pedestrian" && tour.Distance > limitDistanceWalking) { return notChildFriendly; }
 
             return childFriendly;
         }

@@ -24,6 +24,7 @@ namespace TourPlanner.DAL.Mapquest
 
         private int ErrorInvalidLocation = 402;
         private int ErrorPedestrianRouteTooLong = 607;
+        private int ErrorUnknown = 500;
 
         public Mapquest(string startAddress, string endAddress, string routeType)
         {
@@ -39,12 +40,13 @@ namespace TourPlanner.DAL.Mapquest
             directionsData = GetDirections();
         }
         
-        public void SaveImage()
+        public bool SaveImage()
         {
             filePath = GetImagePath();
-            if (directionsData.info.statuscode.Equals(ErrorInvalidLocation) || directionsData == null || directionsData.info.statuscode.Equals(ErrorPedestrianRouteTooLong))
+            if (directionsData.info.statuscode.Equals(ErrorInvalidLocation) || directionsData == null || directionsData.info.statuscode.Equals(ErrorPedestrianRouteTooLong) || directionsData.info.statuscode.Equals(ErrorUnknown))
             {
                 Console.WriteLine("Error, invalid location or destination or pedestrian route too long");
+                return false;
             }
             else
             {
@@ -52,6 +54,7 @@ namespace TourPlanner.DAL.Mapquest
                 GetImageStaticMap();
             }
             client.Dispose();
+            return true;
         }
 
 
