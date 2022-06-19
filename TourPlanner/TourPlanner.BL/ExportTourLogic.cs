@@ -2,10 +2,11 @@
 using System.IO;
 using TourPlanner.Library;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace TourPlanner.BL
 {
-    public class ExportTour
+    public class ExportTourLogic
     {
         public string GetDirectory(string path)
         {
@@ -43,8 +44,9 @@ namespace TourPlanner.BL
         public void WriteTourIntoFile(Tour tour)
         {
             // get path
-            // insert correct path!!!
-            string path = GetFullFilePath(@"C:\TestDir",tour.Name);
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsetting.json", false, true).Build();
+            string folderPath = config["Folderpath:TourFiles"];
+            string path = GetFullFilePath(folderPath, tour.Name);
 
             // create file 
             StreamWriter outputFile = new StreamWriter(path);

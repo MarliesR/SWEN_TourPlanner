@@ -4,7 +4,7 @@ using TourPlanner.Library;
 
 namespace TourPlanner.BL
 {
-    public class ImportTour
+    public class ImportTourLogic
     {
         public bool DoesFileExist(string path)
         {

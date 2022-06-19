@@ -5,7 +5,8 @@
   "Folderpath": {
     "Image": "C:/SWEN_semesterproject_images/",
     "PDF": "C:/SWEN_semesterproject_pdf/",
-    "LOG": "C:/SWEN_semesterproject_log/"
+    "LOG": "C:/SWEN_semesterproject_log/",
+    "TourFiles": "C:\\SWEN_semesterproject_tours\\"
   },
   "Database": {
     "ConnectionString": "Server=localhost;Port=5432;User Id=swe1user;Password=swe1pw;",

@@ -20,8 +20,8 @@ namespace TourPlanner.UnitTests
             Duration = "10:10:10",
             Image = "image.png"
         };
-        ExportTour exportObjectTest = new ExportTour();
-        ImportTour importObjectTest = new ImportTour();
+        ExportTourLogic exportObjectTest = new ExportTourLogic();
+        ImportTourLogic importObjectTest = new ImportTourLogic();
 
 
         // ====================================== Export Tests ======================================

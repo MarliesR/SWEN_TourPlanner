@@ -34,6 +34,9 @@ namespace TourPlanner.ViewModels
         private RelayCommand genereateSummarizeReportCommand1;
         private RelayCommand searchCommand1;
         private RelayCommand clearCommand1;
+        private RelayCommand exportTourCommand1;
+        private RelayCommand importTourCommand1;
+
         public ICommand editTourPageCommand => editTourPageCommand1 ??= new RelayCommand(EditTourWindow);
         public ICommand showTourWindowCommand => showTourWindowCommand1 ??= new RelayCommand(ShowTourWindow);
         public ICommand addLogPageCommand => addLogPageCommand1 ??= new RelayCommand(ShowNewLogWindow);
@@ -44,6 +47,8 @@ namespace TourPlanner.ViewModels
         public ICommand genereateSummarizeReportCommand => genereateSummarizeReportCommand1 ??= new RelayCommand(genereateSummarizeReport);
         public ICommand searchCommand => searchCommand1 ??= new RelayCommand(search);
         public ICommand clearCommand => clearCommand1 ??= new RelayCommand(clear);
+        public ICommand exportTourCommand => exportTourCommand1 ??= new RelayCommand(exportTour);
+        public ICommand importTourCommand => importTourCommand1 ??= new RelayCommand(importTour);
 
         public MainViewModel()
         {
@@ -67,6 +72,7 @@ namespace TourPlanner.ViewModels
                 }
             }
         }
+        
 
         public Tour CurrentTour
         {
@@ -210,7 +216,7 @@ namespace TourPlanner.ViewModels
                 SelectedViewModel = new ShowTourViewModel(currentTour);
                 LoadAllTours();
 
-                _logger.Info("Delete tour with id: 123.");
+                _logger.Info($"Delete tour with id: {currentTour.Id}.");
                 // todo
             }
             else
@@ -315,6 +321,16 @@ namespace TourPlanner.ViewModels
             {
                 MessageBox.Show("Please choose a tour");
             }
+        }
+
+        private void exportTour(object commandParameter)
+        {
+            this.tourPlannerFactory.ExportTour(currentTour);
+        }
+
+
+        private void importTour(object commandParameter)
+        {
         }
     }
 }

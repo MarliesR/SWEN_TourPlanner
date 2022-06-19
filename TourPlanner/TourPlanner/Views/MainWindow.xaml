@@ -44,9 +44,9 @@
             </Button>
             <Button Content="Summary Report Tours" DockPanel.Dock="Right" Command="{Binding genereateSummarizeReportCommand}" >
             </Button>
-            <Button Content="export Tours" DockPanel.Dock="Right" >
+            <Button Content="export Tours" DockPanel.Dock="Right" Command="{Binding exportTourCommand}">
             </Button>
-            <Button Content="import Tours" DockPanel.Dock="Right" >
+            <Button Content="import Tours" DockPanel.Dock="Right" Command="{Binding importTourCommand}">
             </Button>
             <Button  DockPanel.Dock="Right" Height="25" Width="35" Content="clear" Command="{Binding clearCommand}" Margin="0,0,0,0" >
             </Button>

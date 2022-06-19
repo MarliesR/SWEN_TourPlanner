@@ -42,13 +42,6 @@ namespace TourPlanner.BL
             return false;
         }
 
-        // TOUR LOG VALIDATION TO-DO
-        //    cmd.Parameters.AddWithValue("datetime", NpgsqlDbType.Varchar, log.DateTime);
-        //    cmd.Parameters.AddWithValue("comment", NpgsqlDbType.Varchar, log.Comment);
-        //    cmd.Parameters.AddWithValue("difficulty", NpgsqlDbType.Integer, log.Difficulty);
-        //    cmd.Parameters.AddWithValue("totaltime", NpgsqlDbType.Interval, log.TotalTime);
-        //    cmd.Parameters.AddWithValue("rating", NpgsqlDbType.Integer, log.Rating);
-
         public bool ValidAddTourCall(string name, string start, string destination, string description)
         {
             bool validName = ValidateStringInput(name);
@@ -206,6 +199,15 @@ namespace TourPlanner.BL
                 }
             }
            return (IEnumerable<Tour>)tours.Where(x => tourIds.Any(y => y == x.Id) || x.Name.ToLower().Contains(searchstring.ToLower()) || x.Start.ToLower().Contains(searchstring.ToLower()) || x.Destination.ToLower().Contains(searchstring.ToLower()) || x.TransportType.ToLower().Contains(searchstring.ToLower()) || x.Distance.ToString().ToLower().Contains(searchstring.ToLower()) || x.Duration.ToLower().Contains(searchstring.ToLower()) || x.Description.ToLower().Contains(searchstring.ToLower()));
+        }
+
+        public void ExportTour(Tour tour)
+        {
+            if(tour != null)
+            {
+                ExportTourLogic command = new ExportTourLogic();
+                command.WriteTourIntoFile(tour);
+            }
         }
     }
 }
