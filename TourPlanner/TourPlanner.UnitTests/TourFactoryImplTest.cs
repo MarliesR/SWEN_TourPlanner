@@ -78,6 +78,34 @@ namespace TourPlanner.UnitTests
         }
 
 
+        [Fact]
+        public void GetTourChildFriendlynessTest()
+        {
+            testTour.Id = 25;
+            var result = handler.GetTourChildFriendlyness(testTour);
+            Assert.Equal("Child friendly Route!", result);
+        }
+
+
+        [Fact]
+        public void GetTourNotChildFriendlynessTest()
+        {
+            testTour.Id = 1;
+            var result = handler.GetTourChildFriendlyness(testTour);
+            Assert.Equal("Not a Child friendly Route!", result);
+        }
+
+        [Fact]
+        public void GetPDFFilePathTest()
+        {
+            PDFGenerator generator = new PDFGenerator();
+
+            var result = generator.GetPDFFilePath(testTour.Name);
+
+            Assert.IsType<String>( result);
+        }
+
+
         // ------------- Still figuring out how mock works
         //[Fact]
         //public void AddTourTest()
@@ -122,35 +150,6 @@ namespace TourPlanner.UnitTests
         //{
         //    Assert.True(false);
         //}
-
-        [Fact]
-        public void GetTourChildFriendlynessTest()
-        {
-            testTour.Id = 25;
-            var result = handler.GetTourChildFriendlyness(testTour);
-            Assert.Equal("Child friendly Route!", result);
-        }
-
-        //Always Failed --> have to figure out mocking for this
-        [Fact]
-        public void GetTourNotChildFriendlynessTest()
-        {
-
-            testTour.Id = 1;
-            var result = handler.GetTourChildFriendlyness(testTour);
-            Assert.Equal("Not a Child friendly Route!", result);
-        }
-
-        [Fact]
-        public void GetPDFFilePathTest()
-        {
-            PDFGenerator generator = new PDFGenerator();
-
-            var result = generator.GetPDFFilePath(testTour.Name);
-
-            Assert.IsType<String>( result);
-        }
-
 
         // ------------- problem mit ObservableCollection<TourLog>
         //[Fact]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using TourPlanner.BL;
 using TourPlanner.Library;
 using Xunit;
@@ -28,18 +29,17 @@ namespace TourPlanner.UnitTests
         [Fact]
         public void GetDirectoryTest()
         {
-            string testPath = exportObjectTest.GetDirectory(@"C:\TestDirectory2");
+            string testPath = exportObjectTest.GetDirectory(@"C:\TestDir");
 
             Assert.Equal(@"C:\TestDir", testPath);
-
-            // Deleting Directory ??
-            //DeleteDirectory();
+            Directory.Exists(testPath);
         }
 
         [Fact]
         public void GetFullPathTest()
         {
             string testPath = exportObjectTest.GetFullFilePath(@"C:\TestDir", "TestFile");
+
             Assert.Equal(@"C:\TestDir\TestFile.txt", testPath);
         }
 
@@ -47,19 +47,40 @@ namespace TourPlanner.UnitTests
         public void WriteTourIntoFileTest()
         {
             exportObjectTest.WriteTourIntoFile(testTour);
+            bool result = File.Exists(@"C:\TestDir\TestTour1.txt");
 
-            Assert.True(true);
+            Assert.True(result);
         }
 
 
         // ====================================== Import Tests ======================================
         [Fact]
+        public void DoesFileExistTest()
+        {
+            var result = importObjectTest.DoesFileExist(@"C:\TestDir\TestTour1.txt");
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void DoesFileExistFalseTest()
+        {
+            var result = importObjectTest.DoesFileExist(@"C:\TestDir\Test.txt");
+            Assert.False(result);
+        }
+
+        [Fact]
         public void SplitStringTest()
         {
-            var result = importObjectTest.SplitString("TourName:Ha");
+            var result = importObjectTest.SplitString("TourName=Ha");
             Assert.Equal("Ha", result);
         }
 
+        [Fact]
+        public void SplitStringFailTest()
+        {
+            var result = importObjectTest.SplitString("TourName=Ha");
+            Assert.NotEqual("TourName", result);
+        }
 
         [Fact]
         public void ReadFileTest()

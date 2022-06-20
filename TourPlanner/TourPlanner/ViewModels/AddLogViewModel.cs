@@ -168,6 +168,7 @@ namespace TourPlanner.ViewModels
                 currentWindow.DialogResult = true;
                 currentWindow.Close();
 
+                MessageBox.Show("Log added successfully.");
                 _logger.Info($"Added new TourLog from tour {log.TourId}.");
             }
             else

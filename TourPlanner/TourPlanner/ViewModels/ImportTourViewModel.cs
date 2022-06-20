@@ -54,13 +54,13 @@ namespace TourPlanner.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Failed to import Tour");
+                    MessageBox.Show("Failed to import Tour.");
                     _logger.Warn("Importing tour failed.");
                 }
             }
             else
             {
-                MessageBox.Show("Path is incorrect or files does not exist");
+                MessageBox.Show("Path is incorrect or files does not exist.");
                 _logger.Warn("Importing tour failed because of path.");
             }
 

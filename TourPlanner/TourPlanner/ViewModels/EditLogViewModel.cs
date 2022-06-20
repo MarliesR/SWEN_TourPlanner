@@ -172,11 +172,12 @@ namespace TourPlanner.ViewModels
                 currentWindow.DialogResult = true;
                 currentWindow.Close();
 
-                _logger.Info("Saved changed data tour log successfuly.");
+                MessageBox.Show("Changes saved.");
+                _logger.Info("Saved changed data tour log successfully.");
             }
             else
             {
-                MessageBox.Show("Log saving failed, check for correct input");
+                MessageBox.Show("Log saving failed, check for correct input.");
                 _logger.Warn("Tour log data input is invalid.");
             }
         }
