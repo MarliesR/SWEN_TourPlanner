@@ -253,7 +253,6 @@ namespace TourPlanner.ViewModels
                 {
                     LoadLogsCurrentTour();
                     _logger.Info($"Log to tour id {currentTour.Id} has been saved.");
-                    MessageBox.Show("Log saved!");
                 }
             }
             else
@@ -410,7 +409,7 @@ namespace TourPlanner.ViewModels
             bool? dialogResult = importTourWindow.ShowDialog();
             if (dialogResult == true)
             {
-                _logger.Warn($"Tour {currentTour.Id} has been succesfully imported.");
+                _logger.Warn("Tour has been succesfully imported.");
                 MessageBox.Show("Tour has been succesfully imported!");
                 LoadAllTours();
             }

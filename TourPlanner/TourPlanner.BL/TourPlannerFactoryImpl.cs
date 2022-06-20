@@ -231,7 +231,7 @@ namespace TourPlanner.BL
         public void ImportTour(Tour tour)
         {
             tourPlannerDAO.AddTourSQL(tour);
-            ListAllTours();
+            //ListAllTours();
         }
     }
 }
